@@ -1,0 +1,228 @@
+import { useState, useCallback, memo } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { SearchDialog, SearchTrigger } from "@/components/search";
+import SocialIconsRow from "@/components/shared/SocialIconsRow";
+
+const PhakamaniNavbar = memo(() => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [whyDropdownOpen, setWhyDropdownOpen] = useState(false);
+  const [pathToFundingDropdownOpen, setPathToFundingDropdownOpen] = useState(false);
+  const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isWhySection = location.pathname.startsWith("/about/why");
+  const isPathToFundingPage = location.pathname === "/path-to-funding";
+  const isAboutPage = location.pathname === "/about";
+  const isContactsPage = location.pathname === "/contacts";
+  const isResourcesPage = location.pathname === "/resources";
+
+  const handlePathToFundingLink = useCallback((e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    setPathToFundingDropdownOpen(false);
+    
+    if (isPathToFundingPage) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(`/path-to-funding#${sectionId}`);
+    }
+  }, [isPathToFundingPage, navigate]);
+
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+  }, []);
+
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen(prev => !prev);
+  }, []);
+
+  const openSearch = useCallback(() => {
+    setSearchOpen(true);
+  }, []);
+
+  return (
+    <>
+      <nav className="fixed top-0 left-0 w-full h-[100px] lg:h-[120px] bg-white border-b border-gray-200 z-50 shadow-sm" role="navigation" aria-label="Main navigation">
+        <div className="flex items-center w-full max-w-[1400px] h-full mx-auto px-4 lg:px-10">
+          {/* Logo */}
+          <Link to="/" className="h-[80px] lg:h-[100px] flex items-center mr-8 lg:mr-16 flex-shrink-0" onClick={closeMobileMenu}>
+            <img 
+              src="https://sa-transformationfund.co.za/images/logo-transformation-fund.jpg" 
+              alt="Transformation Fund"
+              className="h-full w-auto object-contain"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1 mr-auto">
+            <Link to="/about" className={`nav-link ${isAboutPage ? 'nav-link-active' : ''}`}>About</Link>
+            
+            {/* Why Dropdown */}
+            <div 
+              className="relative dropdown"
+              onMouseEnter={() => setWhyDropdownOpen(true)}
+              onMouseLeave={() => setWhyDropdownOpen(false)}
+            >
+              <Link 
+                to="/about/why" 
+                className={`nav-link flex items-center ${isWhySection ? 'nav-link-active' : ''}`}
+              >
+                Why
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </Link>
+              {whyDropdownOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/about/why/policy-choice" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Policy Choice</Link>
+                  <Link to="/about/why/theory" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Theory</Link>
+                  <Link to="/about/why/value" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Value</Link>
+                  <Link to="/about/why/operating-model" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Operating Model</Link>
+                  <Link to="/about/why/national-agenda" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>National Agenda</Link>
+                </div>
+              )}
+            </div>
+
+            {/* Path to Funding Dropdown */}
+            <div 
+              className="relative dropdown"
+              onMouseEnter={() => setPathToFundingDropdownOpen(true)}
+              onMouseLeave={() => setPathToFundingDropdownOpen(false)}
+            >
+              <Link 
+                to="/path-to-funding" 
+                className={`nav-link flex items-center ${isPathToFundingPage ? 'nav-link-active' : ''}`}
+              >
+                How to apply
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </Link>
+              {pathToFundingDropdownOpen && (
+                <div className="dropdown-menu">
+                  <a href="/path-to-funding#path-to-funding" className="dropdown-item" onClick={(e) => handlePathToFundingLink(e, 'path-to-funding')}>Funding Conditions</a>
+                  <a href="/path-to-funding#how-it-works" className="dropdown-item" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
+                </div>
+              )}
+            </div>
+
+            {/* FAQ Link */}
+            <Link 
+              to="/faq" 
+              className={`nav-link ${location.pathname === '/faq' ? 'nav-link-active' : ''}`}
+            >
+              FAQ
+            </Link>
+
+            {/* Resources Dropdown */}
+            <div 
+              className="relative dropdown"
+              onMouseEnter={() => setResourcesDropdownOpen(true)}
+              onMouseLeave={() => setResourcesDropdownOpen(false)}
+            >
+              <Link 
+                to="/resources" 
+                className={`nav-link flex items-center ${isResourcesPage ? 'nav-link-active' : ''}`}
+              >
+                Resources
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </Link>
+              {resourcesDropdownOpen && (
+                <div className="dropdown-menu">
+                  <a 
+                    href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" 
+                    className="dropdown-item" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    TF Document
+                  </a>
+                  <a 
+                    href="/resources/Transformation_Fund_Executive_Summary_v1_29Sept.pdf" 
+                    className="dropdown-item" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    TF Executive Summary
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <Link to="/contacts" className={`nav-link ${isContactsPage ? 'nav-link-active' : ''}`}>Contacts</Link>
+            <SearchTrigger onClick={openSearch} />
+          </div>
+
+          {/* CTA Button - Desktop */}
+          <a 
+            href="https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:block phakamani-nav-cta"
+          >
+            PORTAL LOGIN
+          </a>
+
+          {/* Mobile menu button */}
+          <div className="lg:hidden flex items-center gap-2 ml-auto">
+            <SearchTrigger onClick={openSearch} variant="mobile" />
+            <button 
+              onClick={toggleMobileMenu}
+              className="text-gray-700 hover:text-[#007847] focus:outline-none p-2"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200 max-h-[calc(100vh-100px)] overflow-y-auto">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link to="/about" className={`block px-3 py-2 text-base font-bold ${isAboutPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>About</Link>
+              <Link to="/about/why" className={`block px-3 py-2 text-base font-bold ${isWhySection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Why</Link>
+              <Link to="/about/why/policy-choice" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Policy Choice</Link>
+              <Link to="/about/why/theory" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Theory</Link>
+              <Link to="/about/why/value" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Value</Link>
+              <Link to="/about/why/operating-model" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Operating Model</Link>
+              <Link to="/about/why/national-agenda" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>National Agenda</Link>
+              
+              <Link to="/path-to-funding" className={`block px-3 py-2 text-base font-bold ${isPathToFundingPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>How to apply</Link>
+              <a href="/path-to-funding#path-to-funding" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'path-to-funding')}>Funding Conditions</a>
+              <a href="/path-to-funding#how-it-works" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
+              <Link to="/faq" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/faq' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>FAQ</Link>
+              <Link to="/resources" className={`block px-3 py-2 text-base font-bold ${isResourcesPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Resources</Link>
+              <a href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Document</a>
+              <a href="/resources/Transformation_Fund_Executive_Summary_v1_29Sept.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Executive Summary</a>
+              <Link to="/contacts" className={`block px-3 py-2 text-base font-bold ${isContactsPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Contacts</Link>
+              <a href="https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/" target="_blank" rel="noopener noreferrer" className="block bg-[#007847] text-white px-3 py-2 text-base font-bold hover:opacity-90 transition-all">Portal Login</a>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Social Icons Bar - Fixed position below navbar */}
+      <div className="fixed top-[100px] lg:top-[120px] left-0 w-full bg-white z-40">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-10 py-3">
+          <SocialIconsRow className="!mb-2 !justify-start" />
+          <span className="font-mono text-[#00703C] font-bold text-sm">
+            // Be sure to follow our socials
+          </span>
+        </div>
+      </div>
+
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+    </>
+  );
+});
+
+PhakamaniNavbar.displayName = "PhakamaniNavbar";
+
+export default PhakamaniNavbar;
