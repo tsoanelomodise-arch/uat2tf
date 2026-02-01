@@ -8,8 +8,8 @@ import PolicyChoice from "@/components/transformation/PolicyChoice";
 import TheoryOfChange from "@/components/transformation/TheoryOfChange";
 import ValueProposition from "@/components/transformation/ValueProposition";
 import OperatingModel from "@/components/transformation/OperatingModel";
-
 import NationalAgenda from "@/components/transformation/NationalAgenda";
+import WhyPillarsSection from "@/components/transformation/WhyPillarsSection";
 import ScrollToTop from "@/components/transformation/ScrollToTop";
 import Footer from "@/components/transformation/Footer";
 
@@ -57,6 +57,7 @@ const TransformationIndex = () => {
         <ValueProposition />
         <OperatingModel />
         <NationalAgenda />
+        <WhyPillarsSection />
       </main>
       <Footer />
       <ScrollToTop />
