@@ -1,113 +1,78 @@
 
 
-## Plan: Apply Homepage Styling to About Page Content
+## Plan: Append Why Content to Transformation Index Page
 
-I will update the styling of the newly imported About page content (lines 342-452) to match the homepage design system. All copy will remain exactly as-is with no text changes.
+I will append the content from the uploaded HTML file to the bottom of the existing Why page (`/about/why`), placing it as a new section before the Footer. All text will be imported verbatim with no changes.
 
-### Design Patterns Identified from Homepage
+### Content to Append (from HTML)
 
-Based on my analysis of the homepage components, these are the key styling patterns to apply:
+**1. Why? Section Header**
+- H2 heading: "Why?"
+- Intro paragraph: "The Transformation Fund is designed as a strategic instrument to drive inclusive economic transformation in South Africa. By combining financial and non-financial support, mobilising public-private investment, and streamlining Enterprise and Supplier Development efforts, the Fund aims to empower Black-owned enterprises, foster job creation, and promote structural change across key sectors."
 
-**Color Palette**
-- Primary green: `bg-primary`, `text-primary` (HSL 158 100% 24% = #007847)
-- Accent orange/yellow: `#ffb81c` for highlights and accents
-- Text colors: `text-foreground`, `text-muted-foreground`, `text-gray-600`
-- Section backgrounds: `bg-primary/10`, `bg-white`, `bg-muted/30`
+**2. Six Pillar Cards (Grid Layout)**
 
-**Typography**
-- Section headings: `text-4xl md:text-5xl font-bold` with `text-primary` or dark color
-- Sub-headings: `text-2xl font-bold`
-- Body text: `text-lg` or `text-xl` with `leading-relaxed`
-
-**Spacing & Containers**
-- Section padding: `py-16` or `py-20`
-- Container: `container mx-auto px-4 max-w-7xl` or `max-w-6xl`
-- Grid gaps: `gap-8` or `gap-16`
-
-**Card Styling**
-- White backgrounds with subtle shadows: `bg-white rounded-lg shadow-sm`
-- Hover effects: `hover:shadow-md transition-all duration-300`
-- Borders: minimal, using `border-gray-200`
-
-**Accordion Styling (from FAQ component)**
-- Rounded cards: `bg-white/95 backdrop-blur rounded-xl`
-- Green primary section background: `bg-primary`
-- Trigger text: `text-primary font-semibold`
-- Content: `text-gray-700 leading-relaxed`
+| Card | Title | Content |
+|------|-------|---------|
+| 1 | Increase access to finance for Black Enterprises | Provide affordable, appropriate funding for Black-owned and managed businesses, especially those underserved by commercial lenders, including start-ups, scale-ups, and distressed firms. |
+| 2 | Mobilise public-private investment for transformation | Pool resources from private corporations, DFIs, and donors into a large fund dedicated to B-BBEE, with voluntary contributions incentivised through B-BBEE scoring. |
+| 3 (wide) | Coordinate and enhance ESD impact | Serve as a central vehicle for Enterprise and Supplier Development (ESD), by addressing the current shortcomings of fragmented corporate initiatives... (full text preserved) |
+| 4 | Provide non-financial support and mentorship | Offer business development services including planning, feasibility studies, accreditation, mentorship, and training to address common SMME challenges. |
+| 5 | Promote Inclusive growth and job creation | Promotes inclusive growth by supporting job creation in labour-intensive sectors and stimulating local economies, while actively prioritising Black women, youth, and people with disabilities as business owners and beneficiaries to reduce inequality. |
+| 6 (wide) | Facilitate structural transformation of the economy | Develop Black industrialists, broaden ownership in strategic sectors, and deepen local supply chains in line with South Africa's industrial policy. |
 
 ---
 
-### Changes to Apply
+### Styling to Match Homepage Design System
 
-#### 1. About Section (H1 + Intro)
-**Current:** Basic heading with `text-4xl`
-**Update to:**
-- H1: `text-4xl md:text-5xl font-bold text-primary mb-6`
-- Paragraph: `text-xl text-muted-foreground max-w-4xl leading-relaxed`
-- Container: Use homepage container width `container mx-auto px-4 max-w-7xl`
-- Section padding: `py-16`
+Based on the existing components (NationalAgenda.tsx, PolicyChoice.tsx, OperatingModel.tsx), I will apply:
 
-#### 2. At a Glance Section
-**Current:** Simple bordered container with grid
-**Update to:**
-- Section background: `bg-primary/10` (matches FundingPrograms section)
-- Container: full-width with `py-12`
-- Heading: `text-2xl font-bold text-primary mb-6`
-- Five items: Cards with `bg-white rounded-xl shadow-sm p-6` hover effect
-- Grid: `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4`
+**Container & Spacing**
+- Section: `py-10 bg-white` (consistent with other sections)
+- Container: `max-w-[1400px] mx-auto px-10`
 
-#### 3. Two-Column Section (Objectives + The Method)
-**Current:** Bordered cards with basic styling
-**Update to:**
-- Section: `py-16 bg-background`
-- Cards: `bg-white rounded-2xl shadow-sm p-8 hover:shadow-md transition-all`
-- Objectives heading: `text-2xl font-bold text-primary mb-6`
-- Number badges: `bg-primary text-white rounded-lg` (matching homepage icon boxes)
-- The Method heading: `text-2xl font-bold text-primary mb-6`
-- Text: `text-muted-foreground text-lg leading-relaxed`
+**Typography**
+- Section heading (h2): `text-3xl font-bold text-gray-900 mb-4`
+- Intro paragraph: `text-gray-500 text-lg leading-relaxed mb-8 max-w-4xl`
+- Card heading (h3): `text-lg font-bold text-gray-900 mb-2`
+- Card text: `text-gray-500 leading-relaxed`
 
-#### 4. The Architecture Section (Accordion)
-**Current:** Basic accordion with border styling
-**Update to match FAQ component:**
-- Section background: `bg-primary` with white text heading
-- Heading: `text-4xl md:text-5xl font-bold text-white mb-6`
-- Intro line: `text-xl text-white/80 mb-8`
-- Accordion container: full width with proper padding
-- Accordion items: `bg-white/95 backdrop-blur rounded-xl` with spacing between items
-- Trigger: `text-lg font-semibold text-primary hover:text-primary-dark`
-- Content: `text-gray-700 leading-relaxed`
-- Remove internal borders, use `space-y-4` for item separation
+**Card Styling (matching NationalAgenda.tsx pattern)**
+- Card container: `bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300`
+- Green accent dot: `w-4 h-4 bg-[#00703C] rounded-full` (using site's primary green instead of red)
+- Grid layout: `grid md:grid-cols-2 gap-6`
+- Wide cards: `md:col-span-2` for cards 3 and 6
+
+**Responsive Behavior**
+- 2-column grid on desktop, single column on mobile
+- Wide cards span full width on both
+- Consistent padding and gaps
 
 ---
 
 ### Technical Implementation
 
+**File to modify:** `src/pages/TransformationIndex.tsx`
+
+**New section placement:** After `<NationalAgenda />` and before `</main>`
+
 ```text
-File to modify: src/pages/About.tsx
-Lines affected: 342-452 (New About Content Section)
+Structure:
+<main id="main-content">
+  <HeroSectionNew />
+  <WhySection />
+  <PolicyChoice />
+  <TheoryOfChange />
+  <ValueProposition />
+  <OperatingModel />
+  <NationalAgenda />
+  {/* NEW SECTION HERE */}
+  <section id="why-pillars" className="py-10 bg-white">
+    ...
+  </section>
+</main>
+<Footer />
 ```
 
-**Section structure after changes:**
-
-1. **About Intro Section** (white background)
-   - Container with homepage-standard width
-   - Large primary-colored heading
-   - Descriptive paragraph
-
-2. **At a Glance Section** (light green background `bg-primary/10`)
-   - Five white cards in responsive grid
-   - Hover effects matching homepage cards
-
-3. **Objectives + Method Section** (white background)
-   - Two-column grid with white cards
-   - Green number badges for objectives
-   - Consistent card styling with shadows
-
-4. **The Architecture Section** (green background `bg-primary`)
-   - White text for heading and intro
-   - FAQ-style accordion with white card items
-   - Green text for accordion triggers
-   - Proper spacing and hover states
-
-All changes preserve the exact verbatim text from the HTML - only CSS classes and component styling will be updated.
+The new section will use semantic HTML (`<section>`, `<h2>`, `<h3>`, `<p>`) and follow the exact card pattern from NationalAgenda.tsx with green accent dots instead of red.
 
