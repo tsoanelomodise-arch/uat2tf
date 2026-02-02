@@ -1,163 +1,109 @@
-import { Link } from "react-router-dom";
-import {
-  ArrowUp,
-  Search,
-  FileText,
-  Layers,
-  Monitor,
-  DollarSign,
-  CheckCircle,
-  Flag,
-} from "lucide-react";
-
 const stages = [
   {
-    label: "Stage 0",
-    title: "Stage 0: Initiation and sponsor alignment",
-    description:
-      "You start by submitting a formal funding request. At this stage, sponsorship is confirmed, governance arrangements are put in place, and the relevant regulatory pathways for your project are identified.",
-    icon: ArrowUp,
-    alt: false,
+    step: "Stage 0",
+    title: "Initiation and sponsor alignment",
+    paragraphs: [
+      "You start by submitting a formal funding request. At this stage, sponsorship is confirmed, governance arrangements are put in place, and the relevant regulatory pathways for your project are identified."
+    ]
   },
   {
-    label: "Assessment",
+    step: "Assessment",
     title: "Pre-investment assessment",
-    description:
-      "Your proposal is initially assessed to confirm strategic alignment, readiness and potential impact before moving into detailed development.",
-    icon: Search,
-    alt: true,
+    paragraphs: [
+      "Your proposal is initially assessed to confirm strategic alignment, readiness and potential impact before moving into detailed development."
+    ]
   },
   {
-    label: "Stage 1",
-    title: "Stage 1: Feasibility and information memorandum",
-    description:
-      "A feasibility study and Information Memorandum are developed, setting out the project description, market analysis and an initial financial model. Proposals are reviewed by an Early Review Committee.",
-    icon: FileText,
-    alt: false,
+    step: "Stage 1",
+    title: "Feasibility and information memorandum",
+    paragraphs: [
+      "A feasibility study and Information Memorandum are developed, setting out the project description, market analysis and an initial financial model.",
+      "Proposals are reviewed by an Early Review Committee."
+    ]
   },
   {
-    label: "Stage 2",
-    title: "Stage 2: Concept, site and process design",
-    description:
-      "The project concept is refined through site selection, infrastructure confirmation and definition of production technology. A comprehensive concept design pack is prepared, supported by full technical, market, financial and risk due diligence.",
-    icon: Layers,
-    alt: true,
+    step: "Stage 2",
+    title: "Concept, site and process design",
+    paragraphs: [
+      "The project concept is refined through site selection, infrastructure confirmation and definition of production technology.",
+      "A comprehensive concept design pack is prepared, supported by full technical, market, financial and risk due diligence."
+    ]
   },
   {
-    label: "Stage 3",
-    title: "Stage 3: Procurement and EPC strategy",
-    description:
-      "Equipment specifications are finalised, suppliers identified and the contracting model confirmed. Engineering, Procurement and Construction (EPC) and Technical Assistance (TA) agreements are negotiated, followed by credit approval and contracting.",
-    icon: Monitor,
-    alt: false,
+    step: "Stage 3",
+    title: "Procurement and EPC strategy",
+    paragraphs: [
+      "Equipment specifications are finalised, suppliers identified and the contracting model confirmed.",
+      "Engineering, Procurement and Construction (EPC) and Technical Assistance (TA) agreements are negotiated, followed by credit approval and contracting."
+    ]
   },
   {
-    label: "Stage 4",
-    title: "Stage 4: Financing and approvals",
-    description:
-      "The capital structure is finalised, funding sources secured and all regulatory approvals obtained. The financial model is refined, enabling disbursement and ongoing monitoring.",
-    icon: DollarSign,
-    alt: true,
+    step: "Stage 4",
+    title: "Financing and approvals",
+    paragraphs: [
+      "The capital structure is finalised, funding sources secured and all regulatory approvals obtained.",
+      "The financial model is refined, enabling disbursement and ongoing monitoring."
+    ]
   },
   {
-    label: "Stage 5",
-    title: "Stage 5: Construction and commissioning",
-    description:
-      "Construction and commissioning are managed in line with quality, health and safety standards. Operational and maintenance documentation is prepared to support a smooth transition to operations.",
-    icon: CheckCircle,
-    alt: false,
+    step: "Stage 5",
+    title: "Construction and commissioning",
+    paragraphs: [
+      "Construction and commissioning are managed in line with quality, health and safety standards.",
+      "Operational and maintenance documentation is prepared to support a smooth transition to operations."
+    ]
   },
   {
-    label: "Stage 6",
-    title: "Stage 6: Operations readiness and handover",
-    description:
-      "The final stage focuses on operational readiness, including management and staffing, establishment of marketing and distribution channels, and the setting of performance KPIs and reporting systems to ensure sustainable operations.",
-    icon: Flag,
-    alt: true,
-  },
+    step: "Stage 6",
+    title: "Operations readiness and handover",
+    paragraphs: [
+      "The final stage focuses on operational readiness, including management and staffing, establishment of marketing and distribution channels, and the setting of performance KPIs and reporting systems to ensure sustainable operations."
+    ]
+  }
 ];
 
 const FundingProcessContent = () => {
   return (
-    <div className="container mx-auto px-4 pb-16">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8">
-        {/* Main Content - Stages Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden">
-          <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
-            <h2 className="text-xl font-bold text-[hsl(var(--ptf-heading))]">
-              Stages
-            </h2>
-          </div>
-          <div className="p-8">
-            <div className="space-y-5">
-              {stages.map((stage, index) => {
-                const IconComponent = stage.icon;
-                return (
-                  <div
-                    key={index}
-                    className={`grid grid-cols-1 sm:grid-cols-[56px_1fr] gap-4 sm:gap-6 p-6 border rounded-xl transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-0.5 ${
-                      stage.alt
-                        ? "bg-gradient-to-br from-white to-green-50/50 border-[hsl(var(--ptf-accent))]/20"
-                        : "bg-white border-gray-100"
-                    }`}
-                  >
-                    <div className="w-14 h-14 rounded-xl bg-[hsl(var(--ptf-accent))]/10 flex items-center justify-center text-[hsl(var(--ptf-accent))]">
-                      <IconComponent className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold uppercase tracking-wide mb-3">
-                        {stage.label}
-                      </span>
-                      <h3 className="text-lg font-bold text-[hsl(var(--ptf-heading))] mb-2">
-                        {stage.title}
-                      </h3>
-                      <p className="text-[hsl(var(--ptf-text))] leading-relaxed">
-                        {stage.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Sidebar - Quick Actions */}
-        <div className="lg:sticky lg:top-[220px] h-fit">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden">
-            <div className="px-6 py-5 border-b border-gray-100">
-              <h2 className="text-lg font-bold text-[hsl(var(--ptf-heading))]">
-                Quick actions
-              </h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-3">
-                <a
-                  href="https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full py-3.5 px-5 rounded-full font-semibold text-white bg-[hsl(var(--ptf-accent))] hover:opacity-90 transition-all shadow-md hover:shadow-lg text-center"
-                >
-                  Start application
-                </a>
-                <Link
-                  to="/path-to-funding#eligibility"
-                  className="block w-full py-3.5 px-5 rounded-full font-semibold border border-gray-200 text-[hsl(var(--ptf-heading))] hover:border-gray-300 hover:bg-gray-50 transition-all text-center"
-                >
-                  Eligibility check
-                </Link>
-                <Link
-                  to="/contacts"
-                  className="block w-full py-3.5 px-5 rounded-full font-semibold border border-gray-200 text-[hsl(var(--ptf-heading))] hover:border-gray-300 hover:bg-gray-50 transition-all text-center"
-                >
-                  Contact support
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section className="max-w-[1400px] mx-auto px-5 py-16 md:py-20 bg-white text-[#111111]">
+      {/* Header */}
+      <div className="mb-12 md:mb-16 max-w-[800px]">
+        <span className="inline-block text-sm font-extrabold uppercase tracking-[2px] mb-4 relative pl-5 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:bg-[#111111]">
+          How to apply
+        </span>
+        <h1 className="text-4xl md:text-[48px] font-extrabold leading-[1.1] tracking-[-1px] mb-6">
+          Funding Process
+        </h1>
+        <p className="text-lg leading-relaxed text-[#333333] font-light max-w-[600px]">
+          The Transformation Fund follows a structured, stage-gated funding process designed to ensure alignment, viability, accountability and long-term impact across the full project lifecycle.
+        </p>
       </div>
-    </div>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {stages.map((stage, index) => (
+          <article
+            key={index}
+            className="bg-[#F5F5F5] p-8 md:p-10 flex flex-col border border-transparent transition-all duration-300 hover:bg-white hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#E5E5E5] hover:-translate-y-1"
+          >
+            <div className="mb-6 pb-5 border-b-2 border-black/10">
+              <span className="block text-sm font-semibold uppercase tracking-[1px] text-[#333333] mb-2">
+                {stage.step}
+              </span>
+              <h3 className="text-2xl font-bold leading-[1.3] m-0">
+                {stage.title}
+              </h3>
+            </div>
+            <div className="text-[15px] leading-[1.7] text-[#555555] flex-grow">
+              {stage.paragraphs.map((paragraph, pIndex) => (
+                <p key={pIndex} className="mb-4 last:mb-0">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };
 
