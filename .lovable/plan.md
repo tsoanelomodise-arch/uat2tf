@@ -1,78 +1,63 @@
 
 
-## Plan: Create "Market Segments" Sub-Page Under How to Apply
+## Plan: Create "Products" Sub-Page Under How to Apply
 
-I will create a new sub-page at `/path-to-funding/market-segments` called "Market segments" and populate it with the content from the uploaded HTML file. All text will be imported verbatim with no changes.
+I will create a new sub-page at `/path-to-funding/products` called "Products" and populate it with the content from the uploaded HTML file. All text will be imported verbatim with no changes.
 
 ---
 
 ### Content to Import (from HTML - verbatim)
 
 **Breadcrumb**
-- "How to apply • Market segments"
+- "How to apply • Products"
 
 **Hero Section**
-- H1: "Market segments we support"
-- Paragraph: "The Transformation Fund is designed to support enterprises that play a critical role in driving inclusive, productive economic growth. Our focus is on businesses and entrepreneurs who have historically faced barriers to finance, capability and market access."
+- H1: "Products"
+- Paragraph: "To meet the diverse needs of its target market, the Transformation Fund offers a suite of investment products that combine financial capital with embedded capability support. These instruments are designed to be flexible, performance-linked, and tailored to the realities of underserved enterprises, addressing gaps left by traditional funding models."
 
-**Strategic Pillars Section (3 cards)**
+**Product Cards (4 items):**
 
-| Card Title | Content |
-|------------|---------|
-| Ownership | We support black-owned businesses, including enterprises owned by women, youth and persons with disabilities, with a strong emphasis on broad-based and community-linked participation. |
-| Geographic focus | We prioritise enterprises based in rural areas and townships, recognising their potential to drive local industrial activity, job creation and inclusive development. |
-| Enterprise stage | We support both early-stage and growth-stage enterprises, providing tailored financing and support to help businesses move from concept to scale and into sustainable, competitive operations. |
-
-**Priority Sectors Section**
-- H2: "Priority sectors"
-- Intro paragraph: "Our investments focus on productive, future-focused sectors that strengthen industrial capacity, unlock new markets and drive inclusive economic growth. Our sector focus reflects national priorities, sustainability imperatives and opportunities for scalable enterprise development."
-
-**Sector Cards (7 items):**
-
-| Sector | Description |
-|--------|-------------|
-| Renewable energy | We support renewable and clean energy value chains, including solar, wind and hydro-electric generation, as well as biofuels, biomass and biogas projects that contribute to energy security and a low-carbon economy. |
-| Mining services | Our investments extend beyond extraction to include mining services, mineral beneficiation and services incidental to mining, strengthening local value addition and industrial capability. |
-| Agro-processing | We prioritise agro-processing and food manufacturing, alongside chemicals processing and biofuels, to deepen local production, improve food security and expand export-ready industries. |
-| Information & communication technology | The Transformation Fund supports the development and expansion of ICT and telecoms infrastructure that enables digital connectivity, innovation and inclusive participation in the digital economy. |
-| Infrastructure | The Transformation Fund invests in enabling infrastructure, including tourism infrastructure, bulk services and other specialised buildings that support productive economic activity. These investments create the foundations for growth, job creation and sustainable local development. |
-| Manufacturing | The Fund supports a wide range of manufacturing activities, including textiles, consumables, automotive components, batteries and electric accumulators, enabling industrial diversification and competitiveness. |
-| Services and business process outsourcing | The Transformation Fund supports services-led growth through business process outsourcing, call centre and data analytics services, alongside investment in healthcare infrastructure. It also focuses on digital industry commercialisation, enabling innovative digital solutions to scale into competitive, market-ready enterprises. |
+| Card Title | Description |
+|------------|-------------|
+| Startup and informal business grants (capability vouchers) | provide seed capital to early-stage and informal enterprises, disbursed in tranches tied to developmental milestones. These grants are easy to access and embedded with technical support to ensure effective use and business formalisation. |
+| Growth and expansion loans (performance-based debt) | offer patient, concessionary finance to established MSMEs ready to scale. Structured around operational performance rather than rigid collateral requirements, these loans are released in stages linked to capability improvements and business outcomes, with mentorship and monitoring built in. |
+| Equity and co-investment instruments | provide ownership capital to high-growth ventures and strategic industrial projects, particularly those led by Black entrepreneurs. These instruments allow the Fund to take equity stakes, co-invest with private partners, and structure broad-based ownership models that include communities and workers. Technical support and milestone-based disbursements ensure that equity investments drive both commercial success and transformation impact. |
+| Blended finance and guarantee instruments | combine public and private capital to de-risk lending to underserved enterprises. These include partial credit guarantees, subsidised credit lines, and risk-sharing facilities that encourage commercial lenders to extend finance to MSMEs. Guarantees are tied to capability milestones and integrated with technical support, ensuring that risk-sharing leads to sustainable business growth. |
 
 ---
 
 ### Technical Implementation
 
 #### 1. Create New Page Component
-**File:** `src/pages/path-to-funding/MarketSegmentsPage.tsx`
+**File:** `src/pages/path-to-funding/ProductsPage.tsx`
 
-Following the same structure as FundingProcessPage:
+Following the same structure as MarketSegmentsPage and FundingProcessPage:
 - PhakamaniNavbar at top
 - Hero section with breadcrumb, H1, and intro paragraph
-- Main content section with pillars grid and sectors grid
+- Main content section with product cards grid
 - Footer at bottom
 
 #### 2. Create Content Component
-**File:** `src/components/path-to-funding/MarketSegmentsContent.tsx`
+**File:** `src/components/path-to-funding/ProductsContent.tsx`
 
 Contains:
-- Strategic Pillars section: 3-column grid of cards
-- Priority Sectors section: 2-column grid of sector cards with left border accent
+- 2-column responsive grid of product cards
+- Each card with title (with bottom border accent) and description
 
 #### 3. Add Route to App.tsx
-Add new route: `/path-to-funding/market-segments`
+Add new route: `/path-to-funding/products`
 
 #### 4. Update Navigation
 **File:** `src/components/phakamani/PhakamaniNavbar.tsx`
 
-Add "Market segments" link to the "How to apply" dropdown menu (both desktop and mobile).
+Add "Products" link to the "How to apply" dropdown menu (both desktop and mobile).
 
 ---
 
 ### Styling to Match Site Design System
 
 **Page Container**
-- `min-h-screen bg-background` (matching FundingProcessPage)
+- `min-h-screen bg-background` (matching other path-to-funding pages)
 - Main: `pt-[180px] lg:pt-[210px]`
 
 **Hero Section**
@@ -81,25 +66,19 @@ Add "Market segments" link to the "How to apply" dropdown menu (both desktop and
 - H1: `text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ptf-heading))] mb-4`
 - Intro paragraph: `text-lg text-[hsl(var(--ptf-text))] leading-relaxed max-w-3xl`
 
-**Strategic Pillars Grid**
+**Product Cards Grid**
 - Container: `container mx-auto px-4 pb-16`
-- Grid: `grid grid-cols-1 md:grid-cols-3 gap-6 mb-16`
-- Card: `bg-white rounded-2xl border border-gray-100 shadow-lg p-8 transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-xl hover:-translate-y-1`
-- Card H3: `text-xl font-bold text-[hsl(var(--ptf-heading))] mb-3 pb-3 border-b-[3px] border-[hsl(var(--ptf-accent))] inline-block`
-- Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
-
-**Priority Sectors Section**
-- Background: `bg-[hsl(var(--ptf-section-bg))] py-16` (light background section)
-- Container: `container mx-auto px-4`
-- Section intro: `max-w-3xl mb-12`
-- H2: `text-3xl md:text-4xl font-bold text-[hsl(var(--ptf-heading))] mb-4`
-- Intro paragraph: `text-lg text-[hsl(var(--ptf-text))] leading-relaxed`
-
-**Sector Cards Grid**
 - Grid: `grid grid-cols-1 md:grid-cols-2 gap-6`
-- Card: `bg-white border-l-4 border-[hsl(var(--ptf-heading))] p-6 rounded-r-xl shadow-sm transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg`
-- Card H3: `text-lg font-bold text-[hsl(var(--ptf-heading))] mb-2`
+- Card: `bg-white rounded-xl border border-gray-100 shadow-sm p-8 transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-1`
+- Card H3: `text-xl font-bold text-[hsl(var(--ptf-heading))] mb-4 pb-4 border-b border-gray-200`
 - Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
+
+**Icons for Cards**
+Using Lucide React icons mapped to each product:
+- Startup grants: `Sprout` (growth/seed)
+- Growth loans: `TrendingUp` (expansion)
+- Equity instruments: `Users` (co-investment)
+- Blended finance: `Shield` (guarantee/de-risk)
 
 ---
 
@@ -107,8 +86,8 @@ Add "Market segments" link to the "How to apply" dropdown menu (both desktop and
 
 | Action | File |
 |--------|------|
-| Create | `src/pages/path-to-funding/MarketSegmentsPage.tsx` |
-| Create | `src/components/path-to-funding/MarketSegmentsContent.tsx` |
+| Create | `src/pages/path-to-funding/ProductsPage.tsx` |
+| Create | `src/components/path-to-funding/ProductsContent.tsx` |
 | Modify | `src/App.tsx` (add route) |
 | Modify | `src/components/phakamani/PhakamaniNavbar.tsx` (add nav link) |
 
@@ -116,16 +95,10 @@ Add "Market segments" link to the "How to apply" dropdown menu (both desktop and
 
 ### Responsive Behaviour
 
-**Desktop (lg+)**
-- Strategic pillars: 3 columns
-- Sector cards: 2 columns
-
-**Tablet (md)**
-- Strategic pillars: 3 columns
-- Sector cards: 2 columns
+**Desktop (md+)**
+- Product cards: 2 columns
 
 **Mobile**
-- Strategic pillars: 1 column stacked
-- Sector cards: 1 column stacked
+- Product cards: 1 column stacked
 - Proper spacing and touch targets
 
