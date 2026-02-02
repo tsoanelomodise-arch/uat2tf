@@ -67,9 +67,6 @@ const FundingProcessContent = () => {
     <section className="max-w-[1400px] mx-auto px-5 py-16 md:py-20 bg-white text-[#111111]">
       {/* Header */}
       <div className="mb-12 md:mb-16 max-w-[800px]">
-        <span className="inline-block text-sm font-extrabold uppercase tracking-[2px] mb-4 relative pl-5 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:bg-[#111111]">
-          How to apply
-        </span>
         <h1 className="text-4xl md:text-[48px] font-extrabold leading-[1.1] tracking-[-1px] mb-6">
           Funding Process
         </h1>
