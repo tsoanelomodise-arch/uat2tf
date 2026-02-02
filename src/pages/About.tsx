@@ -350,22 +350,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* At a Glance Section */}
-        <section className="py-12 bg-primary/10">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <h2 className="text-2xl font-bold text-primary mb-6">At a glance</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {["Capital", "Capability", "Markets", "Telemetry", "Governance"].map((item) => (
-                <div
-                  key={item}
-                  className="bg-white rounded-xl shadow-sm p-6 text-center font-semibold text-foreground hover:shadow-md transition-all duration-300"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Objectives + The Method Section */}
         <section className="py-16 bg-background">
