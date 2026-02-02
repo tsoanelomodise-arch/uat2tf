@@ -14,7 +14,7 @@ const PhakamaniNavbar = memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const isWhySection = location.pathname.startsWith("/about/why");
-  const isPathToFundingPage = location.pathname === "/path-to-funding";
+  const isPathToFundingSection = location.pathname.startsWith("/path-to-funding");
   const isAboutPage = location.pathname === "/about";
   const isContactsPage = location.pathname === "/contacts";
   const isResourcesPage = location.pathname === "/resources";
@@ -24,7 +24,7 @@ const PhakamaniNavbar = memo(() => {
     setMobileMenuOpen(false);
     setPathToFundingDropdownOpen(false);
     
-    if (isPathToFundingPage) {
+    if (location.pathname === "/path-to-funding") {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -32,7 +32,7 @@ const PhakamaniNavbar = memo(() => {
     } else {
       navigate(`/path-to-funding#${sectionId}`);
     }
-  }, [isPathToFundingPage, navigate]);
+  }, [location.pathname, navigate]);
 
   const closeMobileMenu = useCallback(() => {
     setMobileMenuOpen(false);
@@ -97,13 +97,14 @@ const PhakamaniNavbar = memo(() => {
             >
               <Link 
                 to="/path-to-funding" 
-                className={`nav-link flex items-center ${isPathToFundingPage ? 'nav-link-active' : ''}`}
+                className={`nav-link flex items-center ${isPathToFundingSection ? 'nav-link-active' : ''}`}
               >
                 How to apply
                 <ChevronDown className="ml-1 h-4 w-4" />
               </Link>
               {pathToFundingDropdownOpen && (
                 <div className="dropdown-menu">
+                  <Link to="/path-to-funding/process" className="dropdown-item" onClick={() => setPathToFundingDropdownOpen(false)}>Funding Process</Link>
                   <a href="/path-to-funding#path-to-funding" className="dropdown-item" onClick={(e) => handlePathToFundingLink(e, 'path-to-funding')}>Funding Conditions</a>
                   <a href="/path-to-funding#how-it-works" className="dropdown-item" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
                 </div>
@@ -193,7 +194,8 @@ const PhakamaniNavbar = memo(() => {
               <Link to="/about/why/operating-model" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Operating Model</Link>
               <Link to="/about/why/national-agenda" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>National Agenda</Link>
               
-              <Link to="/path-to-funding" className={`block px-3 py-2 text-base font-bold ${isPathToFundingPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>How to apply</Link>
+              <Link to="/path-to-funding" className={`block px-3 py-2 text-base font-bold ${isPathToFundingSection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>How to apply</Link>
+              <Link to="/path-to-funding/process" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Funding Process</Link>
               <a href="/path-to-funding#path-to-funding" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'path-to-funding')}>Funding Conditions</a>
               <a href="/path-to-funding#how-it-works" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
               <Link to="/faq" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/faq' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>FAQ</Link>

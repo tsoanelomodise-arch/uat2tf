@@ -22,6 +22,7 @@ import TheoryPage from "./pages/why/TheoryPage";
 import ValuePage from "./pages/why/ValuePage";
 import OperatingModelPage from "./pages/why/OperatingModelPage";
 import NationalAgendaPage from "./pages/why/NationalAgendaPage";
+import FundingProcessPage from "./pages/path-to-funding/FundingProcessPage";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/requirements" element={<Requirements />} />
             <Route path="/startup-grants" element={<StartupGrants />} />
             <Route path="/path-to-funding" element={<PathToFunding />} />
+            <Route path="/path-to-funding/process" element={<FundingProcessPage />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="*" element={<NotFound />} />
