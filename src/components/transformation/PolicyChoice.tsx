@@ -1,16 +1,6 @@
-import { useState } from "react";
-
-const tabs = [
-  { id: "funding", label: "Funding Sources" },
-  { id: "governance", label: "Governance Structure" },
-  { id: "investment", label: "Investment Approach" },
-  { id: "tax", label: "Tax & Regulatory Incentives" },
-  { id: "accountability", label: "Accountability & Measurement" },
-  { id: "policy", label: "Policy Alignment" },
-];
-
-const tabContent = {
-  funding: {
+const policyItems = [
+  {
+    id: "funding",
     title: "Funding Sources",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,7 +12,8 @@ const tabContent = {
       "Diverse resource collection to ensure sustainability and broad participation."
     ]
   },
-  governance: {
+  {
+    id: "governance",
     title: "Governance Structure",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +25,8 @@ const tabContent = {
       "The Fund will be separate: contributions will be held in a dedicated account, with proceeds monitored and reinvested for maximum impact."
     ]
   },
-  investment: {
+  {
+    id: "investment",
     title: "Investment Approach",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +40,8 @@ const tabContent = {
       "Target sectors include productive and labour-intensive areas in economic sectors."
     ]
   },
-  tax: {
+  {
+    id: "tax",
     title: "Tax & Regulatory Incentives",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +54,8 @@ const tabContent = {
       "Contributors will sign Participation Agreements with the SPV that regulate contributions and investment terms."
     ]
   },
-  accountability: {
+  {
+    id: "accountability",
     title: "Accountability & Measurement",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +68,8 @@ const tabContent = {
       "Transparency is built into the design: annual reporting on fund performance, investments and social impact."
     ]
   },
-  policy: {
+  {
+    id: "policy",
     title: "Policy Alignment",
     icon: (
       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,51 +81,29 @@ const tabContent = {
       "It also aligns with the constitutional and policy goal to correct historical economic exclusion and promote inclusive growth."
     ]
   }
-};
+];
 
 const PolicyChoice = () => {
-  const [activeTab, setActiveTab] = useState("funding");
-  const content = tabContent[activeTab as keyof typeof tabContent];
-
   return (
     <section id="policy-choice" className="py-10 bg-white">
       <div className="max-w-[1400px] mx-auto px-10">
-
-        {/* Tab Navigation */}
-        <div className="flex gap-8 lg:gap-12 mb-10 border-b-2 border-gray-200 overflow-x-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`text-lg lg:text-xl font-bold pb-4 cursor-pointer tracking-tight transition-colors whitespace-nowrap ${
-                activeTab === tab.id
-                  ? "text-black border-b-[5px] border-[#00703C]"
-                  : "text-gray-300 hover:text-gray-500"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Tab Content */}
-        <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 items-start">
-            <div className="w-16 h-16 bg-[#00703C] rounded-full flex items-center justify-center flex-shrink-0">
-              {content.icon}
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">{content.title}</h3>
-              <ul className="space-y-4">
-                {content.items.map((item, index) => (
-                  <li key={index} className="flex items-start text-gray-500 text-lg leading-relaxed">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {policyItems.map((item) => (
+            <div key={item.id} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <div className="w-16 h-16 bg-[#00703C] rounded-full flex items-center justify-center flex-shrink-0 mb-6">
+                {item.icon}
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">{item.title}</h3>
+              <ul className="space-y-3">
+                {item.items.map((text, index) => (
+                  <li key={index} className="flex items-start text-gray-500 text-base leading-relaxed">
                     <span className="mr-3 text-[#00703C] font-bold">{String.fromCharCode(97 + index)}.</span>
-                    <span>{item}</span>
+                    <span>{text}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
