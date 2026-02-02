@@ -26,6 +26,7 @@ import FundingProcessPage from "./pages/path-to-funding/FundingProcessPage";
 import MarketSegmentsPage from "./pages/path-to-funding/MarketSegmentsPage";
 import ProductsPage from "./pages/path-to-funding/ProductsPage";
 import InvestorsPage from "./pages/InvestorsPage";
+import GovernancePage from "./pages/investors/GovernancePage";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/path-to-funding/market-segments" element={<MarketSegmentsPage />} />
             <Route path="/path-to-funding/products" element={<ProductsPage />} />
             <Route path="/investors" element={<InvestorsPage />} />
+            <Route path="/investors/governance" element={<GovernancePage />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="*" element={<NotFound />} />
