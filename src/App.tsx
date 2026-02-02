@@ -23,6 +23,7 @@ import ValuePage from "./pages/why/ValuePage";
 import OperatingModelPage from "./pages/why/OperatingModelPage";
 import NationalAgendaPage from "./pages/why/NationalAgendaPage";
 import FundingProcessPage from "./pages/path-to-funding/FundingProcessPage";
+import MarketSegmentsPage from "./pages/path-to-funding/MarketSegmentsPage";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/startup-grants" element={<StartupGrants />} />
             <Route path="/path-to-funding" element={<PathToFunding />} />
             <Route path="/path-to-funding/process" element={<FundingProcessPage />} />
+            <Route path="/path-to-funding/market-segments" element={<MarketSegmentsPage />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="*" element={<NotFound />} />
