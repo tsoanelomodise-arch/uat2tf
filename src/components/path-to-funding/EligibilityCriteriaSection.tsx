@@ -42,13 +42,6 @@ const EligibilityCriteriaSection: React.FC = memo(() => {
   return (
     <section id="eligibility-criteria" className="py-12 md:py-20 bg-[#F8FAFC]">
       <div className="max-w-[1100px] mx-auto px-6">
-        {/* Page Header */}
-        <div className="pb-12 border-b border-[#E2E8F0] mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#0F172A]">
-            How to apply
-          </h1>
-        </div>
-
         {/* Content Section */}
         <div className="space-y-8">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A]">
