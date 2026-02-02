@@ -1,91 +1,138 @@
 
-## Plan: Remove Tabs and Vision/Mission from About Page
 
-I will remove the tabbed content section (which contains the "Our Vision" and "Our Mission" content) from the About page while keeping all other sections intact.
+## Plan: Create Governance Sub-Page Under Investors
 
----
-
-### Current About Page Structure
-
-| Section | Status |
-|---------|--------|
-| PhakamaniNavbar | Keep |
-| AboutHero | Keep |
-| **Tabbed Section** (5 tabs: Building the Future, More Than Growth, Why Transform?, A New Path, Our Promise) | **REMOVE** |
-| About intro (H1 + paragraph) | Keep |
-| Objectives + The Method (2-column grid) | Keep |
-| The Architecture (5-pillar accordion) | Keep |
-| Footer | Keep |
+Create a new sub-page at `/investors/governance` that displays the governance and accountability framework content from the uploaded HTML file, using the existing site components and styling.
 
 ---
 
-### What Gets Removed
+### Content to Import (Verbatim - No Changes)
 
-**Tab Navigation and All Tab Content (lines 12-340):**
-- Tab definitions array (Building the Future, More Than Growth, Why Transform?, A New Path, Our Promise)
-- `useState` hook for `activeTab`
-- Entire tabbed section container including:
-  - "Building the Future" tab with **Our Vision** and **Our Mission** cards
-  - "More Than Growth" tab (4 numbered items)
-  - "Why Transform?" tab (3 numbered items)
-  - "A New Path" tab (Old Way vs New Way comparison)
-  - "Our Promise" tab (4 cards: Accountability, Integrity, Transparency, Partnership)
+**Page Title:**
+> Governance and accountability framework
 
----
+**Introduction Paragraph:**
+> The Transformation Fund is governed through a legally incorporated Special Purpose Vehicle (SPV), designed to ensure transparency, integrity, and alignment with national transformation goals. Its finances are ring-fenced, tax-exempt, and managed under South African law and B-BBEE regulations.
 
-### File Changes
+**Card 1 - Governance structure:**
+> A joint Board of Directors, comprising public and private sector representatives, will oversees the strategic direction and fiduciary responsibilities. Functional areas will include investment management, financial stewardship and risk management, including impact monitoring, each with clear mandates and internal controls.
 
-**File: `src/pages/About.tsx`**
+**Card 2 - Digital oversight:**
+> A central digital platform will enable real-time data collection from investees, feeding into an impact dashboard that tracks key metrics like jobs created and capital deployed. This system will support proactive management and transparent reporting.
 
-1. Remove the `useState` import (no longer needed)
-2. Remove the `tabs` array definition (lines 12-38)
-3. Remove `const [activeTab, setActiveTab] = useState("building");` (line 41)
-4. Remove the entire Tabbed Content Section (lines 48-340)
+**Card 3 - Public reporting:**
+> The Fund will publish annual integrated reports and quarterly updates, with stakeholder engagement through AGMs and parliamentary briefings. A Transformation Index will aggregate impact data for public visibility and accountability.
 
 ---
 
-### Resulting Page Structure
+### File Changes Overview
 
-After removal, the About page will contain:
-
-1. **AboutHero** - Bakery visual with "Advancing the economic agenda" heading
-2. **About intro section** - H1 "About" with introductory paragraph about the Transformation Fund
-3. **Objectives + The Method** - Two-column layout with numbered objectives and method description
-4. **The Architecture** - 5-pillar accordion (Capital, Capability, Markets, Telemetry, Governance)
-5. **Footer**
+| File | Action | Purpose |
+|------|--------|---------|
+| `src/pages/investors/GovernancePage.tsx` | Create | New page component |
+| `src/components/investors/GovernanceContent.tsx` | Create | Content component with cards |
+| `src/App.tsx` | Modify | Add route for `/investors/governance` |
+| `src/components/phakamani/PhakamaniNavbar.tsx` | Modify | Add Investors dropdown with Governance link |
 
 ---
 
-### Visual Flow After Changes
+### Implementation Details
+
+**1. Create Page: `src/pages/investors/GovernancePage.tsx`**
+
+Structure follows the existing `FundingProcessPage.tsx` pattern:
+- Import `PhakamaniNavbar` and `Footer`
+- Include breadcrumb navigation: "Investors > Governance"
+- Page title: "Governance and accountability framework"
+- Intro paragraph
+- Render `GovernanceContent` component
+
+**2. Create Content Component: `src/components/investors/GovernanceContent.tsx`**
+
+Following the existing `InvestorsContent.tsx` card pattern:
+- 3-column responsive grid (`grid-cols-1 md:grid-cols-3`)
+- White cards with rounded corners, subtle shadow
+- Hover effect with accent border and lift animation
+- Card styling matches existing investor cards
+
+**3. Update Router: `src/App.tsx`**
+
+Add import and route:
+```text
+import GovernancePage from "./pages/investors/GovernancePage";
+...
+<Route path="/investors/governance" element={<GovernancePage />} />
+```
+
+**4. Update Navigation: `src/components/phakamani/PhakamaniNavbar.tsx`**
+
+Convert "Investors" from a standalone link to a dropdown menu:
+- Add state: `investorsDropdownOpen`
+- Add dropdown with links to:
+  - `/investors` - "Resource Mobilisation"
+  - `/investors/governance` - "Governance"
+- Update mobile menu with sub-links
+- Update `isInvestorsPage` to `isInvestorsSection` (check for `/investors` prefix)
+
+---
+
+### Component Architecture
 
 ```text
-+------------------------------------------+
-|           PhakamaniNavbar                |
-+------------------------------------------+
-|           AboutHero (Bakery)             |
-|    "Advancing the economic agenda"       |
-+------------------------------------------+
-|           About Section                  |
-|    H1: "About"                           |
-|    Intro paragraph                       |
-+------------------------------------------+
-|    Objectives    |    The Method         |
-|    (4 items)     |    (paragraph)        |
-+------------------------------------------+
-|         The Architecture                 |
-|    5-pillar accordion on green bg        |
-|    (Capital, Capability, Markets,        |
-|     Telemetry, Governance)               |
-+------------------------------------------+
-|              Footer                      |
-+------------------------------------------+
+GovernancePage
+├── PhakamaniNavbar
+├── main
+│   ├── section (Hero)
+│   │   ├── Breadcrumb (Investors > Governance)
+│   │   ├── h1 (title)
+│   │   └── p (intro paragraph)
+│   └── GovernanceContent
+│       └── Grid (3-column)
+│           ├── Card: Governance structure
+│           ├── Card: Digital oversight
+│           └── Card: Public reporting
+└── Footer
 ```
 
 ---
 
-### Technical Details
+### Styling Approach
 
-- The `useState` import and `activeTab` state will be removed since tabs are no longer needed
-- The Accordion import remains (used for The Architecture section)
-- No changes to styling or other components
-- Page will load faster without tab state management
+**Card Styling (matching existing site patterns):**
+- White background with `rounded-xl`
+- Border: `border-gray-100`
+- Shadow: `shadow-sm`
+- Padding: `p-8`
+- Hover: `hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-1`
+- Transition: `transition-all duration-200`
+
+**Typography:**
+- Card heading: `text-xl font-bold text-[hsl(var(--ptf-heading))]`
+- Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
+
+**Grid:**
+- Responsive: `grid-cols-1 md:grid-cols-3 gap-6`
+
+---
+
+### Navigation Updates
+
+**Desktop:**
+- "Investors" becomes a dropdown with chevron icon
+- Dropdown shows on hover (same as "Why" and "How to apply")
+- Links: "Resource Mobilisation" and "Governance"
+
+**Mobile:**
+- "Investors" header with nested links below
+- Same pattern as other sections (pl-6 for sub-items)
+
+---
+
+### Technical Notes
+
+- Create `src/pages/investors/` directory for the new page
+- Follow existing naming conventions (`GovernancePage.tsx`)
+- Use CSS variables from `index.css` (`--ptf-accent`, `--ptf-heading`, `--ptf-text`)
+- Maintain responsive design patterns from existing pages
+- No custom CSS added - all styling via Tailwind classes
+
