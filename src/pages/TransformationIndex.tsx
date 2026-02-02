@@ -3,12 +3,6 @@ import { useLocation } from "react-router-dom";
 import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
 import PhakamaniHero from "@/components/phakamani/PhakamaniHero";
 import HeroSectionNew from "@/components/transformation/HeroSectionNew";
-import WhySection from "@/components/transformation/WhySection";
-import PolicyChoice from "@/components/transformation/PolicyChoice";
-import TheoryOfChange from "@/components/transformation/TheoryOfChange";
-import ValueProposition from "@/components/transformation/ValueProposition";
-import OperatingModel from "@/components/transformation/OperatingModel";
-import NationalAgenda from "@/components/transformation/NationalAgenda";
 import WhyPillarsSection from "@/components/transformation/WhyPillarsSection";
 import ScrollToTop from "@/components/transformation/ScrollToTop";
 import Footer from "@/components/transformation/Footer";
@@ -51,12 +45,6 @@ const TransformationIndex = () => {
       <PhakamaniHero />
       <main id="main-content">
         <HeroSectionNew />
-        <WhySection />
-        <PolicyChoice />
-        <TheoryOfChange />
-        <ValueProposition />
-        <OperatingModel />
-        <NationalAgenda />
         <WhyPillarsSection />
       </main>
       <Footer />
