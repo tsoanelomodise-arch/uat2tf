@@ -55,7 +55,7 @@ const FundingConditionsSection: React.FC<FundingConditionsSectionProps> = memo((
             Getting Started
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[hsl(var(--ptf-heading))] mb-4">
-            Funding Conditions
+            Eligibility & Document Checklist
           </h2>
           <p className="text-lg text-[hsl(var(--ptf-text))] max-w-2xl mx-auto">
             Follow these three simple steps to apply for funding support.
