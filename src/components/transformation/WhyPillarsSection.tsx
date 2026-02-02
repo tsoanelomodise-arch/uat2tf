@@ -1,3 +1,6 @@
+import whyCard01Img from "@/assets/why-card-01.jpg";
+import whyCard02Img from "@/assets/why-card-02.jpg";
+
 const cards = [
   {
     number: "01",
@@ -5,7 +8,7 @@ const cards = [
     paragraphs: [
       "Provide affordable, appropriate funding for Black-owned and managed businesses, especially those underserved by commercial lenders, including start-ups, scale-ups, and distressed firms."
     ],
-    hasPlaceholder: true
+    image: whyCard01Img
   },
   {
     number: "02",
@@ -13,7 +16,7 @@ const cards = [
     paragraphs: [
       "Pool resources from private corporations, DFIs, and donors into a large fund dedicated to B-BBEE, with voluntary contributions incentivised through B-BBEE scoring."
     ],
-    hasPlaceholder: true
+    image: whyCard02Img
   },
   {
     number: "03",
@@ -22,7 +25,7 @@ const cards = [
       "Serve as a central vehicle for Enterprise and Supplier Development (ESD), by addressing the current shortcomings of fragmented corporate initiatives. Instead of companies running numerous disparate projects, they can channel their ESD budgets into the Fund—either fully or partially—where resources are professionally managed and aligned with national priorities.",
       "This approach simplifies compliance, reduces administrative burden, and ensures that ESD contributions are invested in a coherent portfolio of programmes with measurable outcomes in business growth and job creation, while also linking supported enterprises to real market opportunities within corporate supply chains."
     ],
-    hasPlaceholder: false
+    image: null
   },
   {
     number: "04",
@@ -30,7 +33,7 @@ const cards = [
     paragraphs: [
       "Offer business development services including planning, feasibility studies, accreditation, mentorship, and training to address common SMME challenges."
     ],
-    hasPlaceholder: false
+    image: null
   },
   {
     number: "05",
@@ -38,7 +41,7 @@ const cards = [
     paragraphs: [
       "Promotes inclusive growth by supporting job creation in labour-intensive sectors and stimulating local economies, while actively prioritising Black women, youth, and people with disabilities as business owners and beneficiaries to reduce inequality."
     ],
-    hasPlaceholder: false
+    image: null
   },
   {
     number: "06",
@@ -46,7 +49,7 @@ const cards = [
     paragraphs: [
       "Develop Black industrialists, broaden ownership in strategic sectors, and deepen local supply chains in line with South Africa's industrial policy."
     ],
-    hasPlaceholder: false
+    image: null
   }
 ];
 
@@ -94,14 +97,13 @@ const WhyPillarsSection = () => {
                 </p>
               ))}
             </div>
-            {card.hasPlaceholder && (
-              <div
-                className="w-full h-[220px] md:h-[180px] lg:h-[220px] bg-[#f4f4f4] mt-8 flex items-center justify-center border border-dashed border-[#cccccc]"
-                aria-label={`Placeholder for ${card.title.toLowerCase()} related image`}
-              >
-                <span className="text-xs font-semibold tracking-[1px] text-[#999999]">
-                  IMAGE PLACEHOLDER
-                </span>
+            {card.image && (
+              <div className="w-full h-[220px] md:h-[180px] lg:h-[220px] mt-8 overflow-hidden">
+                <img 
+                  src={card.image} 
+                  alt={card.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
             )}
           </div>
