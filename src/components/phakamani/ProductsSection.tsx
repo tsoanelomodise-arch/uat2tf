@@ -1,5 +1,4 @@
 import { memo, useMemo } from "react";
-import { ArrowRight } from "lucide-react";
 import smmeFundImg from "@/assets/products/smme-fund.png";
 import designatedGroupsImg from "@/assets/products/designated-groups.png";
 import townshipRuralImg from "@/assets/products/township-rural.jpg";
@@ -22,12 +21,6 @@ const ProductCard = memo(({ title, description, image }: { title: string; descri
       role="img"
       aria-label={title}
     ></div>
-    <div className="flex items-center justify-between mt-4">
-      <span className="text-xs opacity-80">LEARN MORE</span>
-      <div className="action-btn">
-        <ArrowRight className="w-4 h-4 action-arrow" aria-hidden="true" />
-      </div>
-    </div>
   </div>
 ));
 ProductCard.displayName = "ProductCard";
