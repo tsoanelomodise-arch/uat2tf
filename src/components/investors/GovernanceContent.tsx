@@ -108,10 +108,6 @@ const GovernanceContent = () => {
               </div>
             </div>
           </div>
-
-          <div className="mt-10 p-5 border border-dashed border-[#e0e0e0] bg-[#f4f4f4] font-semibold text-sm uppercase tracking-[1px]">
-            The following table:
-          </div>
         </div>
       </section>
     </div>
