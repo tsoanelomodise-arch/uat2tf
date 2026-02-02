@@ -5,7 +5,7 @@ import Footer from '@/components/transformation/Footer';
 import PathToFundingHero from '@/components/path-to-funding/PathToFundingHero';
 import EligibilityCriteriaSection from '@/components/path-to-funding/EligibilityCriteriaSection';
 import FundingConditionsSection from '@/components/path-to-funding/FundingConditionsSection';
-import InvestmentCriteriaSection from '@/components/path-to-funding/InvestmentCriteriaSection';
+
 
 import EligibilityModal from '@/components/path-to-funding/EligibilityModal';
 import DocumentCheckModal from '@/components/path-to-funding/DocumentCheckModal';
@@ -73,7 +73,7 @@ const PathToFunding: React.FC = () => {
           appState={quiz.appState}
         />
         
-        <InvestmentCriteriaSection />
+        
       </main>
 
       <Footer />
