@@ -1,38 +1,16 @@
-import { useState } from "react";
 import problemSpaceImg from "@/assets/problemspace.jpg";
 import opportunitySpaceImg from "@/assets/opportunityspace.jpg";
 
-const tabs = [
-  { id: "problem", label: "Problem Space" },
-  { id: "opportunity", label: "Opportunity" },
-];
-
 const WhySection = () => {
-  const [activeTab, setActiveTab] = useState("problem");
-
   return (
     <section id="why" className="py-10 bg-white">
-      <div className="max-w-[1400px] mx-auto px-10">
+      <div className="max-w-[1400px] mx-auto px-10 space-y-16">
 
-        {/* Tab Navigation */}
-        <div className="flex gap-12 mb-10 border-b-2 border-gray-200 overflow-x-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`text-3xl font-bold pb-4 cursor-pointer tracking-tight transition-colors whitespace-nowrap ${
-                activeTab === tab.id
-                  ? "text-black border-b-[5px] border-[#00703C]"
-                  : "text-gray-300 hover:text-gray-500"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Tab Content */}
-        {activeTab === "problem" && (
+        {/* Problem Space */}
+        <div>
+          <h2 className="text-3xl font-bold mb-10 text-black border-b-2 border-gray-200 pb-4">
+            Problem Space
+          </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <h3 className="text-2xl font-bold mb-4 text-[#0000FE]">Understanding the Challenges We Face</h3>
@@ -59,9 +37,13 @@ const WhySection = () => {
               />
             </div>
           </div>
-        )}
+        </div>
 
-        {activeTab === "opportunity" && (
+        {/* Opportunity */}
+        <div>
+          <h2 className="text-3xl font-bold mb-10 text-black border-b-2 border-gray-200 pb-4">
+            Opportunity
+          </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <h3 className="text-2xl font-bold mb-4 text-[#00703C]">The Transformation Fund Solution</h3>
@@ -88,7 +70,8 @@ const WhySection = () => {
               />
             </div>
           </div>
-        )}
+        </div>
+
       </div>
     </section>
   );
