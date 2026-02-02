@@ -1,138 +1,116 @@
 
 
-## Plan: Create Governance Sub-Page Under Investors
+## Replace "Eligibility and criteria" Section Content
 
-Create a new sub-page at `/investors/governance` that displays the governance and accountability framework content from the uploaded HTML file, using the existing site components and styling.
-
----
-
-### Content to Import (Verbatim - No Changes)
-
-**Page Title:**
-> Governance and accountability framework
-
-**Introduction Paragraph:**
-> The Transformation Fund is governed through a legally incorporated Special Purpose Vehicle (SPV), designed to ensure transparency, integrity, and alignment with national transformation goals. Its finances are ring-fenced, tax-exempt, and managed under South African law and B-BBEE regulations.
-
-**Card 1 - Governance structure:**
-> A joint Board of Directors, comprising public and private sector representatives, will oversees the strategic direction and fiduciary responsibilities. Functional areas will include investment management, financial stewardship and risk management, including impact monitoring, each with clear mandates and internal controls.
-
-**Card 2 - Digital oversight:**
-> A central digital platform will enable real-time data collection from investees, feeding into an impact dashboard that tracks key metrics like jobs created and capital deployed. This system will support proactive management and transparent reporting.
-
-**Card 3 - Public reporting:**
-> The Fund will publish annual integrated reports and quarterly updates, with stakeholder engagement through AGMs and parliamentary briefings. A Transformation Index will aggregate impact data for public visibility and accountability.
+This plan replaces the content of the `EligibilityCriteriaSection` component on the "How to Apply" page with the content from the provided HTML file, while preserving all existing site structure.
 
 ---
 
-### File Changes Overview
+### Summary of Changes
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `src/pages/investors/GovernancePage.tsx` | Create | New page component |
-| `src/components/investors/GovernanceContent.tsx` | Create | Content component with cards |
-| `src/App.tsx` | Modify | Add route for `/investors/governance` |
-| `src/components/phakamani/PhakamaniNavbar.tsx` | Modify | Add Investors dropdown with Governance link |
+The uploaded HTML provides a new design for the "Eligibility and criteria" section featuring:
+- A page header with "How to apply" title and bottom border
+- An intro section with a subtitle "Eligibility and criteria" and two paragraphs of explanatory text
+- A 7-item accordion using the same content categories but with updated styling (card-style items with borders, hover effects, and +/x expand indicators)
 
 ---
 
-### Implementation Details
+### What Will Be Preserved (No Changes)
 
-**1. Create Page: `src/pages/investors/GovernancePage.tsx`**
+1. **Header/Navbar** - `PhakamaniNavbar` component
+2. **Hero Section** - `PathToFundingHero` component with "How to Apply" headline
+3. **Eligibility & Document Checklist** - `FundingConditionsSection` with the 3-step cards and quiz modals
+4. **Footer** - `Footer` component
+5. **All modals** - Eligibility, Document, Success, Reject, and Incomplete modals
 
-Structure follows the existing `FundingProcessPage.tsx` pattern:
-- Import `PhakamaniNavbar` and `Footer`
-- Include breadcrumb navigation: "Investors > Governance"
-- Page title: "Governance and accountability framework"
-- Intro paragraph
-- Render `GovernanceContent` component
+---
 
-**2. Create Content Component: `src/components/investors/GovernanceContent.tsx`**
+### Implementation Steps
 
-Following the existing `InvestorsContent.tsx` card pattern:
-- 3-column responsive grid (`grid-cols-1 md:grid-cols-3`)
-- White cards with rounded corners, subtle shadow
-- Hover effect with accent border and lift animation
-- Card styling matches existing investor cards
+#### Step 1: Update `EligibilityCriteriaSection.tsx`
 
-**3. Update Router: `src/App.tsx`**
+Rewrite the component to match the HTML's structure and styling:
 
-Add import and route:
+**Layout Changes:**
+- Remove the centered badge ("Who Can Apply") that doesn't exist in the new design
+- Remove centered text alignment - switch to left-aligned content
+- Add page header with "How to apply" title and bottom border line
+- Update typography to match: larger heading sizes, specific text colors (#0F172A primary, #334155 text, #64748B light text)
+
+**Accordion Styling Updates:**
+- White background cards with subtle border (`border-[#E2E8F0]`)
+- Rounded corners (`rounded-lg`)
+- Hover state: border changes to primary color
+- Remove default chevron icon, add custom "+" icon that rotates 45deg when open
+- Amber/gold accent color for the icon (#D97706)
+- Animation for smooth content reveal
+
+**Content (Verbatim from HTML):**
 ```text
-import GovernancePage from "./pages/investors/GovernancePage";
-...
-<Route path="/investors/governance" element={<GovernancePage />} />
-```
+Title: "Eligibility and criteria"
 
-**4. Update Navigation: `src/components/phakamani/PhakamaniNavbar.tsx`**
+Intro paragraph 1:
+"The Transformation Fund is designed to serve a broad yet intentionally segmented market of majority Black-owned enterprises that are underserved by traditional finance."
 
-Convert "Investors" from a standalone link to a dropdown menu:
-- Add state: `investorsDropdownOpen`
-- Add dropdown with links to:
-  - `/investors` - "Resource Mobilisation"
-  - `/investors/governance` - "Governance"
-- Update mobile menu with sub-links
-- Update `isInvestorsPage` to `isInvestorsSection` (check for `/investors` prefix)
+Intro paragraph 2:
+"Applicants will need to show that their businesses are legally compliant, properly registered and meet basic operational and financial management standards. This approach will ensure that support is provided to enterprises that are ready to succeed and contribute to economic development. Eligibility is segmented across firm types and structural contexts to ensure inclusive coverage. This includes:"
 
----
-
-### Component Architecture
-
-```text
-GovernancePage
-├── PhakamaniNavbar
-├── main
-│   ├── section (Hero)
-│   │   ├── Breadcrumb (Investors > Governance)
-│   │   ├── h1 (title)
-│   │   └── p (intro paragraph)
-│   └── GovernanceContent
-│       └── Grid (3-column)
-│           ├── Card: Governance structure
-│           ├── Card: Digital oversight
-│           └── Card: Public reporting
-└── Footer
+Accordion items (7 total - same titles and content as current):
+1. Informal and start-up enterprises
+2. Early-stage industrial and high-impact ventures
+3. Growth-phase MSMEs
+4. Mid-size firms graduating to large enterprises
+5. Cooperatives and collective enterprises
+6. Youth-, women-, and designated group-led businesses
+7. Township and rural enterprises
 ```
 
 ---
 
-### Styling Approach
+### Technical Details
 
-**Card Styling (matching existing site patterns):**
-- White background with `rounded-xl`
-- Border: `border-gray-100`
-- Shadow: `shadow-sm`
-- Padding: `p-8`
-- Hover: `hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-1`
-- Transition: `transition-all duration-200`
+**File to Modify:**
+- `src/components/path-to-funding/EligibilityCriteriaSection.tsx`
 
-**Typography:**
-- Card heading: `text-xl font-bold text-[hsl(var(--ptf-heading))]`
-- Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
+**Component Structure:**
+```text
+section (py-20 bg-[#F8FAFC])
+  container (max-w-[1100px] mx-auto px-6)
+    page-header (pb-12 border-b border-[#E2E8F0] mb-12)
+      h1 "How to apply"
+    content-wrapper
+      h2 "Eligibility and criteria"
+      p.intro-text (first paragraph - lighter weight)
+      p (second paragraph)
+      accordion container
+        7x accordion-items with custom plus/rotate styling
+```
 
-**Grid:**
-- Responsive: `grid-cols-1 md:grid-cols-3 gap-6`
+**Styling Tokens:**
+- Primary text: `#0F172A` (deep navy/slate)
+- Main text: `#334155` (dark grey)
+- Light text: `#64748B` (medium grey) 
+- Background: `#F8FAFC` (light grey)
+- Card background: `#FFFFFF`
+- Border: `#E2E8F0`
+- Accent: `#D97706` (amber/gold for icon)
+- Border radius: `rounded-lg` (8px)
+- Shadows: subtle `shadow-sm`
+
+**Custom Icon Behavior:**
+- Display "+" symbol using CSS pseudo-element or inline span
+- On open state: rotate 45deg to form "x"
+- Color: amber/gold accent
+
+**First Accordion Item Default Open:**
+- Per HTML, first item has `details open` attribute
+- Use `defaultValue="item-0"` in Radix Accordion
 
 ---
 
-### Navigation Updates
+### Responsive Considerations
 
-**Desktop:**
-- "Investors" becomes a dropdown with chevron icon
-- Dropdown shows on hover (same as "Why" and "How to apply")
-- Links: "Resource Mobilisation" and "Governance"
-
-**Mobile:**
-- "Investors" header with nested links below
-- Same pattern as other sections (pl-6 for sub-items)
-
----
-
-### Technical Notes
-
-- Create `src/pages/investors/` directory for the new page
-- Follow existing naming conventions (`GovernancePage.tsx`)
-- Use CSS variables from `index.css` (`--ptf-accent`, `--ptf-heading`, `--ptf-text`)
-- Maintain responsive design patterns from existing pages
-- No custom CSS added - all styling via Tailwind classes
+- Padding reduces on mobile (from 5rem to 3rem vertical)
+- Font sizes scale down appropriately on smaller screens
+- Container uses consistent padding (1.5rem horizontal)
 
