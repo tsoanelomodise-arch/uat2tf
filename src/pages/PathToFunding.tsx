@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import PhakamaniNavbar from '@/components/phakamani/PhakamaniNavbar';
 import Footer from '@/components/transformation/Footer';
 import PathToFundingHero from '@/components/path-to-funding/PathToFundingHero';
+import EligibilityCriteriaSection from '@/components/path-to-funding/EligibilityCriteriaSection';
 import FundingConditionsSection from '@/components/path-to-funding/FundingConditionsSection';
 import InvestmentCriteriaSection from '@/components/path-to-funding/InvestmentCriteriaSection';
 
@@ -62,6 +63,8 @@ const PathToFunding: React.FC = () => {
             onCheckDocuments={quiz.openDocumentModal}
           />
         </section>
+        
+        <EligibilityCriteriaSection />
         
         <FundingConditionsSection
           onCheckEligibility={quiz.openEligibilityModal}
