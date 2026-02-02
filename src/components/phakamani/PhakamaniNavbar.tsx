@@ -130,7 +130,6 @@ const PhakamaniNavbar = memo(() => {
               </Link>
               {investorsDropdownOpen && (
                 <div className="dropdown-menu">
-                  <Link to="/investors" className="dropdown-item" onClick={() => setInvestorsDropdownOpen(false)}>Resource Mobilisation</Link>
                   <Link to="/investors/governance" className="dropdown-item" onClick={() => setInvestorsDropdownOpen(false)}>Governance</Link>
                 </div>
               )}
@@ -226,7 +225,6 @@ const PhakamaniNavbar = memo(() => {
               <a href="/path-to-funding#path-to-funding" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'path-to-funding')}>Funding Conditions</a>
               <a href="/path-to-funding#how-it-works" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
               <Link to="/investors" className={`block px-3 py-2 text-base font-bold ${isInvestorsSection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Investors</Link>
-              <Link to="/investors" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Resource Mobilisation</Link>
               <Link to="/investors/governance" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Governance</Link>
               <Link to="/faq" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/faq' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>FAQ</Link>
               <Link to="/resources" className={`block px-3 py-2 text-base font-bold ${isResourcesPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Resources</Link>
