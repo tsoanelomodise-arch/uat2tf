@@ -1,0 +1,33 @@
+import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
+import Footer from "@/components/transformation/Footer";
+import InvestorsContent from "@/components/investors/InvestorsContent";
+
+const InvestorsPage = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <PhakamaniNavbar />
+
+      <main className="pt-[180px] lg:pt-[210px]">
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 py-10">
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ptf-heading))] mb-2">
+            Investors
+          </h1>
+
+          {/* Subtitle */}
+          <h2 className="text-xl md:text-2xl font-medium text-[hsl(var(--ptf-accent))]">
+            Resource mobilisation and capitalisation
+          </h2>
+        </section>
+
+        {/* Main Content */}
+        <InvestorsContent />
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default InvestorsPage;
