@@ -61,7 +61,7 @@ const PhakamaniIndex = () => {
         onOpenChange={quiz.setDocSuccessModalOpen}
         onContinue={() => {
           quiz.setDocSuccessModalOpen(false);
-          window.open('https://www.wonderlandstudio.co.za/tfportalform/uat_wizard.html', '_blank');
+          window.open('https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/', '_blank');
         }}
       />
       <DocRejectModal
