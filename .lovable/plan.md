@@ -1,78 +1,94 @@
 
 
-## Plan: Append Why Content to Transformation Index Page
+## Plan: Append Eligibility Content Below Hero on How to Apply Page
 
-I will append the content from the uploaded HTML file to the bottom of the existing Why page (`/about/why`), placing it as a new section before the Footer. All text will be imported verbatim with no changes.
-
-### Content to Append (from HTML)
-
-**1. Why? Section Header**
-- H2 heading: "Why?"
-- Intro paragraph: "The Transformation Fund is designed as a strategic instrument to drive inclusive economic transformation in South Africa. By combining financial and non-financial support, mobilising public-private investment, and streamlining Enterprise and Supplier Development efforts, the Fund aims to empower Black-owned enterprises, foster job creation, and promote structural change across key sectors."
-
-**2. Six Pillar Cards (Grid Layout)**
-
-| Card | Title | Content |
-|------|-------|---------|
-| 1 | Increase access to finance for Black Enterprises | Provide affordable, appropriate funding for Black-owned and managed businesses, especially those underserved by commercial lenders, including start-ups, scale-ups, and distressed firms. |
-| 2 | Mobilise public-private investment for transformation | Pool resources from private corporations, DFIs, and donors into a large fund dedicated to B-BBEE, with voluntary contributions incentivised through B-BBEE scoring. |
-| 3 (wide) | Coordinate and enhance ESD impact | Serve as a central vehicle for Enterprise and Supplier Development (ESD), by addressing the current shortcomings of fragmented corporate initiatives... (full text preserved) |
-| 4 | Provide non-financial support and mentorship | Offer business development services including planning, feasibility studies, accreditation, mentorship, and training to address common SMME challenges. |
-| 5 | Promote Inclusive growth and job creation | Promotes inclusive growth by supporting job creation in labour-intensive sectors and stimulating local economies, while actively prioritising Black women, youth, and people with disabilities as business owners and beneficiaries to reduce inequality. |
-| 6 (wide) | Facilitate structural transformation of the economy | Develop Black industrialists, broaden ownership in strategic sectors, and deepen local supply chains in line with South Africa's industrial policy. |
+I will append the eligibility and criteria content from the uploaded HTML file below the hero section on the existing How to Apply page (`/path-to-funding`). All text will be imported verbatim with no changes.
 
 ---
 
-### Styling to Match Homepage Design System
+### Content to Append (from HTML)
 
-Based on the existing components (NationalAgenda.tsx, PolicyChoice.tsx, OperatingModel.tsx), I will apply:
+**Section Heading**
+- H2: "Eligibility and criteria"
 
-**Container & Spacing**
-- Section: `py-10 bg-white` (consistent with other sections)
-- Container: `max-w-[1400px] mx-auto px-10`
+**Introduction Text (2 paragraphs)**
+1. "The Transformation Fund is designed to serve a broad yet intentionally segmented market of majority Black-owned enterprises that are underserved by traditional finance."
 
-**Typography**
-- Section heading (h2): `text-3xl font-bold text-gray-900 mb-4`
-- Intro paragraph: `text-gray-500 text-lg leading-relaxed mb-8 max-w-4xl`
-- Card heading (h3): `text-lg font-bold text-gray-900 mb-2`
-- Card text: `text-gray-500 leading-relaxed`
+2. "Applicants will need to show that their businesses are legally compliant, properly registered and meet basic operational and financial management standards. This approach will ensure that support is provided to enterprises that are ready to succeed and contribute to economic development. Eligibility is segmented across firm types and structural contexts to ensure inclusive coverage. This includes:"
 
-**Card Styling (matching NationalAgenda.tsx pattern)**
-- Card container: `bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300`
-- Green accent dot: `w-4 h-4 bg-[#00703C] rounded-full` (using site's primary green instead of red)
-- Grid layout: `grid md:grid-cols-2 gap-6`
-- Wide cards: `md:col-span-2` for cards 3 and 6
+**Accordion Items (7 items)**
 
-**Responsive Behavior**
-- 2-column grid on desktop, single column on mobile
-- Wide cards span full width on both
-- Consistent padding and gaps
+| # | Title | Content |
+|---|-------|---------|
+| 1 | Informal and start-up enterprises | Includes township traders, emerging farmers, and micro manufacturers needing support to formalise and grow. These greenfield ventures often lie outside formal supply chains and lack access to capital. |
+| 2 | Early-stage industrial and high-impact ventures | Targets Black Industrialist projects and strategic sectors such as manufacturing, agro-processing, mineral beneficiation, and green economy. These ventures require patient, risk-tolerant capital to scale. |
+| 3 | Growth-phase MSMEs | Supports small and medium enterprises that have survived initial hurdles and are ready to expand, but face barriers accessing conventional finance due to collateral or paperwork requirements. |
+| 4 | Mid-size firms graduating to large enterprises | Backs majority Black-owned firms with proven unit economics aiming for structural growth through technology upgrades, M&A, and market expansion, while preserving Black ownership. |
+| 5 | Cooperatives and collective enterprises | Includes community-owned entities such as agricultural cooperatives and village savings groups, especially in rural and township areas. Support will be tailored to help them scale and access larger markets. |
+| 6 | Youth-, women-, and designated group-led businesses | Prioritises enterprises led by black women, youth, and people with disabilities. A mandated portion of funding is reserved for these groups, with flexible requirements and linked technical support. |
+| 7 | Township and rural enterprises | Special emphasis is placed on businesses located in disadvantaged geographies. Dedicated funding and on-site support will help overcome infrastructure and market access barriers. |
+
+---
+
+### Styling to Match Site Design System
+
+Based on analysis of the PathToFundingFAQ.tsx component and site patterns:
+
+**Section Container**
+- Section: `py-10 bg-[hsl(var(--ptf-section-bg))]` (matching other path-to-funding sections)
+- Container: `container mx-auto px-4`
+
+**Section Header**
+- Badge pill: `inline-block px-4 py-2 bg-[hsl(var(--ptf-accent))]/10 text-[hsl(var(--ptf-accent))] rounded-full text-sm font-semibold mb-4`
+- H2: `text-3xl md:text-4xl font-bold text-[hsl(var(--ptf-heading))] mb-4`
+- Intro text: `text-lg text-[hsl(var(--ptf-text))] max-w-3xl` with `leading-relaxed`
+
+**Accordion Styling (matching PathToFundingFAQ.tsx)**
+- Container: `max-w-3xl mx-auto`
+- Accordion type: `single` with `collapsible` behavior
+- Item container: `bg-white rounded-xl border border-gray-100 px-6 shadow-sm data-[state=open]:shadow-md transition-shadow`
+- Trigger: `text-left text-[hsl(var(--ptf-heading))] font-semibold py-5 hover:no-underline`
+- Content: `text-[hsl(var(--ptf-text))] pb-5 leading-relaxed`
+- Items spacing: `space-y-4`
 
 ---
 
 ### Technical Implementation
 
-**File to modify:** `src/pages/TransformationIndex.tsx`
+**New Component Created**
+- File: `src/components/path-to-funding/EligibilityCriteriaSection.tsx`
+- Reuses the site's Radix UI Accordion component from `@/components/ui/accordion`
 
-**New section placement:** After `<NationalAgenda />` and before `</main>`
+**Page Modification**
+- File: `src/pages/PathToFunding.tsx`
+- Import and place `<EligibilityCriteriaSection />` immediately after the PathToFundingHero section
 
 ```text
-Structure:
-<main id="main-content">
-  <HeroSectionNew />
-  <WhySection />
-  <PolicyChoice />
-  <TheoryOfChange />
-  <ValueProposition />
-  <OperatingModel />
-  <NationalAgenda />
-  {/* NEW SECTION HERE */}
-  <section id="why-pillars" className="py-10 bg-white">
-    ...
+Current Structure:
+<main>
+  <section id="how-to-apply-top">
+    <PathToFundingHero ... />
   </section>
+  <FundingConditionsSection ... />
+  <InvestmentCriteriaSection />
 </main>
-<Footer />
+
+New Structure:
+<main>
+  <section id="how-to-apply-top">
+    <PathToFundingHero ... />
+  </section>
+  
+  {/* NEW SECTION HERE */}
+  <EligibilityCriteriaSection />
+  
+  <FundingConditionsSection ... />
+  <InvestmentCriteriaSection />
+</main>
 ```
 
-The new section will use semantic HTML (`<section>`, `<h2>`, `<h3>`, `<p>`) and follow the exact card pattern from NationalAgenda.tsx with green accent dots instead of red.
+**Responsive Behavior**
+- Mobile: Full-width accordion items with proper touch targets
+- Desktop: Centered content with max-width of 768px (3xl)
+- Consistent with existing page sections
 
