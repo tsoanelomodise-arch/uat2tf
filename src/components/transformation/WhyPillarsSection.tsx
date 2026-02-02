@@ -59,7 +59,6 @@ const WhyPillarsSection = () => {
       {/* Header Row */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 lg:gap-16 mb-16 md:mb-20 border-b-2 border-[#111111] pb-10">
         <div>
-          <div className="w-6 h-6 bg-black mb-5" />
           <h2 className="text-3xl md:text-[3rem] font-extrabold uppercase tracking-[-1px] leading-none text-black">
             Why?
           </h2>
