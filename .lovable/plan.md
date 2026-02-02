@@ -1,123 +1,105 @@
 
 
-## Plan: Create "Funding Process" Sub-Page Under How to Apply
+## Plan: Create "Market Segments" Sub-Page Under How to Apply
 
-I will create a new sub-page at `/path-to-funding/process` called "Funding Process" and populate it with the content from the uploaded HTML file. All text will be imported verbatim with no changes.
+I will create a new sub-page at `/path-to-funding/market-segments` called "Market segments" and populate it with the content from the uploaded HTML file. All text will be imported verbatim with no changes.
 
 ---
 
 ### Content to Import (from HTML - verbatim)
 
 **Breadcrumb**
-- "How to apply • Funding Process"
+- "How to apply • Market segments"
 
 **Hero Section**
-- H1: "Transformation Fund Funding Process"
-- Paragraph: "The Transformation Fund follows a structured, stage-gated funding process designed to ensure alignment, viability, accountability and long-term impact across the full project lifecycle."
+- H1: "Market segments we support"
+- Paragraph: "The Transformation Fund is designed to support enterprises that play a critical role in driving inclusive, productive economic growth. Our focus is on businesses and entrepreneurs who have historically faced barriers to finance, capability and market access."
 
-**Main Card with Stages**
-- Card Header H2: "Stages"
+**Strategic Pillars Section (3 cards)**
 
-**Timeline Items (8 stages):**
+| Card Title | Content |
+|------------|---------|
+| Ownership | We support black-owned businesses, including enterprises owned by women, youth and persons with disabilities, with a strong emphasis on broad-based and community-linked participation. |
+| Geographic focus | We prioritise enterprises based in rural areas and townships, recognising their potential to drive local industrial activity, job creation and inclusive development. |
+| Enterprise stage | We support both early-stage and growth-stage enterprises, providing tailored financing and support to help businesses move from concept to scale and into sustainable, competitive operations. |
 
-| Stage Label | Title | Description |
-|-------------|-------|-------------|
-| Stage 0 | Stage 0: Initiation and sponsor alignment | You start by submitting a formal funding request. At this stage, sponsorship is confirmed, governance arrangements are put in place, and the relevant regulatory pathways for your project are identified. |
-| Assessment | Pre-investment assessment | Your proposal is initially assessed to confirm strategic alignment, readiness and potential impact before moving into detailed development. |
-| Stage 1 | Stage 1: Feasibility and information memorandum | A feasibility study and Information Memorandum are developed, setting out the project description, market analysis and an initial financial model. Proposals are reviewed by an Early Review Committee. |
-| Stage 2 | Stage 2: Concept, site and process design | The project concept is refined through site selection, infrastructure confirmation and definition of production technology. A comprehensive concept design pack is prepared, supported by full technical, market, financial and risk due diligence. |
-| Stage 3 | Stage 3: Procurement and EPC strategy | Equipment specifications are finalised, suppliers identified and the contracting model confirmed. Engineering, Procurement and Construction (EPC) and Technical Assistance (TA) agreements are negotiated, followed by credit approval and contracting. |
-| Stage 4 | Stage 4: Financing and approvals | The capital structure is finalised, funding sources secured and all regulatory approvals obtained. The financial model is refined, enabling disbursement and ongoing monitoring. |
-| Stage 5 | Stage 5: Construction and commissioning | Construction and commissioning are managed in line with quality, health and safety standards. Operational and maintenance documentation is prepared to support a smooth transition to operations. |
-| Stage 6 | Stage 6: Operations readiness and handover | The final stage focuses on operational readiness, including management and staffing, establishment of marketing and distribution channels, and the setting of performance KPIs and reporting systems to ensure sustainable operations. |
+**Priority Sectors Section**
+- H2: "Priority sectors"
+- Intro paragraph: "Our investments focus on productive, future-focused sectors that strengthen industrial capacity, unlock new markets and drive inclusive economic growth. Our sector focus reflects national priorities, sustainability imperatives and opportunities for scalable enterprise development."
 
-**Sidebar Card**
-- Header H2: "Quick actions"
-- Buttons: "Start application", "Eligibility check", "Contact support"
+**Sector Cards (7 items):**
+
+| Sector | Description |
+|--------|-------------|
+| Renewable energy | We support renewable and clean energy value chains, including solar, wind and hydro-electric generation, as well as biofuels, biomass and biogas projects that contribute to energy security and a low-carbon economy. |
+| Mining services | Our investments extend beyond extraction to include mining services, mineral beneficiation and services incidental to mining, strengthening local value addition and industrial capability. |
+| Agro-processing | We prioritise agro-processing and food manufacturing, alongside chemicals processing and biofuels, to deepen local production, improve food security and expand export-ready industries. |
+| Information & communication technology | The Transformation Fund supports the development and expansion of ICT and telecoms infrastructure that enables digital connectivity, innovation and inclusive participation in the digital economy. |
+| Infrastructure | The Transformation Fund invests in enabling infrastructure, including tourism infrastructure, bulk services and other specialised buildings that support productive economic activity. These investments create the foundations for growth, job creation and sustainable local development. |
+| Manufacturing | The Fund supports a wide range of manufacturing activities, including textiles, consumables, automotive components, batteries and electric accumulators, enabling industrial diversification and competitiveness. |
+| Services and business process outsourcing | The Transformation Fund supports services-led growth through business process outsourcing, call centre and data analytics services, alongside investment in healthcare infrastructure. It also focuses on digital industry commercialisation, enabling innovative digital solutions to scale into competitive, market-ready enterprises. |
 
 ---
 
 ### Technical Implementation
 
 #### 1. Create New Page Component
-**File:** `src/pages/path-to-funding/FundingProcessPage.tsx`
+**File:** `src/pages/path-to-funding/MarketSegmentsPage.tsx`
 
-This page will follow the same structure as other sub-pages (e.g., PolicyChoicePage.tsx):
+Following the same structure as FundingProcessPage:
 - PhakamaniNavbar at top
 - Hero section with breadcrumb, H1, and intro paragraph
-- Main content section with stages timeline
-- Sidebar with quick actions (on desktop, stacked on mobile)
+- Main content section with pillars grid and sectors grid
 - Footer at bottom
 
 #### 2. Create Content Component
-**File:** `src/components/path-to-funding/FundingProcessContent.tsx`
+**File:** `src/components/path-to-funding/MarketSegmentsContent.tsx`
 
-Contains the main content structure:
-- Two-column grid layout (main content + sidebar) on desktop
-- Single column on mobile
-- Card component for stages timeline
-- Card component for sidebar quick actions
+Contains:
+- Strategic Pillars section: 3-column grid of cards
+- Priority Sectors section: 2-column grid of sector cards with left border accent
 
 #### 3. Add Route to App.tsx
-Add new route: `/path-to-funding/process`
+Add new route: `/path-to-funding/market-segments`
 
 #### 4. Update Navigation
 **File:** `src/components/phakamani/PhakamaniNavbar.tsx`
 
-Add "Funding Process" link to the "How to apply" dropdown menu (both desktop and mobile).
+Add "Market segments" link to the "How to apply" dropdown menu (both desktop and mobile).
 
 ---
 
 ### Styling to Match Site Design System
 
 **Page Container**
-- `min-h-screen bg-background pt-[180px] lg:pt-[210px]` (matching PathToFunding page)
+- `min-h-screen bg-background` (matching FundingProcessPage)
+- Main: `pt-[180px] lg:pt-[210px]`
 
-**Hero Section (Breadcrumb + Title)**
+**Hero Section**
 - Container: `container mx-auto px-4 py-10`
 - Breadcrumb: `text-sm font-semibold text-[hsl(var(--ptf-text))] uppercase tracking-wider mb-4`
 - H1: `text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ptf-heading))] mb-4`
 - Intro paragraph: `text-lg text-[hsl(var(--ptf-text))] leading-relaxed max-w-3xl`
 
-**Main Layout**
+**Strategic Pillars Grid**
+- Container: `container mx-auto px-4 pb-16`
+- Grid: `grid grid-cols-1 md:grid-cols-3 gap-6 mb-16`
+- Card: `bg-white rounded-2xl border border-gray-100 shadow-lg p-8 transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-xl hover:-translate-y-1`
+- Card H3: `text-xl font-bold text-[hsl(var(--ptf-heading))] mb-3 pb-3 border-b-[3px] border-[hsl(var(--ptf-accent))] inline-block`
+- Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
+
+**Priority Sectors Section**
+- Background: `bg-[hsl(var(--ptf-section-bg))] py-16` (light background section)
 - Container: `container mx-auto px-4`
-- Grid: `grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8`
+- Section intro: `max-w-3xl mb-12`
+- H2: `text-3xl md:text-4xl font-bold text-[hsl(var(--ptf-heading))] mb-4`
+- Intro paragraph: `text-lg text-[hsl(var(--ptf-text))] leading-relaxed`
 
-**Stages Card**
-- Card: `bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden`
-- Card Header: `px-8 py-6 border-b border-gray-100 bg-gray-50/50`
-- Card Header H2: `text-xl font-bold text-[hsl(var(--ptf-heading))]`
-- Card Body: `p-8`
-
-**Timeline Steps**
-- Container: `space-y-5`
-- Step item: `grid grid-cols-1 sm:grid-cols-[56px_1fr] gap-4 sm:gap-6 p-6 bg-white border border-gray-100 rounded-xl transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-0.5`
-- Alternating style (for "alt" steps): `bg-gradient-to-br from-white to-green-50/50 border-[hsl(var(--ptf-accent))]/20`
-- Icon container: `w-14 h-14 rounded-xl bg-[hsl(var(--ptf-accent))]/10 flex items-center justify-center text-[hsl(var(--ptf-accent))]`
-- Stage pill: `inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold uppercase tracking-wide mb-3`
-- Step H3: `text-lg font-bold text-[hsl(var(--ptf-heading))] mb-2`
-- Step paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
-
-**Sidebar**
-- Wrapper: `lg:sticky lg:top-6`
-- Card: `bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden`
-- Card Header: `px-6 py-5 border-b border-gray-100`
-- Card Header H2: `text-lg font-bold text-[hsl(var(--ptf-heading))]`
-- Card Body: `p-6`
-- Button stack: `space-y-3`
-- Primary button: `w-full py-3.5 px-5 rounded-full font-semibold text-white bg-[hsl(var(--ptf-accent))] hover:bg-[hsl(var(--ptf-accent-hover))] transition-all shadow-md hover:shadow-lg`
-- Secondary buttons: `w-full py-3.5 px-5 rounded-full font-semibold border border-gray-200 text-[hsl(var(--ptf-heading))] hover:border-gray-300 hover:bg-gray-50 transition-all`
-
-**Icons for Steps**
-Using Lucide React icons mapped to each stage:
-- Stage 0: `ArrowUp` (initiation)
-- Assessment: `Search` (assessment)
-- Stage 1: `FileText` (feasibility)
-- Stage 2: `Layers` (concept design)
-- Stage 3: `Monitor` (procurement)
-- Stage 4: `DollarSign` (financing)
-- Stage 5: `CheckCircle` (construction)
-- Stage 6: `Flag` (operations)
+**Sector Cards Grid**
+- Grid: `grid grid-cols-1 md:grid-cols-2 gap-6`
+- Card: `bg-white border-l-4 border-[hsl(var(--ptf-heading))] p-6 rounded-r-xl shadow-sm transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg`
+- Card H3: `text-lg font-bold text-[hsl(var(--ptf-heading))] mb-2`
+- Card paragraph: `text-[hsl(var(--ptf-text))] leading-relaxed`
 
 ---
 
@@ -125,8 +107,8 @@ Using Lucide React icons mapped to each stage:
 
 | Action | File |
 |--------|------|
-| Create | `src/pages/path-to-funding/FundingProcessPage.tsx` |
-| Create | `src/components/path-to-funding/FundingProcessContent.tsx` |
+| Create | `src/pages/path-to-funding/MarketSegmentsPage.tsx` |
+| Create | `src/components/path-to-funding/MarketSegmentsContent.tsx` |
 | Modify | `src/App.tsx` (add route) |
 | Modify | `src/components/phakamani/PhakamaniNavbar.tsx` (add nav link) |
 
@@ -135,11 +117,15 @@ Using Lucide React icons mapped to each stage:
 ### Responsive Behaviour
 
 **Desktop (lg+)**
-- Two-column layout: main content (1fr) + sidebar (340px)
-- Sidebar sticky positioned
+- Strategic pillars: 3 columns
+- Sector cards: 2 columns
 
-**Tablet/Mobile**
-- Single column layout
-- Sidebar moves below main content
-- Timeline steps stack vertically with icon above content on small screens
+**Tablet (md)**
+- Strategic pillars: 3 columns
+- Sector cards: 2 columns
+
+**Mobile**
+- Strategic pillars: 1 column stacked
+- Sector cards: 1 column stacked
+- Proper spacing and touch targets
 
