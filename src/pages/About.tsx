@@ -1,6 +1,7 @@
 import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
 import AboutHero from "@/components/phakamani/AboutHero";
 import Footer from "@/components/transformation/Footer";
+import objectivesFarmerImg from "@/assets/objectives-farmer.jpg";
 
 const pillars = [
   {
@@ -90,16 +91,13 @@ const About = () => {
         <section className="py-16 md:py-20 bg-[#f4f4f4]">
           <div className="max-w-[1200px] mx-auto px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Image Placeholder */}
-              <div 
-                className="min-h-[300px] flex items-center justify-center opacity-10"
-                style={{
-                  backgroundColor: '#ccc',
-                  backgroundImage: 'linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111)',
-                  backgroundSize: '20px 20px',
-                  backgroundPosition: '0 0, 10px 10px'
-                }}
-              />
+              <div className="min-h-[300px] overflow-hidden">
+                <img 
+                  src={objectivesFarmerImg} 
+                  alt="Farmer harvesting produce" 
+                  className="w-full h-full object-cover min-h-[300px]"
+                />
+              </div>
               
               <div className="md:pl-8">
                 <span className="inline-block text-sm font-bold uppercase tracking-[2px] pl-4 border-l-[3px] border-[#111111] text-[#111111] mb-4">
