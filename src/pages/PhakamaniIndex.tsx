@@ -5,7 +5,8 @@ import PortalSection from "@/components/phakamani/PortalSection";
 import Footer from "@/components/transformation/Footer";
 import { usePathToFundingQuiz } from "@/hooks/usePathToFundingQuiz";
 import EligibilityModal from "@/components/path-to-funding/EligibilityModal";
-import { SuccessModal, RejectModal } from "@/components/path-to-funding/ResultModals";
+import DocumentCheckModal from "@/components/path-to-funding/DocumentCheckModal";
+import { SuccessModal, RejectModal, DocSuccessModal, DocRejectModal } from "@/components/path-to-funding/ResultModals";
 
 const PhakamaniIndex = () => {
   const quiz = usePathToFundingQuiz();
@@ -41,6 +42,31 @@ const PhakamaniIndex = () => {
       <RejectModal
         open={quiz.rejectModalOpen}
         onOpenChange={quiz.setRejectModalOpen}
+      />
+
+      {/* Document Check Modal */}
+      <DocumentCheckModal
+        open={quiz.documentModalOpen}
+        onOpenChange={quiz.setDocumentModalOpen}
+        step={quiz.documentStep}
+        setStep={quiz.setDocumentStep}
+        answers={quiz.documentAnswers}
+        updateAnswer={quiz.updateDocumentAnswer}
+        onComplete={quiz.completeDocumentQuiz}
+      />
+
+      {/* Document Result Modals */}
+      <DocSuccessModal
+        open={quiz.docSuccessModalOpen}
+        onOpenChange={quiz.setDocSuccessModalOpen}
+        onContinue={() => {
+          quiz.setDocSuccessModalOpen(false);
+          window.open('https://www.wonderlandstudio.co.za/tfportalform/uat_wizard.html', '_blank');
+        }}
+      />
+      <DocRejectModal
+        open={quiz.docRejectModalOpen}
+        onOpenChange={quiz.setDocRejectModalOpen}
       />
     </div>
   );
