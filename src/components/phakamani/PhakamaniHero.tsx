@@ -19,7 +19,11 @@ const whyPageDescriptions: Record<string, string> = {
   '/about/why/national-agenda': "The Fund is designed to drive South Africa's key economic and social priorities. It will support businesses to grow, create meaningful jobs and promote equitable participation in the economy.",
 };
 
-const PhakamaniHero = memo(() => {
+interface PhakamaniHeroProps {
+  onCheckEligibility?: () => void;
+}
+
+const PhakamaniHero = memo(({ onCheckEligibility }: PhakamaniHeroProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -218,7 +222,7 @@ const PhakamaniHero = memo(() => {
                 How to Apply
               </Link>
               <button
-                onClick={() => navigate('/path-to-funding#your-path-to-funding')}
+                onClick={onCheckEligibility}
                 className="phakamani-btn-primary bg-white/90 !text-black hover:bg-white shadow-lg"
               >
                 Eligibility Checklist

@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import {
   Dialog,
@@ -25,17 +24,11 @@ const PortalSection = memo(() => {
             <p className="text-lg leading-relaxed text-black mb-5">
               Register, apply, and track your status through our secure portal environment.
             </p>
-            <ul className="highlight-list mb-8" role="list">
+            <ul className="highlight-list" role="list">
               <li role="listitem">Status Tracking</li>
               <li role="listitem">Secure Document Upload</li>
               <li role="listitem">Guided Application Process</li>
             </ul>
-            <Link
-              to="/path-to-funding#how-to-apply-top"
-              className="phakamani-btn-primary inline-block"
-            >
-              Click for more
-            </Link>
           </div>
 
           {/* Video Player */}
