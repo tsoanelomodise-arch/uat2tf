@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Plus } from 'lucide-react';
 
 const EligibilityCriteriaSection: React.FC = memo(() => {
   const eligibilityItems = [
@@ -39,42 +40,51 @@ const EligibilityCriteriaSection: React.FC = memo(() => {
   ];
 
   return (
-    <section id="eligibility-criteria" className="py-10 bg-[hsl(var(--ptf-section-bg))]">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-[hsl(var(--ptf-accent))]/10 text-[hsl(var(--ptf-accent))] rounded-full text-sm font-semibold mb-4">
-            Who Can Apply
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[hsl(var(--ptf-heading))] mb-4">
-            Eligibility and criteria
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-4">
-            <p className="text-lg text-[hsl(var(--ptf-text))] leading-relaxed">
-              The Transformation Fund is designed to serve a broad yet intentionally segmented market of majority Black-owned enterprises that are underserved by traditional finance.
-            </p>
-            <p className="text-lg text-[hsl(var(--ptf-text))] leading-relaxed">
-              Applicants will need to show that their businesses are legally compliant, properly registered and meet basic operational and financial management standards. This approach will ensure that support is provided to enterprises that are ready to succeed and contribute to economic development. Eligibility is segmented across firm types and structural contexts to ensure inclusive coverage. This includes:
-            </p>
-          </div>
+    <section id="eligibility-criteria" className="py-12 md:py-20 bg-[#F8FAFC]">
+      <div className="max-w-[1100px] mx-auto px-6">
+        {/* Page Header */}
+        <div className="pb-12 border-b border-[#E2E8F0] mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#0F172A]">
+            How to apply
+          </h1>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {eligibilityItems.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-white rounded-xl border border-gray-100 px-6 shadow-sm data-[state=open]:shadow-md transition-shadow"
-              >
-                <AccordionTrigger className="text-left text-[hsl(var(--ptf-heading))] font-semibold py-5 hover:no-underline">
-                  {item.title}
-                </AccordionTrigger>
-                <AccordionContent className="text-[hsl(var(--ptf-text))] pb-5 leading-relaxed">
-                  {item.content}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+        {/* Content Section */}
+        <div className="space-y-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A]">
+            Eligibility and criteria
+          </h2>
+
+          <p className="text-lg text-[#64748B] leading-relaxed">
+            The Transformation Fund is designed to serve a broad yet intentionally segmented market of majority Black-owned enterprises that are underserved by traditional finance.
+          </p>
+
+          <p className="text-base text-[#334155] leading-relaxed">
+            Applicants will need to show that their businesses are legally compliant, properly registered and meet basic operational and financial management standards. This approach will ensure that support is provided to enterprises that are ready to succeed and contribute to economic development. Eligibility is segmented across firm types and structural contexts to ensure inclusive coverage. This includes:
+          </p>
+
+          {/* Accordion */}
+          <div className="mt-8">
+            <Accordion type="single" collapsible defaultValue="item-0" className="space-y-3">
+              {eligibilityItems.map((item, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="bg-white rounded-lg border border-[#E2E8F0] px-6 shadow-sm hover:border-[#D97706] transition-colors data-[state=open]:border-[#D97706]"
+                >
+                  <AccordionTrigger className="text-left text-[#0F172A] font-semibold py-5 hover:no-underline group [&>svg]:hidden">
+                    <span className="flex-1">{item.title}</span>
+                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-[#D97706] transition-transform duration-200 group-data-[state=open]:rotate-45">
+                      <Plus className="w-5 h-5" strokeWidth={2.5} />
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[#334155] pb-5 leading-relaxed">
+                    {item.content}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </div>
     </section>
