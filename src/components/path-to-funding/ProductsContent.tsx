@@ -1,57 +1,80 @@
-import { Sprout, TrendingUp, Users, Shield } from "lucide-react";
-
 const products = [
   {
-    icon: Sprout,
+    number: "01",
     title: "Startup and informal business grants (capability vouchers)",
-    description: "provide seed capital to early-stage and informal enterprises, disbursed in tranches tied to developmental milestones. These grants are easy to access and embedded with technical support to ensure effective use and business formalisation."
+    paragraphs: [
+      "Provide seed capital to early-stage and informal enterprises, disbursed in tranches tied to developmental milestones.",
+      "These grants are easy to access and embedded with technical support to ensure effective use and business formalisation."
+    ]
   },
   {
-    icon: TrendingUp,
+    number: "02",
     title: "Growth and expansion loans (performance-based debt)",
-    description: "offer patient, concessionary finance to established MSMEs ready to scale. Structured around operational performance rather than rigid collateral requirements, these loans are released in stages linked to capability improvements and business outcomes, with mentorship and monitoring built in."
+    paragraphs: [
+      "Offer patient, concessionary finance to established MSMEs ready to scale.",
+      "Structured around operational performance rather than rigid collateral requirements, these loans are released in stages linked to capability improvements and business outcomes, with mentorship and monitoring built in."
+    ]
   },
   {
-    icon: Users,
+    number: "03",
     title: "Equity and co-investment instruments",
-    description: "provide ownership capital to high-growth ventures and strategic industrial projects, particularly those led by Black entrepreneurs. These instruments allow the Fund to take equity stakes, co-invest with private partners, and structure broad-based ownership models that include communities and workers. Technical support and milestone-based disbursements ensure that equity investments drive both commercial success and transformation impact."
+    paragraphs: [
+      "Provide ownership capital to high-growth ventures and strategic industrial projects, particularly those led by Black entrepreneurs.",
+      "These instruments allow the Fund to take equity stakes, co-invest with private partners, and structure broad-based ownership models that include communities and workers.",
+      "Technical support and milestone-based disbursements ensure that equity investments drive both commercial success and transformation impact."
+    ]
   },
   {
-    icon: Shield,
+    number: "04",
     title: "Blended finance and guarantee instruments",
-    description: "combine public and private capital to de-risk lending to underserved enterprises. These include partial credit guarantees, subsidised credit lines, and risk-sharing facilities that encourage commercial lenders to extend finance to MSMEs. Guarantees are tied to capability milestones and integrated with technical support, ensuring that risk-sharing leads to sustainable business growth."
+    paragraphs: [
+      "Combine public and private capital to de-risk lending to underserved enterprises.",
+      "These include partial credit guarantees, subsidised credit lines, and risk-sharing facilities that encourage commercial lenders to extend finance to MSMEs.",
+      "Guarantees are tied to capability milestones and integrated with technical support, ensuring that risk-sharing leads to sustainable business growth."
+    ]
   }
 ];
 
 const ProductsContent = () => {
   return (
-    <section className="container mx-auto px-4 pb-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {products.map((product, index) => {
-          const Icon = product.icon;
-          return (
-            <div
-              key={index}
-              className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 transition-all duration-200 hover:border-[hsl(var(--ptf-accent))] hover:shadow-lg hover:-translate-y-1"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-[hsl(var(--ptf-accent))]/10 rounded-lg flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-[hsl(var(--ptf-accent))]" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-[hsl(var(--ptf-heading))] mb-4 pb-4 border-b border-gray-200">
-                    {product.title}
-                  </h3>
-                  <p className="text-[hsl(var(--ptf-text))] leading-relaxed">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
+    <div className="max-w-[1200px] mx-auto px-6">
+      {/* Header */}
+      <header className="pt-16 md:pt-20 pb-12 md:pb-16 max-w-[800px]">
+        <span className="block text-sm font-bold uppercase tracking-[2px] text-[#555555] mb-4">
+          Transformation Fund
+        </span>
+        <h1 className="text-3xl md:text-[3rem] font-bold uppercase text-black leading-[1.1] mb-6">
+          Products
+        </h1>
+        <p className="text-lg text-[#555555] font-light max-w-[90%]">
+          To meet the diverse needs of its target market, the Transformation Fund offers a suite of investment products that combine financial capital with embedded capability support. These instruments are designed to be flexible, performance-linked, and tailored to the realities of underserved enterprises, addressing gaps left by traditional funding models.
+        </p>
+      </header>
+
+      {/* Products Grid */}
+      <main className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-16 md:pb-20">
+        {products.map((product, index) => (
+          <article
+            key={index}
+            className="bg-[#f8f8f8] p-8 md:p-10 flex flex-col border-l-4 border-black transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)]"
+          >
+            <div className="w-[50px] h-[50px] bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">
+              {product.number}
             </div>
-          );
-        })}
-      </div>
-    </section>
+            <h2 className="text-2xl font-semibold text-black capitalize leading-[1.3] mb-4">
+              {product.title}
+            </h2>
+            <div>
+              {product.paragraphs.map((paragraph, pIndex) => (
+                <p key={pIndex} className="text-base text-[#555555] mb-4 last:mb-0">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </article>
+        ))}
+      </main>
+    </div>
   );
 };
 
