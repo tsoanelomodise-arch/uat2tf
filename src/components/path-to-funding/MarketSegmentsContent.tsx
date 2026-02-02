@@ -64,17 +64,9 @@ const MarketSegmentsContent = () => {
   return (
     <div>
       {/* Intro Section */}
-      <section className="bg-white pt-16 md:pt-24 pb-12 md:pb-16">
-        <div className="max-w-[1200px] mx-auto px-5 text-center">
-          <header className="max-w-[800px] mx-auto mb-10">
-            <span className="block text-xs font-semibold tracking-[0.1em] text-[#888888] mb-4 uppercase">
-              Introduction
-            </span>
-            <h1 className="text-3xl md:text-[3rem] font-extrabold uppercase tracking-[-0.02em] leading-[1.1] text-black mb-6">
-              Market segments we support
-            </h1>
-          </header>
-          <div className="max-w-[700px] mx-auto">
+      <section className="bg-white pt-8 pb-12 md:pb-16">
+        <div className="max-w-[1200px] mx-auto px-5">
+          <div className="max-w-[700px]">
             <p className="text-lg text-[#333333] font-normal mb-4">
               The Transformation Fund is designed to support enterprises that play a critical role in driving inclusive, productive economic growth.
             </p>
