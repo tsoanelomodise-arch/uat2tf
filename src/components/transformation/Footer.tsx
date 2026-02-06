@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-12 pt-8 border-t border-green-400 text-center">
-          <p className="opacity-75 font-light">&copy; 2026 Transformation Fund. Engineering inclusive growth for South Africa</p>
+          <p className="opacity-75 font-light">&copy; 2026 Transformation Fund. Engineering inclusive growth for South Africa.</p>
         </div>
       </div>
     </footer>
