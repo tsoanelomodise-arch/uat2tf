@@ -1,116 +1,42 @@
 
 
-## Replace "Eligibility and criteria" Section Content
+## Fix About Hero Images Not Appearing in Production
 
-This plan replaces the content of the `EligibilityCriteriaSection` component on the "How to Apply" page with the content from the provided HTML file, while preserving all existing site structure.
+### Problem
 
----
+The About page hero images are loaded from an external URL (`https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png` and `BakeryFront.png`). This external server may be unavailable, slow, or blocking cross-origin requests in the production environment, causing the images to not appear when the site is exported/published.
 
-### Summary of Changes
+### Solution
 
-The uploaded HTML provides a new design for the "Eligibility and criteria" section featuring:
-- A page header with "How to apply" title and bottom border
-- An intro section with a subtitle "Eligibility and criteria" and two paragraphs of explanatory text
-- A 7-item accordion using the same content categories but with updated styling (card-style items with borders, hover effects, and +/x expand indicators)
+Download the two bakery images and store them locally in the `public/images/` directory, then update `AboutHero.tsx` to reference the local paths. This follows the same pattern already used by:
+- The main hero (`PhakamaniHero.tsx`) which uses `/images/hero/...` paths
+- The Path to Funding hero which uses `/images/path-to-funding/SeamstressBack.png` and `SeamstressFront.png`
 
----
+### Steps
 
-### What Will Be Preserved (No Changes)
+**Step 1: Download and save the images locally**
 
-1. **Header/Navbar** - `PhakamaniNavbar` component
-2. **Hero Section** - `PathToFundingHero` component with "How to Apply" headline
-3. **Eligibility & Document Checklist** - `FundingConditionsSection` with the 3-step cards and quiz modals
-4. **Footer** - `Footer` component
-5. **All modals** - Eligibility, Document, Success, Reject, and Incomplete modals
+Fetch the two images from the external URLs and save them into the project:
+- `https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png` --> `public/images/hero/BakeryBack.png`
+- `https://www.wonderlandstudio.co.za/tfrevised/BakeryFront.png` --> `public/images/hero/BakeryFront.png`
 
----
+**Step 2: Update `src/components/phakamani/AboutHero.tsx`**
 
-### Implementation Steps
+Change the two image `src` attributes from the external URLs to local paths:
 
-#### Step 1: Update `EligibilityCriteriaSection.tsx`
+- `src="https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png"` becomes `src="/images/hero/BakeryBack.png"`
+- `src="https://www.wonderlandstudio.co.za/tfrevised/BakeryFront.png"` becomes `src="/images/hero/BakeryFront.png"`
 
-Rewrite the component to match the HTML's structure and styling:
+No other changes to the component are needed -- the class names, loading attributes, alt text, and steam animation elements all remain the same.
 
-**Layout Changes:**
-- Remove the centered badge ("Who Can Apply") that doesn't exist in the new design
-- Remove centered text alignment - switch to left-aligned content
-- Add page header with "How to apply" title and bottom border line
-- Update typography to match: larger heading sizes, specific text colors (#0F172A primary, #334155 text, #64748B light text)
+### Why This Works
 
-**Accordion Styling Updates:**
-- White background cards with subtle border (`border-[#E2E8F0]`)
-- Rounded corners (`rounded-lg`)
-- Hover state: border changes to primary color
-- Remove default chevron icon, add custom "+" icon that rotates 45deg when open
-- Amber/gold accent color for the icon (#D97706)
-- Animation for smooth content reveal
+Files in the `public/` directory are served as-is by Vite in both development and production. By hosting the images locally, we eliminate the dependency on an external server and ensure the images are always available, regardless of network conditions or third-party server status.
 
-**Content (Verbatim from HTML):**
-```text
-Title: "Eligibility and criteria"
+### Files Changed
 
-Intro paragraph 1:
-"The Transformation Fund is designed to serve a broad yet intentionally segmented market of majority Black-owned enterprises that are underserved by traditional finance."
-
-Intro paragraph 2:
-"Applicants will need to show that their businesses are legally compliant, properly registered and meet basic operational and financial management standards. This approach will ensure that support is provided to enterprises that are ready to succeed and contribute to economic development. Eligibility is segmented across firm types and structural contexts to ensure inclusive coverage. This includes:"
-
-Accordion items (7 total - same titles and content as current):
-1. Informal and start-up enterprises
-2. Early-stage industrial and high-impact ventures
-3. Growth-phase MSMEs
-4. Mid-size firms graduating to large enterprises
-5. Cooperatives and collective enterprises
-6. Youth-, women-, and designated group-led businesses
-7. Township and rural enterprises
-```
-
----
-
-### Technical Details
-
-**File to Modify:**
-- `src/components/path-to-funding/EligibilityCriteriaSection.tsx`
-
-**Component Structure:**
-```text
-section (py-20 bg-[#F8FAFC])
-  container (max-w-[1100px] mx-auto px-6)
-    page-header (pb-12 border-b border-[#E2E8F0] mb-12)
-      h1 "How to apply"
-    content-wrapper
-      h2 "Eligibility and criteria"
-      p.intro-text (first paragraph - lighter weight)
-      p (second paragraph)
-      accordion container
-        7x accordion-items with custom plus/rotate styling
-```
-
-**Styling Tokens:**
-- Primary text: `#0F172A` (deep navy/slate)
-- Main text: `#334155` (dark grey)
-- Light text: `#64748B` (medium grey) 
-- Background: `#F8FAFC` (light grey)
-- Card background: `#FFFFFF`
-- Border: `#E2E8F0`
-- Accent: `#D97706` (amber/gold for icon)
-- Border radius: `rounded-lg` (8px)
-- Shadows: subtle `shadow-sm`
-
-**Custom Icon Behavior:**
-- Display "+" symbol using CSS pseudo-element or inline span
-- On open state: rotate 45deg to form "x"
-- Color: amber/gold accent
-
-**First Accordion Item Default Open:**
-- Per HTML, first item has `details open` attribute
-- Use `defaultValue="item-0"` in Radix Accordion
-
----
-
-### Responsive Considerations
-
-- Padding reduces on mobile (from 5rem to 3rem vertical)
-- Font sizes scale down appropriately on smaller screens
-- Container uses consistent padding (1.5rem horizontal)
-
+| File | Change |
+|------|--------|
+| `public/images/hero/BakeryBack.png` | New file (downloaded from external URL) |
+| `public/images/hero/BakeryFront.png` | New file (downloaded from external URL) |
+| `src/components/phakamani/AboutHero.tsx` | Update 2 image `src` paths to local references |
