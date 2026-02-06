@@ -1,42 +1,36 @@
 
 
-## Fix About Hero Images Not Appearing in Production
+## Fix BakeryFront.png Visibility on About Page
 
 ### Problem
+The `BakeryFront.png` image (woman holding a bread tray) is not visually appearing in the hero section. Both images load successfully from the server, but the CSS positioning of `.layer-front-bakery` uses `left: -150px`, which can push the front image out of the visible area depending on viewport size and the `overflow-hidden` clipping on the header element.
 
-The About page hero images are loaded from an external URL (`https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png` and `BakeryFront.png`). This external server may be unavailable, slow, or blocking cross-origin requests in the production environment, causing the images to not appear when the site is exported/published.
+### Root Cause
+In `src/index.css`, the `.slide-bakery .layer-front-bakery` rule has:
+- `left: -150px` -- shifts the image 150px to the left
+- `top: -30px` -- shifts it 30px upward
+- Combined with `overflow-hidden` on the `<header>` in `AboutHero.tsx`, this clips the front image
 
 ### Solution
+Adjust the CSS positioning for `.layer-front-bakery` to keep the front image properly visible within the container, similar to how the seamstress front image works on the Path to Funding page.
 
-Download the two bakery images and store them locally in the `public/images/` directory, then update `AboutHero.tsx` to reference the local paths. This follows the same pattern already used by:
-- The main hero (`PhakamaniHero.tsx`) which uses `/images/hero/...` paths
-- The Path to Funding hero which uses `/images/path-to-funding/SeamstressBack.png` and `SeamstressFront.png`
+### Changes
 
-### Steps
+**File: `src/index.css` (lines 485-496)**
 
-**Step 1: Download and save the images locally**
+Update the `.slide-bakery .layer-front-bakery` CSS rule:
+- Change `left: -150px` to `left: -50px` (reduce the leftward offset so the image stays within the visible area)
+- Change `top: -30px` to `top: 0` (keep the image vertically aligned within the container)
+- Keep all other properties (z-index, filter, animation, etc.) unchanged
 
-Fetch the two images from the external URLs and save them into the project:
-- `https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png` --> `public/images/hero/BakeryBack.png`
-- `https://www.wonderlandstudio.co.za/tfrevised/BakeryFront.png` --> `public/images/hero/BakeryFront.png`
-
-**Step 2: Update `src/components/phakamani/AboutHero.tsx`**
-
-Change the two image `src` attributes from the external URLs to local paths:
-
-- `src="https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png"` becomes `src="/images/hero/BakeryBack.png"`
-- `src="https://www.wonderlandstudio.co.za/tfrevised/BakeryFront.png"` becomes `src="/images/hero/BakeryFront.png"`
-
-No other changes to the component are needed -- the class names, loading attributes, alt text, and steam animation elements all remain the same.
+This mirrors the approach used by `.layer-front-seamstress` on the Path to Funding page, which uses `left: -140px` and `top: -10px` but works because its container layout is slightly different.
 
 ### Why This Works
-
-Files in the `public/` directory are served as-is by Vite in both development and production. By hosting the images locally, we eliminate the dependency on an external server and ensure the images are always available, regardless of network conditions or third-party server status.
+By reducing the leftward offset, the front image (the woman with the bread tray) will remain within the visible bounds of the header container even after `overflow-hidden` clips the overflowing edges. The transparent PNG will overlay correctly on top of the bakery interior background image, creating the intended parallax layered effect with the steam animation.
 
 ### Files Changed
 
 | File | Change |
 |------|--------|
-| `public/images/hero/BakeryBack.png` | New file (downloaded from external URL) |
-| `public/images/hero/BakeryFront.png` | New file (downloaded from external URL) |
-| `src/components/phakamani/AboutHero.tsx` | Update 2 image `src` paths to local references |
+| `src/index.css` | Adjust `left` and `top` values for `.slide-bakery .layer-front-bakery` |
+
