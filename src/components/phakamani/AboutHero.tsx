@@ -23,14 +23,14 @@ const AboutHero = memo(() => {
               <div className="relative w-full h-full max-w-[650px]">
                 <div className="phakamani-slide slide-bakery active">
                   <img 
-                    src="https://www.wonderlandstudio.co.za/tfrevised/BakeryBack.png" 
+                    src="/images/hero/BakeryBack.png" 
                     className="layer-back-bakery"
                     alt=""
                     loading="eager"
                     fetchPriority="high"
                   />
                   <img 
-                    src="https://www.wonderlandstudio.co.za/tfrevised/BakeryFront.png" 
+                    src="/images/hero/BakeryFront.png" 
                     className="layer-front-bakery"
                     alt=""
                     loading="eager"
