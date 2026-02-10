@@ -43,7 +43,7 @@ const TestHomeHero = ({ onCheckEligibility }: TestHomeHeroProps) => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[85vh] overflow-hidden bg-[#f0f0f0]">
+    <section className="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[85vh] overflow-hidden bg-[#f0f0f0]">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -53,13 +53,14 @@ const TestHomeHero = ({ onCheckEligibility }: TestHomeHeroProps) => {
           }`}
           style={{
             backgroundImage: `url(${slide.image})`,
-            backgroundSize: "contain",
-            backgroundPosition: "center center",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
             backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
           }}
         >
-          <div className="relative z-[2] w-full h-full flex items-center">
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="relative z-[2] w-full h-full flex items-center min-h-[500px] md:min-h-[600px] lg:min-h-[85vh]">
             <div className="max-w-[1200px] mx-auto px-5 w-full">
               <div className="max-w-[650px] mr-auto text-left">
                 <h1 className="text-[2.5rem] leading-[1.2] font-extrabold uppercase tracking-tight text-white mb-6 max-md:text-[1.8rem] max-md:text-center">
