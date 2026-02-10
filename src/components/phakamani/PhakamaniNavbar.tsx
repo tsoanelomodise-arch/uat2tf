@@ -179,6 +179,7 @@ const PhakamaniNavbar = memo(() => {
             </div>
 
             <Link to="/contacts" className={`nav-link ${isContactsPage ? 'nav-link-active' : ''}`}>Contacts</Link>
+            <Link to="/test-home" className={`nav-link ${location.pathname === '/test-home' ? 'nav-link-active' : ''}`}>Test Home</Link>
             <SearchTrigger onClick={openSearch} />
           </div>
 
@@ -231,6 +232,7 @@ const PhakamaniNavbar = memo(() => {
               <a href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Document</a>
               <a href="/resources/Transformation_Fund_Executive_Summary_v1_29Sept.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Executive Summary</a>
               <Link to="/contacts" className={`block px-3 py-2 text-base font-bold ${isContactsPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Contacts</Link>
+              <Link to="/test-home" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/test-home' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Test Home</Link>
               <a href="https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/" target="_blank" rel="noopener noreferrer" className="block bg-[#007847] text-white px-3 py-2 text-base font-bold hover:opacity-90 transition-all">Portal Login</a>
             </div>
           </div>

@@ -1,0 +1,70 @@
+import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
+import PhakamaniHero from "@/components/phakamani/PhakamaniHero";
+import NewsHighlightsSection from "@/components/test-home/NewsHighlightsSection";
+import PortalSection from "@/components/phakamani/PortalSection";
+import ProductsSection from "@/components/phakamani/ProductsSection";
+import Footer from "@/components/transformation/Footer";
+import { usePathToFundingQuiz } from "@/hooks/usePathToFundingQuiz";
+import EligibilityModal from "@/components/path-to-funding/EligibilityModal";
+import DocumentCheckModal from "@/components/path-to-funding/DocumentCheckModal";
+import { SuccessModal, RejectModal, DocSuccessModal, DocRejectModal } from "@/components/path-to-funding/ResultModals";
+
+const TestHome = () => {
+  const quiz = usePathToFundingQuiz();
+
+  return (
+    <div className="min-h-screen pt-[180px] lg:pt-[210px]">
+      <PhakamaniNavbar />
+      <PhakamaniHero onCheckEligibility={quiz.openEligibilityModal} />
+      <NewsHighlightsSection />
+      <PortalSection />
+      <ProductsSection />
+      <Footer />
+
+      <EligibilityModal
+        open={quiz.eligibilityModalOpen}
+        onOpenChange={quiz.setEligibilityModalOpen}
+        step={quiz.eligibilityStep}
+        setStep={quiz.setEligibilityStep}
+        answers={quiz.eligibilityAnswers}
+        updateAnswer={quiz.updateEligibilityAnswer}
+        onComplete={quiz.completeEligibilityQuiz}
+      />
+      <SuccessModal
+        open={quiz.successModalOpen}
+        onOpenChange={quiz.setSuccessModalOpen}
+        onContinue={() => {
+          quiz.setSuccessModalOpen(false);
+          quiz.openDocumentModal();
+        }}
+      />
+      <RejectModal
+        open={quiz.rejectModalOpen}
+        onOpenChange={quiz.setRejectModalOpen}
+      />
+      <DocumentCheckModal
+        open={quiz.documentModalOpen}
+        onOpenChange={quiz.setDocumentModalOpen}
+        step={quiz.documentStep}
+        setStep={quiz.setDocumentStep}
+        answers={quiz.documentAnswers}
+        updateAnswer={quiz.updateDocumentAnswer}
+        onComplete={quiz.completeDocumentQuiz}
+      />
+      <DocSuccessModal
+        open={quiz.docSuccessModalOpen}
+        onOpenChange={quiz.setDocSuccessModalOpen}
+        onContinue={() => {
+          quiz.setDocSuccessModalOpen(false);
+          window.open('https://tfportaltest-bjggc8febhc3aucy.southafricanorth-01.azurewebsites.net/', '_blank');
+        }}
+      />
+      <DocRejectModal
+        open={quiz.docRejectModalOpen}
+        onOpenChange={quiz.setDocRejectModalOpen}
+      />
+    </div>
+  );
+};
+
+export default TestHome;
