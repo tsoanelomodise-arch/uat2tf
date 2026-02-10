@@ -15,54 +15,48 @@ const newsItems = [
 
 const NewsHighlightsSection = () => {
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-10">
-        {/* Section Label & Heading */}
-        <p className="text-sm font-semibold tracking-widest text-[#64748B] uppercase mb-2">
-          LATEST UPDATES
-        </p>
-        <h2 className="text-3xl lg:text-4xl font-bold text-[#0F172A] mb-10">
-          NEWS HIGHLIGHTS
-        </h2>
+    <section className="bg-white">
+      <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_0.5fr]">
+        {/* Left image */}
+        <img
+          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+          alt="News Highlights"
+          className="w-full h-full min-h-[400px] object-cover grayscale"
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left image placeholder */}
-          <div className="lg:col-span-3">
-            <div className="w-full aspect-[3/4] bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-[#64748B] text-sm">Image</span>
-            </div>
-          </div>
+        {/* News content */}
+        <div className="p-12 bg-white">
+          <span className="text-xs font-bold tracking-widest text-[#666666] uppercase">
+            LATEST UPDATES
+          </span>
+          <h2 className="text-2xl font-extrabold uppercase tracking-tight text-[#222222] mt-2 mb-8">
+            NEWS HIGHLIGHTS
+          </h2>
 
-          {/* News items */}
-          <div className="lg:col-span-6 flex flex-col gap-6">
-            {newsItems.map((item, index) => (
-              <article
-                key={index}
-                className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow border-l-4 border-l-black"
-              >
-                <h3 className="text-lg font-bold text-[#0F172A] mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-[#334155] text-sm leading-relaxed">
-                  {item.summary}
-                </p>
-              </article>
-            ))}
-          </div>
-
-          {/* QR Code sidebar */}
-          <div className="lg:col-span-3">
-            <div className="bg-black rounded-lg p-6 flex flex-col items-center justify-center h-full text-center">
-              <img
-                src="/images/social-media-qr-code.png"
-                alt="QR code to follow us on social media"
-                className="w-32 h-32 mb-4"
-                loading="lazy"
-              />
-              <p className="text-white font-semibold text-sm">
-                Scan to Follow Us
+          {newsItems.map((item, index) => (
+            <div key={index} className={index < newsItems.length - 1 ? "mb-8" : ""}>
+              <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
+                {item.title}
+              </h4>
+              <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
+                {item.summary}
               </p>
             </div>
+          ))}
+        </div>
+
+        {/* QR Code sidebar */}
+        <div className="bg-black text-white flex items-center justify-center p-4">
+          <div className="flex flex-col items-center text-center">
+            <span className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+              Scan to Follow Us
+            </span>
+            <img
+              src="/images/social-media-qr-code.png"
+              alt="Scan QR Code"
+              className="w-4/5 h-auto"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
