@@ -1,33 +1,34 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PhakamaniIndex from "./pages/PhakamaniIndex";
-import TransformationIndex from "./pages/TransformationIndex";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Requirements from "./pages/Requirements";
-import StartupGrants from "./pages/StartupGrants";
-import About from "./pages/About";
-import Contacts from "./pages/Contacts";
-import PathToFunding from "./pages/PathToFunding";
-import Resources from "./pages/Resources";
-import FAQ from "./pages/FAQ";
 import { usePageTracking } from "./hooks/useAnalytics";
 
-// Why sub-pages
-import PolicyChoicePage from "./pages/why/PolicyChoicePage";
-import TheoryPage from "./pages/why/TheoryPage";
-import ValuePage from "./pages/why/ValuePage";
-import OperatingModelPage from "./pages/why/OperatingModelPage";
-import NationalAgendaPage from "./pages/why/NationalAgendaPage";
-import FundingProcessPage from "./pages/path-to-funding/FundingProcessPage";
-import MarketSegmentsPage from "./pages/path-to-funding/MarketSegmentsPage";
-import ProductsPage from "./pages/path-to-funding/ProductsPage";
-import InvestorsPage from "./pages/InvestorsPage";
-import GovernancePage from "./pages/investors/GovernancePage";
-import TestHome from "./pages/TestHome";
+// Lazy-loaded pages
+const PhakamaniIndex = lazy(() => import("./pages/PhakamaniIndex"));
+const TransformationIndex = lazy(() => import("./pages/TransformationIndex"));
+const Index = lazy(() => import("./pages/Index"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Requirements = lazy(() => import("./pages/Requirements"));
+const StartupGrants = lazy(() => import("./pages/StartupGrants"));
+const About = lazy(() => import("./pages/About"));
+const Contacts = lazy(() => import("./pages/Contacts"));
+const PathToFunding = lazy(() => import("./pages/PathToFunding"));
+const Resources = lazy(() => import("./pages/Resources"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const PolicyChoicePage = lazy(() => import("./pages/why/PolicyChoicePage"));
+const TheoryPage = lazy(() => import("./pages/why/TheoryPage"));
+const ValuePage = lazy(() => import("./pages/why/ValuePage"));
+const OperatingModelPage = lazy(() => import("./pages/why/OperatingModelPage"));
+const NationalAgendaPage = lazy(() => import("./pages/why/NationalAgendaPage"));
+const FundingProcessPage = lazy(() => import("./pages/path-to-funding/FundingProcessPage"));
+const MarketSegmentsPage = lazy(() => import("./pages/path-to-funding/MarketSegmentsPage"));
+const ProductsPage = lazy(() => import("./pages/path-to-funding/ProductsPage"));
+const InvestorsPage = lazy(() => import("./pages/InvestorsPage"));
+const GovernancePage = lazy(() => import("./pages/investors/GovernancePage"));
+const TestHome = lazy(() => import("./pages/TestHome"));
 
 const queryClient = new QueryClient();
 
@@ -43,30 +44,32 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AnalyticsWrapper>
-          <Routes>
-            <Route path="/" element={<TestHome />} />
-            <Route path="/about/why" element={<TransformationIndex />} />
-            <Route path="/about/why/policy-choice" element={<PolicyChoicePage />} />
-            <Route path="/about/why/theory" element={<TheoryPage />} />
-            <Route path="/about/why/value" element={<ValuePage />} />
-            <Route path="/about/why/operating-model" element={<OperatingModelPage />} />
-            <Route path="/about/why/national-agenda" element={<NationalAgendaPage />} />
-            <Route path="/old" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/requirements" element={<Requirements />} />
-            <Route path="/startup-grants" element={<StartupGrants />} />
-            <Route path="/path-to-funding" element={<PathToFunding />} />
-            <Route path="/path-to-funding/process" element={<FundingProcessPage />} />
-            <Route path="/path-to-funding/market-segments" element={<MarketSegmentsPage />} />
-            <Route path="/path-to-funding/products" element={<ProductsPage />} />
-            <Route path="/investors" element={<InvestorsPage />} />
-            <Route path="/investors/governance" element={<GovernancePage />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/resources" element={<Resources />} />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-screen" />}>
+            <Routes>
+              <Route path="/" element={<TestHome />} />
+              <Route path="/about/why" element={<TransformationIndex />} />
+              <Route path="/about/why/policy-choice" element={<PolicyChoicePage />} />
+              <Route path="/about/why/theory" element={<TheoryPage />} />
+              <Route path="/about/why/value" element={<ValuePage />} />
+              <Route path="/about/why/operating-model" element={<OperatingModelPage />} />
+              <Route path="/about/why/national-agenda" element={<NationalAgendaPage />} />
+              <Route path="/old" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/requirements" element={<Requirements />} />
+              <Route path="/startup-grants" element={<StartupGrants />} />
+              <Route path="/path-to-funding" element={<PathToFunding />} />
+              <Route path="/path-to-funding/process" element={<FundingProcessPage />} />
+              <Route path="/path-to-funding/market-segments" element={<MarketSegmentsPage />} />
+              <Route path="/path-to-funding/products" element={<ProductsPage />} />
+              <Route path="/investors" element={<InvestorsPage />} />
+              <Route path="/investors/governance" element={<GovernancePage />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/resources" element={<Resources />} />
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </AnalyticsWrapper>
       </BrowserRouter>
     </TooltipProvider>
