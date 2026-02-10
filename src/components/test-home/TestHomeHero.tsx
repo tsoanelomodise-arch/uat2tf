@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,7 @@ interface TestHomeHeroProps {
   onCheckEligibility?: () => void;
 }
 
-const TestHomeHero = ({ onCheckEligibility }: TestHomeHeroProps) => {
+const TestHomeHero = memo(({ onCheckEligibility }: TestHomeHeroProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -108,6 +108,8 @@ const TestHomeHero = ({ onCheckEligibility }: TestHomeHeroProps) => {
       </div>
     </section>
   );
-};
+});
+
+TestHomeHero.displayName = "TestHomeHero";
 
 export default TestHomeHero;

@@ -1,10 +1,15 @@
+import { useState, memo } from "react";
+import { Play } from "lucide-react";
+
 const serviceItems = [
   { number: "01", title: "Status Tracking" },
   { number: "02", title: "Secure Document Upload" },
   { number: "03", title: "Guided Application Process" },
 ];
 
-const TestHomePortalSection = () => {
+const TestHomePortalSection = memo(() => {
+  const [showVideo, setShowVideo] = useState(false);
+
   return (
     <section className="py-16 bg-white mb-8">
       <div className="max-w-[1200px] mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -20,15 +25,34 @@ const TestHomePortalSection = () => {
             Register, apply, and track your status through our secure portal environment.
           </p>
 
-          {/* YouTube embed */}
+          {/* YouTube embed - click to load */}
           <div className="relative w-full bg-black" style={{ paddingBottom: "56.25%" }}>
-            <iframe
-              src="https://www.youtube.com/embed/C3yyl_4lrd4"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-            />
+            {showVideo ? (
+              <iframe
+                src="https://www.youtube.com/embed/C3yyl_4lrd4?autoplay=1"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                className="absolute inset-0 w-full h-full"
+              />
+            ) : (
+              <button
+                onClick={() => setShowVideo(true)}
+                className="absolute inset-0 w-full h-full flex items-center justify-center cursor-pointer group"
+                aria-label="Play video"
+              >
+                <img
+                  src={`https://img.youtube.com/vi/C3yyl_4lrd4/hqdefault.jpg`}
+                  alt="Video thumbnail"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="relative z-10 w-16 h-16 bg-black/70 rounded-full flex items-center justify-center group-hover:bg-black/90 transition-colors">
+                  <Play className="w-8 h-8 text-white ml-1" />
+                </div>
+              </button>
+            )}
           </div>
         </div>
 
@@ -48,6 +72,8 @@ const TestHomePortalSection = () => {
       </div>
     </section>
   );
-};
+});
+
+TestHomePortalSection.displayName = "TestHomePortalSection";
 
 export default TestHomePortalSection;

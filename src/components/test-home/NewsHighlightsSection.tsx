@@ -13,7 +13,9 @@ const newsItems = [
   },
 ];
 
-const NewsHighlightsSection = () => {
+import { memo } from "react";
+
+const NewsHighlightsSection = memo(() => {
   return (
     <section className="bg-white">
       <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_0.5fr]">
@@ -22,6 +24,7 @@ const NewsHighlightsSection = () => {
           src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
           alt="News Highlights"
           className="w-full h-full min-h-[400px] object-cover grayscale"
+          loading="lazy"
         />
 
         {/* News content */}
@@ -62,6 +65,8 @@ const NewsHighlightsSection = () => {
       </div>
     </section>
   );
-};
+});
+
+NewsHighlightsSection.displayName = "NewsHighlightsSection";
 
 export default NewsHighlightsSection;

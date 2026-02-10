@@ -26,7 +26,9 @@ const products = [
   },
 ];
 
-const TestHomeProductsSection = () => {
+import { memo } from "react";
+
+const TestHomeProductsSection = memo(() => {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-[1200px] mx-auto px-5">
@@ -54,6 +56,7 @@ const TestHomeProductsSection = () => {
                 src={product.image}
                 alt={product.title}
                 className="w-full h-auto mt-auto pt-4"
+                loading="lazy"
               />
             </div>
           ))}
@@ -71,6 +74,8 @@ const TestHomeProductsSection = () => {
       </div>
     </section>
   );
-};
+});
+
+TestHomeProductsSection.displayName = "TestHomeProductsSection";
 
 export default TestHomeProductsSection;
