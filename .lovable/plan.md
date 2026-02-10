@@ -1,36 +1,62 @@
 
 
-## Fix BakeryFront.png Visibility on About Page
+# Add "Test Home" Page
 
-### Problem
-The `BakeryFront.png` image (woman holding a bread tray) is not visually appearing in the hero section. Both images load successfully from the server, but the CSS positioning of `.layer-front-bakery` uses `left: -150px`, which can push the front image out of the visible area depending on viewport size and the `overflow-hidden` clipping on the header element.
+## Overview
+Create a new "Test Home" page from the uploaded HTML content and add it to the main navigation to the right of "Contacts". The page reuses existing site components where possible and introduces one new section (News Highlights).
 
-### Root Cause
-In `src/index.css`, the `.slide-bakery .layer-front-bakery` rule has:
-- `left: -150px` -- shifts the image 150px to the left
-- `top: -30px` -- shifts it 30px upward
-- Combined with `overflow-hidden` on the `<header>` in `AboutHero.tsx`, this clips the front image
+## Content Extracted from HTML (verbatim, no changes)
 
-### Solution
-Adjust the CSS positioning for `.layer-front-bakery` to keep the front image properly visible within the container, similar to how the seamstress front image works on the Path to Funding page.
+The HTML contains four sections:
 
-### Changes
+1. **Hero Carousel** -- 3 slides already matching the existing PhakamaniHero content (same headings, taglines, CTAs)
+2. **News Highlights** -- New section with image, 3 news items, and QR code sidebar
+3. **How to Apply / Portal** -- Matches existing PortalSection
+4. **Products** -- Matches existing ProductsSection (same 5 cards + "Whatever your size" tagline)
 
-**File: `src/index.css` (lines 485-496)**
+## Implementation Steps
 
-Update the `.slide-bakery .layer-front-bakery` CSS rule:
-- Change `left: -150px` to `left: -50px` (reduce the leftward offset so the image stays within the visible area)
-- Change `top: -30px` to `top: 0` (keep the image vertically aligned within the container)
-- Keep all other properties (z-index, filter, animation, etc.) unchanged
+### 1. Create News Highlights Component
+**New file:** `src/components/test-home/NewsHighlightsSection.tsx`
 
-This mirrors the approach used by `.layer-front-seamstress` on the Path to Funding page, which uses `left: -140px` and `top: -10px` but works because its container layout is slightly different.
+Content (verbatim from HTML):
+- Label: "LATEST UPDATES"
+- Heading: "NEWS HIGHLIGHTS"
+- Three news items:
+  - "News Headline 1" / "Short summary of the news item goes here. It describes the key update briefly."
+  - "News Headline 2" / (same summary)
+  - "News Headline 3" / (same summary)
+- Black sidebar with QR code and "Scan to Follow Us" label
+- Left-side image (placeholder)
 
-### Why This Works
-By reducing the leftward offset, the front image (the woman with the bread tray) will remain within the visible bounds of the header container even after `overflow-hidden` clips the overflowing edges. The transparent PNG will overlay correctly on top of the bakery interior background image, creating the intended parallax layered effect with the steam animation.
+Styled using existing site conventions: `max-w-[1400px]`, Tailwind grid, existing typography tokens (`phakamani-section-title`, font colors `#0F172A`, `#334155`, `#64748B`), white card backgrounds, and responsive grid collapse on mobile.
 
-### Files Changed
+### 2. Create Test Home Page
+**New file:** `src/pages/TestHome.tsx`
 
-| File | Change |
-|------|--------|
-| `src/index.css` | Adjust `left` and `top` values for `.slide-bakery .layer-front-bakery` |
+Composes these sections in order:
+1. `PhakamaniNavbar` (existing)
+2. `PhakamaniHero` (existing, reused as-is for the home carousel)
+3. `NewsHighlightsSection` (new)
+4. `PortalSection` (existing)
+5. `ProductsSection` (existing)
+6. `Footer` (existing)
+
+Same page wrapper pattern as `PhakamaniIndex.tsx` (includes eligibility modal flow).
+
+### 3. Add Route
+**Edit:** `src/App.tsx`
+- Add route: `<Route path="/test-home" element={<TestHome />} />`
+
+### 4. Add to Navigation
+**Edit:** `src/components/phakamani/PhakamaniNavbar.tsx`
+- Add "Test Home" link to the right of "Contacts" in both desktop and mobile menus
+- Simple link (no dropdown), following existing `nav-link` pattern
+
+## Technical Notes
+- No new dependencies required
+- All styling uses existing Tailwind classes and site design tokens
+- Responsive: grid collapses to single column on mobile (matching existing patterns)
+- The News Highlights sidebar uses the existing QR code image at `/images/social-media-qr-code.png`
+- Content is kept exactly as provided in the HTML -- no text edits
 
