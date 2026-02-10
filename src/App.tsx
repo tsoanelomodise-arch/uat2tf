@@ -14,7 +14,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Requirements = lazy(() => import("./pages/Requirements"));
 const StartupGrants = lazy(() => import("./pages/StartupGrants"));
 const About = lazy(() => import("./pages/About"));
-const Contacts = lazy(() => import("./pages/Contacts"));
+const TestContacts = lazy(() => import("./pages/TestContacts"));
 const PathToFunding = lazy(() => import("./pages/PathToFunding"));
 const Resources = lazy(() => import("./pages/Resources"));
 const FAQ = lazy(() => import("./pages/FAQ"));
@@ -29,7 +29,6 @@ const ProductsPage = lazy(() => import("./pages/path-to-funding/ProductsPage"));
 const InvestorsPage = lazy(() => import("./pages/InvestorsPage"));
 const GovernancePage = lazy(() => import("./pages/investors/GovernancePage"));
 const TestHome = lazy(() => import("./pages/TestHome"));
-const TestContacts = lazy(() => import("./pages/TestContacts"));
 
 const queryClient = new QueryClient();
 
@@ -56,7 +55,7 @@ const App = () => (
               <Route path="/about/why/national-agenda" element={<NationalAgendaPage />} />
               <Route path="/old" element={<Index />} />
               <Route path="/about" element={<About />} />
-              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/contacts" element={<TestContacts />} />
               <Route path="/requirements" element={<Requirements />} />
               <Route path="/startup-grants" element={<StartupGrants />} />
               <Route path="/path-to-funding" element={<PathToFunding />} />
@@ -67,7 +66,7 @@ const App = () => (
               <Route path="/investors/governance" element={<GovernancePage />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/resources" element={<Resources />} />
-              <Route path="/test-contacts" element={<TestContacts />} />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
