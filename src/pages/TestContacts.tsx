@@ -1,0 +1,280 @@
+import { useState } from "react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
+import Footer from "@/components/transformation/Footer";
+import { validateAndSanitizeContactForm, buildSafeMailtoLink, type ContactFormData } from "@/lib/validation/contact-form";
+import { useToast } from "@/hooks/use-toast";
+
+const TestContacts = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState<ContactFormData>({
+    firstName: "",
+    surname: "",
+    email: "",
+    telephone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = validateAndSanitizeContactForm(formData);
+    if (result.success === false) {
+      setErrors(result.errors);
+      toast({ title: "Please fix the errors below", variant: "destructive" });
+      return;
+    }
+    setErrors({});
+    const mailtoLink = buildSafeMailtoLink(result.sanitizedData);
+    window.location.href = mailtoLink;
+    toast({ title: "Opening your email client..." });
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <PhakamaniNavbar />
+
+      {/* Spacer for fixed navbar + social bar */}
+      <div className="h-[160px] lg:h-[190px]" />
+
+      {/* HERO */}
+      <section className="max-w-[1200px] mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="text-center lg:text-left">
+            <h1 className="text-[3rem] font-bold leading-[1.2] text-[#111] mb-6 capitalize">
+              Contact <span>Us</span>
+            </h1>
+            <p className="text-[1.1rem] text-[#4a4a4a] mb-8 max-w-[450px] mx-auto lg:mx-0 leading-relaxed">
+              Get in touch with our team to learn more about the Transformation Fund or to start your application journey.
+            </p>
+            <div className="flex gap-4 justify-center lg:justify-start">
+              <a
+                href="mailto:info@sa-transformationfund.co.za"
+                className="inline-block px-8 py-3 text-[0.9rem] font-semibold bg-[#111] text-white hover:bg-[#333] transition-all duration-300 capitalize"
+              >
+                Email Us Now
+              </a>
+              <a
+                href="tel:+27861113186"
+                className="inline-block px-8 py-3 text-[0.9rem] font-semibold bg-transparent border border-[#e0e0e0] text-[#111] hover:border-[#111] hover:bg-[#111] hover:text-white transition-all duration-300 capitalize"
+              >
+                Call Us
+              </a>
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center">
+            <div className="border border-[#e0e0e0] p-8 text-center">
+              <div className="w-[200px] h-[200px] bg-[#f4f4f4] mx-auto mb-4 flex items-center justify-center relative">
+                {/* CSS dot pattern */}
+                <div
+                  className="absolute w-[160px] h-[160px]"
+                  style={{
+                    backgroundImage: "radial-gradient(#000 20%, transparent 20%)",
+                    backgroundPosition: "0 0",
+                    backgroundSize: "20px 20px",
+                  }}
+                />
+                <svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="relative z-10"
+                >
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+              </div>
+              <p className="text-[0.8rem] text-[#4a4a4a]">Scan to connect with us</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INFO CARDS */}
+      <section className="py-16">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <h2 className="text-center text-[2rem] font-bold text-[#111] mb-12 capitalize">
+            Contact Information
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Email */}
+            <div className="bg-[#111] text-white p-8 flex flex-col">
+              <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center mb-6">
+                <Mail className="w-[18px] h-[18px] text-white" />
+              </div>
+              <h3 className="text-white text-[1.1rem] font-bold mb-4">Email</h3>
+              <a href="mailto:info@sa-transformationfund.co.za" className="text-[#ccc] text-[0.85rem] mb-2 block hover:text-white hover:underline transition-colors">
+                info@sa-transformationfund.co.za
+              </a>
+              <a href="mailto:applications@nefcorp.co.za" className="text-[#ccc] text-[0.85rem] block hover:text-white hover:underline transition-colors">
+                applications@nefcorp.co.za
+              </a>
+            </div>
+
+            {/* Phone */}
+            <div className="bg-[#111] text-white p-8 flex flex-col">
+              <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center mb-6">
+                <Phone className="w-[18px] h-[18px] text-white" />
+              </div>
+              <h3 className="text-white text-[1.1rem] font-bold mb-4">Phone</h3>
+              <p className="text-[#ccc] text-[0.85rem]">+27 86 111 3186</p>
+            </div>
+
+            {/* Address */}
+            <div className="bg-[#111] text-white p-8 flex flex-col">
+              <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center mb-6">
+                <MapPin className="w-[18px] h-[18px] text-white" />
+              </div>
+              <h3 className="text-white text-[1.1rem] font-bold mb-4">Address</h3>
+              <p className="text-[#ccc] text-[0.85rem]">70 Grayston Drive, Sandown Sandton, Gauteng, 2196 South Africa</p>
+            </div>
+
+            {/* Office Hours */}
+            <div className="bg-[#111] text-white p-8 flex flex-col">
+              <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center mb-6">
+                <Clock className="w-[18px] h-[18px] text-white" />
+              </div>
+              <h3 className="text-white text-[1.1rem] font-bold mb-4">Office Hours</h3>
+              <p className="text-[#ccc] text-[0.85rem] mb-2">Monday - Friday: 8:00 AM - 5:00 PM</p>
+              <p className="text-[#ccc] text-[0.85rem]">Saturday - Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MAP */}
+      <section className="py-16 bg-[#f4f4f4]">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <h2 className="text-[2rem] font-bold text-[#111] mb-8 capitalize">Our Location</h2>
+          <div className="w-full h-[450px] bg-[#e5e3df] overflow-hidden">
+            <iframe
+              title="Transformation Fund Office Location"
+              width="100%"
+              height="100%"
+              src="https://maps.google.com/maps?q=70%20Grayston%20Drive%2C%20Sandown%2C%20Sandton%2C%20Gauteng%2C%202196%20South%20Africa&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              style={{ border: 0 }}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT FORM */}
+      <section className="py-16 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-[2rem] font-bold text-[#111] mb-4 capitalize">Send us a Message</h2>
+            <p className="text-[0.95rem] text-[#4a4a4a] max-w-[600px] mx-auto">
+              Have a question or want to learn more? Fill out the form below and we'll get back to you.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {/* Name */}
+            <div className="flex flex-col">
+              <label className="text-[0.85rem] font-bold text-[#111] mb-2">Name *</label>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="Enter your name"
+                value={formData.firstName}
+                onChange={handleChange}
+                className="p-4 border border-[#e0e0e0] bg-white text-[0.9rem] transition-colors focus:outline-none focus:border-[#111]"
+              />
+              {errors.firstName && <span className="text-red-600 text-xs mt-1">{errors.firstName}</span>}
+            </div>
+
+            {/* Surname */}
+            <div className="flex flex-col">
+              <label className="text-[0.85rem] font-bold text-[#111] mb-2">Surname *</label>
+              <input
+                type="text"
+                name="surname"
+                placeholder="Enter your surname"
+                value={formData.surname}
+                onChange={handleChange}
+                className="p-4 border border-[#e0e0e0] bg-white text-[0.9rem] transition-colors focus:outline-none focus:border-[#111]"
+              />
+              {errors.surname && <span className="text-red-600 text-xs mt-1">{errors.surname}</span>}
+            </div>
+
+            {/* Email */}
+            <div className="flex flex-col">
+              <label className="text-[0.85rem] font-bold text-[#111] mb-2">Email *</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="p-4 border border-[#e0e0e0] bg-white text-[0.9rem] transition-colors focus:outline-none focus:border-[#111]"
+              />
+              {errors.email && <span className="text-red-600 text-xs mt-1">{errors.email}</span>}
+            </div>
+
+            {/* Telephone */}
+            <div className="flex flex-col">
+              <label className="text-[0.85rem] font-bold text-[#111] mb-2">Telephone *</label>
+              <input
+                type="tel"
+                name="telephone"
+                placeholder="Enter your phone number"
+                value={formData.telephone}
+                onChange={handleChange}
+                className="p-4 border border-[#e0e0e0] bg-white text-[0.9rem] transition-colors focus:outline-none focus:border-[#111]"
+              />
+              {errors.telephone && <span className="text-red-600 text-xs mt-1">{errors.telephone}</span>}
+            </div>
+
+            {/* Message */}
+            <div className="flex flex-col sm:col-span-2">
+              <label className="text-[0.85rem] font-bold text-[#111] mb-2">Message *</label>
+              <textarea
+                name="message"
+                placeholder="How can we help you?"
+                value={formData.message}
+                onChange={handleChange}
+                className="p-4 border border-[#e0e0e0] bg-white text-[0.9rem] transition-colors focus:outline-none focus:border-[#111] resize-y min-h-[150px]"
+              />
+              {errors.message && <span className="text-red-600 text-xs mt-1">{errors.message}</span>}
+            </div>
+
+            {/* Submit */}
+            <div className="sm:col-span-2 text-center mt-4">
+              <button
+                type="submit"
+                className="inline-block px-8 py-3 text-[0.9rem] font-semibold bg-[#111] text-white hover:bg-[#333] transition-all duration-300 capitalize"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default TestContacts;

@@ -29,6 +29,7 @@ const ProductsPage = lazy(() => import("./pages/path-to-funding/ProductsPage"));
 const InvestorsPage = lazy(() => import("./pages/InvestorsPage"));
 const GovernancePage = lazy(() => import("./pages/investors/GovernancePage"));
 const TestHome = lazy(() => import("./pages/TestHome"));
+const TestContacts = lazy(() => import("./pages/TestContacts"));
 
 const queryClient = new QueryClient();
 
@@ -66,7 +67,7 @@ const App = () => (
               <Route path="/investors/governance" element={<GovernancePage />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/resources" element={<Resources />} />
-              
+              <Route path="/test-contacts" element={<TestContacts />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
