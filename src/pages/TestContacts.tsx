@@ -77,33 +77,15 @@ const TestContacts = () => {
 
           <div className="flex justify-center items-center">
             <div className="border border-[#e0e0e0] p-8 text-center">
-              <div className="w-[200px] h-[200px] bg-[#f4f4f4] mx-auto mb-4 flex items-center justify-center relative">
-                {/* CSS dot pattern */}
-                <div
-                  className="absolute w-[160px] h-[160px]"
-                  style={{
-                    backgroundImage: "radial-gradient(#000 20%, transparent 20%)",
-                    backgroundPosition: "0 0",
-                    backgroundSize: "20px 20px",
-                  }}
+              <a href="https://scan.page/p/jJshR7" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/images/social-media-qr-code.png"
+                  alt="Scan QR Code to connect with us"
+                  className="w-[200px] h-[200px] mx-auto mb-4 object-contain"
+                  width="200"
+                  height="200"
                 />
-                <svg
-                  width="60"
-                  height="60"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="relative z-10"
-                >
-                  <rect x="3" y="3" width="7" height="7" />
-                  <rect x="14" y="3" width="7" height="7" />
-                  <rect x="14" y="14" width="7" height="7" />
-                  <rect x="3" y="14" width="7" height="7" />
-                </svg>
-              </div>
+              </a>
               <p className="text-[0.8rem] text-[#4a4a4a]">Scan to connect with us</p>
             </div>
           </div>
