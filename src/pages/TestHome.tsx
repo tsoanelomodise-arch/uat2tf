@@ -1,8 +1,8 @@
 import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
-import PhakamaniHero from "@/components/phakamani/PhakamaniHero";
+import TestHomeHero from "@/components/test-home/TestHomeHero";
 import NewsHighlightsSection from "@/components/test-home/NewsHighlightsSection";
-import PortalSection from "@/components/phakamani/PortalSection";
-import ProductsSection from "@/components/phakamani/ProductsSection";
+import TestHomePortalSection from "@/components/test-home/TestHomePortalSection";
+import TestHomeProductsSection from "@/components/test-home/TestHomeProductsSection";
 import Footer from "@/components/transformation/Footer";
 import { usePathToFundingQuiz } from "@/hooks/usePathToFundingQuiz";
 import EligibilityModal from "@/components/path-to-funding/EligibilityModal";
@@ -15,10 +15,10 @@ const TestHome = () => {
   return (
     <div className="min-h-screen pt-[180px] lg:pt-[210px]">
       <PhakamaniNavbar />
-      <PhakamaniHero onCheckEligibility={quiz.openEligibilityModal} />
+      <TestHomeHero onCheckEligibility={quiz.openEligibilityModal} />
       <NewsHighlightsSection />
-      <PortalSection />
-      <ProductsSection />
+      <TestHomePortalSection />
+      <TestHomeProductsSection />
       <Footer />
 
       <EligibilityModal
