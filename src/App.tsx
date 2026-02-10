@@ -44,7 +44,7 @@ const App = () => (
       <BrowserRouter>
         <AnalyticsWrapper>
           <Routes>
-            <Route path="/" element={<PhakamaniIndex />} />
+            <Route path="/" element={<TestHome />} />
             <Route path="/about/why" element={<TransformationIndex />} />
             <Route path="/about/why/policy-choice" element={<PolicyChoicePage />} />
             <Route path="/about/why/theory" element={<TheoryPage />} />
@@ -64,7 +64,7 @@ const App = () => (
             <Route path="/investors/governance" element={<GovernancePage />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/resources" element={<Resources />} />
-            <Route path="/test-home" element={<TestHome />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnalyticsWrapper>
