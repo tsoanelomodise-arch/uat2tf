@@ -21,7 +21,7 @@ const NewsHighlightsSection = memo(() => {
       <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_0.5fr]">
         {/* Left image */}
         <img
-          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+          src="/images/test-home/wrench-lady.jpg"
           alt="News Highlights"
           className="w-full h-full min-h-[400px] object-cover grayscale"
           loading="lazy"
