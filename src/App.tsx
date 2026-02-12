@@ -29,6 +29,9 @@ const ProductsPage = lazy(() => import("./pages/path-to-funding/ProductsPage"));
 const InvestorsPage = lazy(() => import("./pages/InvestorsPage"));
 const GovernancePage = lazy(() => import("./pages/investors/GovernancePage"));
 const TestHome = lazy(() => import("./pages/TestHome"));
+const NewsMediaPage = lazy(() => import("./pages/NewsMediaPage"));
+const NewsMediaAdmin = lazy(() => import("./pages/admin/NewsMediaAdmin"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 
 const queryClient = new QueryClient();
 
@@ -66,6 +69,9 @@ const App = () => (
               <Route path="/investors/governance" element={<GovernancePage />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/news-media" element={<NewsMediaPage />} />
+              <Route path="/admin/news-media" element={<NewsMediaAdmin />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
