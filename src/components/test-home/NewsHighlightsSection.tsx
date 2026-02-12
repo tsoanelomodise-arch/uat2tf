@@ -1,21 +1,10 @@
-const newsItems = [
-  {
-    title: "News Headline 1",
-    summary: "Short summary of the news item goes here. It describes the key update briefly.",
-  },
-  {
-    title: "News Headline 2",
-    summary: "Short summary of the news item goes here. It describes the key update briefly.",
-  },
-  {
-    title: "News Headline 3",
-    summary: "Short summary of the news item goes here. It describes the key update briefly.",
-  },
-];
-
 import { memo } from "react";
+import { useNewsHighlights } from "@/hooks/useNewsMedia";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const NewsHighlightsSection = memo(() => {
+  const { data: newsItems = [], isLoading } = useNewsHighlights();
+
   return (
     <section className="bg-white">
       <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_0.5fr]">
@@ -36,16 +25,29 @@ const NewsHighlightsSection = memo(() => {
             NEWS HIGHLIGHTS & STORIES
           </h2>
 
-          {newsItems.map((item, index) => (
-            <div key={index} className={index < newsItems.length - 1 ? "mb-8" : ""}>
-              <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
-                {item.title}
-              </h4>
-              <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
-                {item.summary}
-              </p>
+          {isLoading ? (
+            <div className="space-y-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i}>
+                  <Skeleton className="h-5 w-1/2 mb-2" />
+                  <Skeleton className="h-4 w-full" />
+                </div>
+              ))}
             </div>
-          ))}
+          ) : newsItems.length === 0 ? (
+            <p className="text-[0.95rem] font-light text-[#666666]">No news available yet.</p>
+          ) : (
+            newsItems.map((item, index) => (
+              <div key={item.id} className={index < newsItems.length - 1 ? "mb-8" : ""}>
+                <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
+                  {item.title}
+                </h4>
+                <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
+                  {item.excerpt || ""}
+                </p>
+              </div>
+            ))
+          )}
         </div>
 
         {/* QR Code sidebar */}

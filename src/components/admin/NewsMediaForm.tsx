@@ -1,0 +1,180 @@
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "@/hooks/use-toast";
+import { useCreateNewsMedia, useUpdateNewsMedia, useHomeNewsCount, useHomeStoriesCount } from "@/hooks/useNewsMedia";
+import type { NewsMediaItem } from "@/types/news-media";
+
+interface NewsMediaFormProps {
+  item?: NewsMediaItem | null;
+  onClose: () => void;
+}
+
+const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
+  const isEditing = !!item;
+  const createMutation = useCreateNewsMedia();
+  const updateMutation = useUpdateNewsMedia();
+  const { data: homeNewsCount = 0 } = useHomeNewsCount();
+  const { data: homeStoriesCount = 0 } = useHomeStoriesCount();
+
+  const [contentType, setContentType] = useState<'news' | 'story'>(item?.content_type ?? 'news');
+  const [title, setTitle] = useState(item?.title ?? '');
+  const [excerpt, setExcerpt] = useState(item?.excerpt ?? '');
+  const [fullContent, setFullContent] = useState(item?.full_content ?? '');
+  const [featuredImageUrl, setFeaturedImageUrl] = useState(item?.featured_image_url ?? '');
+  const [videoUrl, setVideoUrl] = useState(item?.video_url ?? '');
+  const [storyThumbnailUrl, setStoryThumbnailUrl] = useState(item?.story_thumbnail_url ?? '');
+  const [priority, setPriority] = useState(item?.priority ?? 5);
+  const [showOnHome, setShowOnHome] = useState(item?.show_on_home ?? false);
+  const [highlightOnHome, setHighlightOnHome] = useState(item?.highlight_on_home ?? false);
+  const [showOnArchive, setShowOnArchive] = useState(item?.show_on_archive ?? true);
+
+  const isNews = contentType === 'news';
+
+  // Check if we can enable home display
+  const canShowOnHome = isNews
+    ? showOnHome || homeNewsCount < 3
+    : true; // not applicable for stories
+  const canHighlightOnHome = !isNews
+    ? highlightOnHome || homeStoriesCount < 3
+    : true;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title.trim()) {
+      toast({ title: "Title is required", variant: "destructive" });
+      return;
+    }
+
+    const payload = {
+      content_type: contentType,
+      title: title.trim(),
+      excerpt: excerpt.trim() || null,
+      full_content: fullContent.trim() || null,
+      featured_image_url: isNews ? (featuredImageUrl.trim() || null) : null,
+      video_url: videoUrl.trim() || null,
+      story_thumbnail_url: !isNews ? (storyThumbnailUrl.trim() || null) : null,
+      priority,
+      show_on_home: isNews ? showOnHome : false,
+      highlight_on_home: !isNews ? highlightOnHome : false,
+      show_on_archive: showOnArchive,
+    };
+
+    if (isEditing) {
+      updateMutation.mutate(
+        { id: item.id, ...payload },
+        {
+          onSuccess: () => { toast({ title: "Updated" }); onClose(); },
+          onError: (err: any) => toast({ title: "Error", description: err.message, variant: "destructive" }),
+        }
+      );
+    } else {
+      createMutation.mutate(payload, {
+        onSuccess: () => { toast({ title: "Created" }); onClose(); },
+        onError: (err: any) => toast({ title: "Error", description: err.message, variant: "destructive" }),
+      });
+    }
+  };
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4 bg-background p-6 rounded-lg border border-border">
+      <h2 className="text-lg font-extrabold uppercase tracking-tight">{isEditing ? "Edit Item" : "New Item"}</h2>
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Content Type</label>
+        <Select value={contentType} onValueChange={(v) => setContentType(v as 'news' | 'story')} disabled={isEditing}>
+          <SelectTrigger><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="news">News</SelectItem>
+            <SelectItem value="story">Story</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Title *</label>
+        <Input value={title} onChange={(e) => setTitle(e.target.value)} required />
+      </div>
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Excerpt</label>
+        <Textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={2} />
+      </div>
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Full Content (Markdown)</label>
+        <Textarea value={fullContent} onChange={(e) => setFullContent(e.target.value)} rows={5} />
+      </div>
+
+      {isNews && (
+        <div>
+          <label className="text-sm font-bold block mb-1">Featured Image URL</label>
+          <Input value={featuredImageUrl} onChange={(e) => setFeaturedImageUrl(e.target.value)} placeholder="https://..." />
+        </div>
+      )}
+
+      <div>
+        <label className="text-sm font-bold block mb-1">YouTube Video URL</label>
+        <Input value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+
+      {!isNews && (
+        <div>
+          <label className="text-sm font-bold block mb-1">Story Thumbnail URL</label>
+          <Input value={storyThumbnailUrl} onChange={(e) => setStoryThumbnailUrl(e.target.value)} placeholder="https://..." />
+          <p className="text-xs text-muted-foreground mt-1">Falls back to system logo if empty.</p>
+        </div>
+      )}
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Priority (1-10)</label>
+        <Input type="number" min={1} max={10} value={priority} onChange={(e) => setPriority(Number(e.target.value))} />
+      </div>
+
+      <div className="flex flex-wrap gap-6">
+        {isNews && (
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="showOnHome"
+              checked={showOnHome}
+              onCheckedChange={(v) => setShowOnHome(!!v)}
+              disabled={!canShowOnHome && !showOnHome}
+            />
+            <label htmlFor="showOnHome" className="text-sm">
+              Show on Home {!canShowOnHome && !showOnHome && "(max 3 reached)"}
+            </label>
+          </div>
+        )}
+        {!isNews && (
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="highlightOnHome"
+              checked={highlightOnHome}
+              onCheckedChange={(v) => setHighlightOnHome(!!v)}
+              disabled={!canHighlightOnHome && !highlightOnHome}
+            />
+            <label htmlFor="highlightOnHome" className="text-sm">
+              Highlight on Home {!canHighlightOnHome && !highlightOnHome && "(max 3 reached)"}
+            </label>
+          </div>
+        )}
+        <div className="flex items-center gap-2">
+          <Checkbox id="showOnArchive" checked={showOnArchive} onCheckedChange={(v) => setShowOnArchive(!!v)} />
+          <label htmlFor="showOnArchive" className="text-sm">Show on Archive</label>
+        </div>
+      </div>
+
+      <div className="flex gap-3">
+        <Button type="submit" disabled={isPending}>{isPending ? "Saving..." : isEditing ? "Update" : "Create"}</Button>
+        <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+      </div>
+    </form>
+  );
+};
+
+export default NewsMediaForm;

@@ -18,7 +18,7 @@ const PhakamaniNavbar = memo(() => {
   const isPathToFundingSection = location.pathname.startsWith("/path-to-funding");
   const isAboutPage = location.pathname === "/about";
   const isContactsPage = location.pathname === "/contacts";
-  
+  const isNewsMediaPage = location.pathname === "/news-media";
   const isResourcesPage = location.pathname === "/resources";
   const isInvestorsSection = location.pathname.startsWith("/investors");
 
@@ -144,6 +144,14 @@ const PhakamaniNavbar = memo(() => {
               FAQ
             </Link>
 
+            {/* News & Media Link */}
+            <Link 
+              to="/news-media" 
+              className={`nav-link ${isNewsMediaPage ? 'nav-link-active' : ''}`}
+            >
+              News & Media
+            </Link>
+
             {/* Resources Dropdown */}
             <div 
               className="relative dropdown"
@@ -230,6 +238,7 @@ const PhakamaniNavbar = memo(() => {
               <Link to="/investors" className={`block px-3 py-2 text-base font-bold ${isInvestorsSection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Investors</Link>
               <Link to="/investors/governance" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Governance</Link>
               <Link to="/faq" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/faq' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>FAQ</Link>
+              <Link to="/news-media" className={`block px-3 py-2 text-base font-bold ${isNewsMediaPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>News & Media</Link>
               <Link to="/resources" className={`block px-3 py-2 text-base font-bold ${isResourcesPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Resources</Link>
               <a href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Document</a>
               <a href="/resources/Transformation_Fund_Executive_Summary_v1_29Sept.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Executive Summary</a>

@@ -1,6 +1,7 @@
 import PhakamaniNavbar from "@/components/phakamani/PhakamaniNavbar";
 import TestHomeHero from "@/components/test-home/TestHomeHero";
 import NewsHighlightsSection from "@/components/test-home/NewsHighlightsSection";
+import HighlightedStoriesSection from "@/components/test-home/HighlightedStoriesSection";
 import TestHomePortalSection from "@/components/test-home/TestHomePortalSection";
 import TestHomeProductsSection from "@/components/test-home/TestHomeProductsSection";
 import Footer from "@/components/transformation/Footer";
@@ -17,6 +18,7 @@ const TestHome = () => {
       <PhakamaniNavbar />
       <TestHomeHero onCheckEligibility={quiz.openEligibilityModal} />
       <NewsHighlightsSection />
+      <HighlightedStoriesSection />
       <TestHomePortalSection />
       <TestHomeProductsSection />
       <Footer />
