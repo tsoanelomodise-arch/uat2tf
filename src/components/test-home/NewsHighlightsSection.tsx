@@ -33,7 +33,7 @@ const NewsHighlightsSection = memo(() => {
             LATEST UPDATES
           </span>
           <h2 className="text-2xl font-extrabold uppercase tracking-tight text-[#222222] mt-2 mb-8">
-            NEWS HIGHLIGHTS
+            NEWS HIGHLIGHTS & STORIES
           </h2>
 
           {newsItems.map((item, index) => (
