@@ -8,7 +8,7 @@ export function useNewsMediaItem(id: string) {
     queryKey: ["news-media-item", id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("news_media")
+        .from("news_media_public" as any)
         .select("*")
         .eq("id", id)
         .eq("status", "approved")
@@ -26,7 +26,7 @@ export function useNewsHighlights() {
     queryKey: ["news-highlights"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("news_media")
+        .from("news_media_public" as any)
         .select("*")
         .eq("content_type", "news")
         .eq("status", "approved")
@@ -45,7 +45,7 @@ export function useHighlightedStories() {
     queryKey: ["highlighted-stories"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("news_media")
+        .from("news_media_public" as any)
         .select("*")
         .eq("content_type", "story")
         .eq("status", "approved")
@@ -85,7 +85,7 @@ export function useNewsMediaArchive(filters: {
     queryKey: ["news-media-archive", contentType, page],
     queryFn: async () => {
       let query = supabase
-        .from("news_media")
+        .from("news_media_public" as any)
         .select("*", { count: "exact" })
         .eq("status", "approved")
         .eq("show_on_archive", true)

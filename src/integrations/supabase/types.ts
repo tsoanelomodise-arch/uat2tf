@@ -124,7 +124,72 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      news_media_public: {
+        Row: {
+          content_type: string | null
+          created_at: string | null
+          excerpt: string | null
+          featured_image_url: string | null
+          full_content: string | null
+          highlight_on_home: boolean | null
+          id: string | null
+          platform: string | null
+          priority: number | null
+          publish_date: string | null
+          show_on_archive: boolean | null
+          show_on_home: boolean | null
+          source: string | null
+          source_url: string | null
+          status: string | null
+          story_thumbnail_url: string | null
+          title: string | null
+          updated_at: string | null
+          video_url: string | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image_url?: string | null
+          full_content?: string | null
+          highlight_on_home?: boolean | null
+          id?: string | null
+          platform?: string | null
+          priority?: number | null
+          publish_date?: string | null
+          show_on_archive?: boolean | null
+          show_on_home?: boolean | null
+          source?: string | null
+          source_url?: string | null
+          status?: string | null
+          story_thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image_url?: string | null
+          full_content?: string | null
+          highlight_on_home?: boolean | null
+          id?: string | null
+          platform?: string | null
+          priority?: number | null
+          publish_date?: string | null
+          show_on_archive?: boolean | null
+          show_on_home?: boolean | null
+          source?: string | null
+          source_url?: string | null
+          status?: string | null
+          story_thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
