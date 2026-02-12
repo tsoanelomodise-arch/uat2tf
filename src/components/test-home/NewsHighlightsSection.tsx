@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import { useNewsHighlights } from "@/hooks/useNewsMedia";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -45,6 +46,12 @@ const NewsHighlightsSection = memo(() => {
                 <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
                   {item.excerpt || ""}
                 </p>
+                <Link
+                  to={`/news-media/${item.id}`}
+                  className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                >
+                  Read more →
+                </Link>
               </div>
             ))
           )}
