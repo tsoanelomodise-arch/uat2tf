@@ -2,6 +2,24 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { NewsMediaItem, NewsMediaInsert, SiteSettings } from "@/types/news-media";
 
+// Single item hook
+export function useNewsMediaItem(id: string) {
+  return useQuery({
+    queryKey: ["news-media-item", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("news_media")
+        .select("*")
+        .eq("id", id)
+        .eq("status", "approved")
+        .single();
+      if (error) throw error;
+      return data as unknown as NewsMediaItem;
+    },
+    enabled: !!id,
+  });
+}
+
 // Public hooks
 export function useNewsHighlights() {
   return useQuery({

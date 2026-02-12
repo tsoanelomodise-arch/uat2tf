@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import { useHighlightedStories, useSiteSettings } from "@/hooks/useNewsMedia";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
@@ -81,6 +82,12 @@ const HighlightedStoriesSection = memo(() => {
                     {story.excerpt}
                   </p>
                 )}
+                <Link
+                  to={`/news-media/${story.id}`}
+                  className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                >
+                  Read more →
+                </Link>
               </div>
             );
           })}
