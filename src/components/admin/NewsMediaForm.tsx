@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -112,10 +113,12 @@ const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
       </div>
 
       {isNews && (
-        <div>
-          <label className="text-sm font-bold block mb-1">Featured Image URL</label>
-          <Input value={featuredImageUrl} onChange={(e) => setFeaturedImageUrl(e.target.value)} placeholder="https://..." />
-        </div>
+        <ImageUploadField
+          label="Featured Image"
+          value={featuredImageUrl}
+          onChange={setFeaturedImageUrl}
+          placeholder="https://..."
+        />
       )}
 
       <div>
@@ -124,11 +127,13 @@ const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
       </div>
 
       {!isNews && (
-        <div>
-          <label className="text-sm font-bold block mb-1">Story Thumbnail URL</label>
-          <Input value={storyThumbnailUrl} onChange={(e) => setStoryThumbnailUrl(e.target.value)} placeholder="https://..." />
-          <p className="text-xs text-muted-foreground mt-1">Falls back to system logo if empty.</p>
-        </div>
+        <ImageUploadField
+          label="Story Thumbnail"
+          value={storyThumbnailUrl}
+          onChange={setStoryThumbnailUrl}
+          placeholder="https://..."
+          helpText="Falls back to system logo if empty."
+        />
       )}
 
       <div>
