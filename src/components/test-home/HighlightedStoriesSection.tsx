@@ -58,7 +58,7 @@ const HighlightedStoriesSection = memo(() => {
                   <img
                     src={thumbnail}
                     alt={story.title}
-                    className="w-full h-48 object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-48 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                     loading="lazy"
                   />
                   {story.video_url && (
