@@ -44,28 +44,6 @@ const AdminLogin = () => {
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Signing in..." : "Sign In"}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          disabled={loading}
-          onClick={async () => {
-            setLoading(true);
-            const { error } = await supabase.auth.signUp({
-              email,
-              password,
-              options: { emailRedirectTo: window.location.origin },
-            });
-            setLoading(false);
-            if (error) {
-              toast({ title: "Signup failed", description: error.message, variant: "destructive" });
-            } else {
-              toast({ title: "Account created! Now sign in." });
-            }
-          }}
-        >
-          Sign Up (Test Only)
-        </Button>
       </form>
     </div>
   );
