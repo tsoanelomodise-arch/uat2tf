@@ -27,6 +27,7 @@ const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
   const [fullContent, setFullContent] = useState(item?.full_content ?? '');
   const [featuredImageUrl, setFeaturedImageUrl] = useState(item?.featured_image_url ?? '');
   const [videoUrl, setVideoUrl] = useState(item?.video_url ?? '');
+  const [sourceUrl, setSourceUrl] = useState(item?.source_url ?? '');
   const [storyThumbnailUrl, setStoryThumbnailUrl] = useState(item?.story_thumbnail_url ?? '');
   const [priority, setPriority] = useState(item?.priority ?? 5);
   const [showOnHome, setShowOnHome] = useState(item?.show_on_home ?? false);
@@ -57,6 +58,7 @@ const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
       full_content: fullContent.trim() || null,
       featured_image_url: isNews ? (featuredImageUrl.trim() || null) : null,
       video_url: videoUrl.trim() || null,
+      source_url: sourceUrl.trim() || null,
       story_thumbnail_url: !isNews ? (storyThumbnailUrl.trim() || null) : null,
       priority,
       show_on_home: isNews ? showOnHome : false,
@@ -120,6 +122,11 @@ const NewsMediaForm = ({ item, onClose }: NewsMediaFormProps) => {
           placeholder="https://..."
         />
       )}
+
+      <div>
+        <label className="text-sm font-bold block mb-1">Source / Reference URL</label>
+        <Input value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)} placeholder="https://example.com/article" />
+      </div>
 
       <div>
         <label className="text-sm font-bold block mb-1">YouTube Video URL</label>
