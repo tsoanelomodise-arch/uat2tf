@@ -89,6 +89,7 @@ export function useNewsMediaArchive(filters: {
         .select("*", { count: "exact" })
         .eq("status", "approved")
         .eq("show_on_archive", true)
+        .order("priority", { ascending: false })
         .order("publish_date", { ascending: false })
         .range((page - 1) * pageSize, page * pageSize - 1);
 
