@@ -123,12 +123,23 @@ const NewsMediaPage = () => {
                             {item.excerpt}
                           </p>
                         )}
-                        <Link
-                          to={`/news-media/${item.id}`}
-                          className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
-                        >
-                          Read more →
-                        </Link>
+                        {item.source_url ? (
+                          <a
+                            href={item.source_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                          >
+                            Read more →
+                          </a>
+                        ) : (
+                          <Link
+                            to={`/news-media/${item.id}`}
+                            className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                          >
+                            Read more →
+                          </Link>
+                        )}
                       </div>
                     </article>
                   );
