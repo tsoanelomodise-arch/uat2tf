@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-10" role="contentinfo" aria-label="Site footer with contact information and social media links">
@@ -16,6 +18,7 @@ const Footer = () => {
                 loading="lazy"
               />
             </a>
+            <Link to="/admin/login" className="mt-3 block text-xs text-black no-underline hover:text-black">Admin</Link>
           </div>
           
           {/* Center Section - Contact Details */}
