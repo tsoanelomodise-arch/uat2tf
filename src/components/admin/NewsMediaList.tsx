@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
-import { Pencil, Trash2, Check, X } from "lucide-react";
+import { Pencil, Trash2, Check, X, ArrowUp, ArrowDown } from "lucide-react";
 import type { NewsMediaItem } from "@/types/news-media";
 import NewsMediaForm from "./NewsMediaForm";
 
@@ -101,7 +101,7 @@ const NewsMediaList = () => {
                 <TableHead>Title</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Priority</TableHead>
+                <TableHead>Order</TableHead>
                 <TableHead>Home</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -117,7 +117,31 @@ const NewsMediaList = () => {
                   <TableCell>
                     <Badge className={statusColor[item.status] ?? ""} variant="secondary">{item.status}</Badge>
                   </TableCell>
-                  <TableCell>{item.priority}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <span className="w-6 text-center font-medium">{item.priority}</span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6"
+                        disabled={item.priority >= 10}
+                        onClick={() => updateMutation.mutate({ id: item.id, priority: Math.min(10, item.priority + 1) })}
+                        title="Move up"
+                      >
+                        <ArrowUp className="h-3 w-3" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6"
+                        disabled={item.priority <= 1}
+                        onClick={() => updateMutation.mutate({ id: item.id, priority: Math.max(1, item.priority - 1) })}
+                        title="Move down"
+                      >
+                        <ArrowDown className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  </TableCell>
                   <TableCell>
                     {item.content_type === "news" && item.show_on_home && <Badge className="bg-primary/10 text-primary">Home</Badge>}
                     {item.content_type === "story" && item.highlight_on_home && <Badge className="bg-primary/10 text-primary">Highlight</Badge>}
