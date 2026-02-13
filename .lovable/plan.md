@@ -1,71 +1,31 @@
 
 
-## Image Upload for News & Media Admin
+## Add External Source URL Field and New-Tab Opening
 
 ### Overview
-Add a drag-and-drop image upload feature to the News & Media admin form. Admins will be able to either upload an image directly or paste a URL manually -- both options available side by side.
+The database already has a `source_url` column on the `news_media` table. This plan adds the field to the admin form and updates all public-facing "Read more" links so that items with an external source URL open that URL in a new tab instead of navigating to the internal detail page.
 
-### What Will Change
+### Changes
 
-**1. Create a Storage Bucket (Database Migration)**
-- Create a `news-media-images` public storage bucket for uploaded images
-- Add RLS policies so only admins can upload/delete, but anyone can read (public bucket)
+**1. Admin Form (`src/components/admin/NewsMediaForm.tsx`)**
+- Add a `sourceUrl` state field initialized from `item?.source_url`
+- Add a new "Source / Reference URL" text input for both news and stories
+- Include `source_url` in the form payload on submit
 
-**2. New Component: `ImageUploadField`**
-- A reusable component with two modes toggled by tabs: "Upload" and "URL"
-- **Upload tab**: Drag-and-drop zone with click-to-browse fallback
-  - Accepts image files (jpg, png, webp, gif)
-  - Shows upload progress indicator
-  - Displays preview thumbnail after upload
-  - Uploads to the `news-media-images` storage bucket
-  - Returns the public URL to the parent form
-- **URL tab**: The existing text input for pasting an external URL
-- Preview thumbnail shown below whichever method is used
+**2. News Highlights on Home (`src/components/test-home/NewsHighlightsSection.tsx`)**
+- If `item.source_url` exists, render "Read more" as an `<a>` tag with `target="_blank"` pointing to the external URL
+- Otherwise, keep the existing internal `<Link>` to `/news-media/{id}`
 
-**3. Update `NewsMediaForm`**
-- Replace the plain "Featured Image URL" input (for news) with the new `ImageUploadField`
-- Replace the plain "Story Thumbnail URL" input (for stories) with the same component
-- The form state continues to store a URL string -- the upload simply produces the URL automatically
+**3. Highlighted Stories on Home (`src/components/test-home/HighlightedStoriesSection.tsx`)**
+- Same logic: external URL opens in new tab, otherwise internal link
 
-### Technical Details
+**4. News Archive Page (`src/pages/NewsMediaPage.tsx`)**
+- Same logic on the "Read more" link for each archive card
 
-**Storage bucket SQL migration:**
-```sql
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('news-media-images', 'news-media-images', true);
+**5. Detail Page (`src/pages/NewsMediaDetailPage.tsx`)**
+- The existing "View original source" link at the bottom already handles `source_url` -- no changes needed there
 
--- Anyone can view images
-CREATE POLICY "Public read access"
-ON storage.objects FOR SELECT
-USING (bucket_id = 'news-media-images');
-
--- Only admins can upload
-CREATE POLICY "Admins can upload images"
-ON storage.objects FOR INSERT
-WITH CHECK (
-  bucket_id = 'news-media-images'
-  AND public.has_role(auth.uid(), 'admin')
-);
-
--- Only admins can delete
-CREATE POLICY "Admins can delete images"
-ON storage.objects FOR DELETE
-USING (
-  bucket_id = 'news-media-images'
-  AND public.has_role(auth.uid(), 'admin')
-);
-```
-
-**New file: `src/components/admin/ImageUploadField.tsx`**
-- Uses native HTML drag-and-drop events (dragover, drop)
-- Uses `supabase.storage.from('news-media-images').upload(...)` for uploading
-- Generates unique filenames using timestamp + random suffix
-- Shows a dashed drop zone with icon and text
-- Tabs component to switch between Upload and URL modes
-
-**Modified file: `src/components/admin/NewsMediaForm.tsx`**
-- Import and use `ImageUploadField` in place of the plain `Input` for:
-  - Featured Image URL (news items)
-  - Story Thumbnail URL (stories)
-- Each `ImageUploadField` receives the current URL value and an `onChange` callback
-
+### Technical Notes
+- No database migration required -- `source_url` column already exists
+- The `NewsMediaInsert` type already includes `source_url` as an optional field
+- The `news_media_public` view already exposes `source_url`
