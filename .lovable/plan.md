@@ -1,20 +1,15 @@
+## Add Admin Login Link Below QR Code in Footer
 
+### What
 
-## Move "How to Apply" Bullet Points Inline with YouTube Video
+Add a subtle "Admin" text link directly below the QR code in the site footer, styled in black text (which will appear as black-on-black since the footer has a black background) with no hover highlight effect.
 
-### Current Layout
-The section uses a 2-column grid where:
-- **Left column**: Header text + YouTube video (stacked vertically)
-- **Right column**: 3 numbered bullet points (vertically centered in the column)
+### File: `src/components/transformation/Footer.tsx`
 
-### Proposed Change
-Restructure the layout so the text header spans full width on top, and the YouTube video and numbered bullet points sit side-by-side below it.
+**Change**: In the left section ("Scan to Follow Us"), add a `Link` element below the QR code `<a>` tag:
 
-### File: `src/components/test-home/TestHomePortalSection.tsx`
-- Move the section header ("SECURE PORTAL", "How to apply", description paragraph) out of the grid and place it above as a full-width block
-- Create a 2-column grid below containing:
-  - **Left**: The YouTube video embed
-  - **Right**: The 3 numbered service items, vertically centered to align with the video
-
-This keeps all existing content and styling intact while repositioning the bullet points to sit alongside the video.
-
+- Import `Link` from `react-router-dom`
+- Add `<Link to="/admin/login">` with text "Admin"
+- Style: small text (`text-xs`), white color (matches footer), no underline, no hover effects (`hover:text-white` or similar to prevent highlight)
+- Positioned below the QR code with a small top margin (`mt-3`)
+  &nbsp;
