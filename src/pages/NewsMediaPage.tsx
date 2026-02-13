@@ -94,7 +94,7 @@ const NewsMediaPage = () => {
                             <img
                               src={thumbnail}
                               alt={item.title}
-                              className="w-full h-48 object-cover"
+                              className="w-full h-48 object-contain"
                               loading="lazy"
                             />
                             {item.video_url && embedUrl && (

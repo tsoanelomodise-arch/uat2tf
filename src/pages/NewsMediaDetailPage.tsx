@@ -82,7 +82,7 @@ const NewsMediaDetailPage = () => {
                 <img
                   src={item.featured_image_url}
                   alt={item.title}
-                  className="w-full max-h-[500px] object-cover rounded mb-10"
+                  className="w-full max-h-[500px] object-contain rounded mb-10"
                 />
               )}
 
