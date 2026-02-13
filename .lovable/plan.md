@@ -1,31 +1,35 @@
 
 
-## Add External Source URL Field and New-Tab Opening
+## Display Order / Sorting Feature for News and Stories
 
-### Overview
-The database already has a `source_url` column on the `news_media` table. This plan adds the field to the admin form and updates all public-facing "Read more" links so that items with an external source URL open that URL in a new tab instead of navigating to the internal detail page.
+### What This Does
+Gives admins explicit control over the order in which news and stories appear on both the homepage and the News & Media archive page, using the existing priority field with improved UI controls.
 
-### Changes
+### Current Behavior
+- The `priority` column (1-10) already exists in the database and is used for homepage sorting (higher priority = shown first)
+- The archive page currently sorts only by publish date, ignoring priority
+- The admin form has a basic number input for priority, but no visual reordering
 
-**1. Admin Form (`src/components/admin/NewsMediaForm.tsx`)**
-- Add a `sourceUrl` state field initialized from `item?.source_url`
-- Add a new "Source / Reference URL" text input for both news and stories
-- Include `source_url` in the form payload on submit
+### Plan
 
-**2. News Highlights on Home (`src/components/test-home/NewsHighlightsSection.tsx`)**
-- If `item.source_url` exists, render "Read more" as an `<a>` tag with `target="_blank"` pointing to the external URL
-- Otherwise, keep the existing internal `<Link>` to `/news-media/{id}`
+**1. Update Archive Page Sorting (no DB change needed)**
+- Change the archive query in `useNewsMediaArchive` to sort by `priority DESC, publish_date DESC` (matching the homepage behavior) so admin-set order is respected everywhere
 
-**3. Highlighted Stories on Home (`src/components/test-home/HighlightedStoriesSection.tsx`)**
-- Same logic: external URL opens in new tab, otherwise internal link
+**2. Improve Admin List with Reorder Controls**
+- Add up/down arrow buttons to each row in the `NewsMediaList` table so admins can quickly bump an item's priority without opening the edit form
+- Display the current priority value in the table
+- Clicking the up arrow increases priority (moves item higher in display), down arrow decreases it
 
-**4. News Archive Page (`src/pages/NewsMediaPage.tsx`)**
-- Same logic on the "Read more" link for each archive card
+**3. Improve Priority Field in Admin Form**
+- Rename the label from "Priority (1-10)" to "Display Order (1 = lowest, 10 = highest)" for clarity
+- Add helper text explaining that higher values appear first on both the home and archive pages
 
-**5. Detail Page (`src/pages/NewsMediaDetailPage.tsx`)**
-- The existing "View original source" link at the bottom already handles `source_url` -- no changes needed there
+### Technical Details
 
-### Technical Notes
-- No database migration required -- `source_url` column already exists
-- The `NewsMediaInsert` type already includes `source_url` as an optional field
-- The `news_media_public` view already exposes `source_url`
+**Files to modify:**
+- `src/hooks/useNewsMedia.ts` -- update `useNewsMediaArchive` query to add `.order("priority", { ascending: false })` before the publish_date order
+- `src/components/admin/NewsMediaList.tsx` -- add up/down arrow buttons per row that call `useUpdateNewsMedia` to adjust priority; sort admin list by priority DESC as well
+- `src/components/admin/NewsMediaForm.tsx` -- update label and add helper text for the priority field
+
+**No database migration required** -- the `priority` column and sorting infrastructure already exist.
+
