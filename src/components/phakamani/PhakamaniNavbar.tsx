@@ -84,11 +84,13 @@ const PhakamaniNavbar = memo(() => {
                   <Link to="/about" className="dropdown-item" onClick={() => setAboutDropdownOpen(false)}>About</Link>
                   <div className="border-t border-gray-100 my-1" />
                   <Link to="/about/why" className="dropdown-item font-bold" onClick={() => setAboutDropdownOpen(false)}>Why</Link>
-                  <Link to="/about/why/policy-choice" className="dropdown-item pl-10 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Policy Choice</Link>
-                  <Link to="/about/why/theory" className="dropdown-item pl-10 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Theory</Link>
-                  <Link to="/about/why/value" className="dropdown-item pl-10 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Value</Link>
-                  <Link to="/about/why/operating-model" className="dropdown-item pl-10 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Operating Model</Link>
-                  <Link to="/about/why/national-agenda" className="dropdown-item pl-10 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>National Agenda</Link>
+                  <div className="ml-4 border-l-4 border-[#007847]">
+                    <Link to="/about/why/policy-choice" className="dropdown-item pl-6 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Policy Choice</Link>
+                    <Link to="/about/why/theory" className="dropdown-item pl-6 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Theory</Link>
+                    <Link to="/about/why/value" className="dropdown-item pl-6 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Value</Link>
+                    <Link to="/about/why/operating-model" className="dropdown-item pl-6 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>Operating Model</Link>
+                    <Link to="/about/why/national-agenda" className="dropdown-item pl-6 text-sm text-gray-600" onClick={() => setAboutDropdownOpen(false)}>National Agenda</Link>
+                  </div>
                 </div>
               )}
             </div>
