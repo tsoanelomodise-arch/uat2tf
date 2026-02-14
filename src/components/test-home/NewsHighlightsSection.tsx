@@ -40,14 +40,12 @@ const NewsHighlightsSection = memo(() => {
           ) : (
             newsItems.map((item, index) => (
               <div key={item.id} className={`flex gap-4 ${index < newsItems.length - 1 ? "mb-8" : ""}`}>
-                {item.featured_image_url && (
-                  <img
-                    src={item.featured_image_url}
-                    alt={item.title}
-                    className="w-20 h-20 rounded object-contain bg-[#f5f5f5] flex-shrink-0 mt-1"
-                    loading="lazy"
-                  />
-                )}
+                <img
+                  src={item.featured_image_url || "/images/logo-transformation-fund.jpg"}
+                  alt={item.title}
+                  className="w-20 h-20 rounded object-contain bg-[#f5f5f5] flex-shrink-0 mt-1"
+                  loading="lazy"
+                />
                 <div>
                   <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
                     {item.title}
