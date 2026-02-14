@@ -39,30 +39,40 @@ const NewsHighlightsSection = memo(() => {
             <p className="text-[0.95rem] font-light text-[#666666]">No news available yet.</p>
           ) : (
             newsItems.map((item, index) => (
-              <div key={item.id} className={index < newsItems.length - 1 ? "mb-8" : ""}>
-                <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
-                  {item.title}
-                </h4>
-                <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
-                  {item.excerpt || ""}
-                </p>
-                {item.source_url ? (
-                  <a
-                    href={item.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
-                  >
-                    Read more →
-                  </a>
-                ) : (
-                  <Link
-                    to={`/news-media/${item.id}`}
-                    className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
-                  >
-                    Read more →
-                  </Link>
+              <div key={item.id} className={`flex gap-4 ${index < newsItems.length - 1 ? "mb-8" : ""}`}>
+                {item.featured_image_url && (
+                  <img
+                    src={item.featured_image_url}
+                    alt={item.title}
+                    className="w-20 h-20 rounded object-contain bg-[#f5f5f5] flex-shrink-0 mt-1"
+                    loading="lazy"
+                  />
                 )}
+                <div>
+                  <h4 className="text-base font-extrabold uppercase tracking-tight text-[#222222] mb-2">
+                    {item.title}
+                  </h4>
+                  <p className="text-[0.95rem] font-light text-[#666666] leading-relaxed">
+                    {item.excerpt || ""}
+                  </p>
+                  {item.source_url ? (
+                    <a
+                      href={item.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                    >
+                      Read more →
+                    </a>
+                  ) : (
+                    <Link
+                      to={`/news-media/${item.id}`}
+                      className="text-sm font-bold text-[#007847] hover:underline mt-2 inline-block"
+                    >
+                      Read more →
+                    </Link>
+                  )}
+                </div>
               </div>
             ))
           )}
