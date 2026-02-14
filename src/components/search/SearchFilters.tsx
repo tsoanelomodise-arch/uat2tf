@@ -13,6 +13,7 @@ const filters: Array<{ value: ContentType | 'all'; label: string }> = [
   { value: 'guide', label: 'Guides' },
   { value: 'policy', label: 'Policy' },
   { value: 'story', label: 'Stories' },
+  { value: 'document', label: 'Documents' },
 ];
 
 export function SearchFilters({ activeFilter, onFilterChange }: SearchFiltersProps) {
