@@ -17,10 +17,10 @@ const TestHome = () => {
     <div className="min-h-screen pt-[180px] lg:pt-[210px]">
       <PhakamaniNavbar />
       <TestHomeHero onCheckEligibility={quiz.openEligibilityModal} />
+      <TestHomeProductsSection />
       <NewsHighlightsSection />
       <HighlightedStoriesSection />
       <TestHomePortalSection />
-      <TestHomeProductsSection />
       <Footer />
 
       <EligibilityModal
