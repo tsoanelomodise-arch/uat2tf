@@ -147,14 +147,6 @@ const PhakamaniNavbar = memo(() => {
               News & Stories
             </Link>
 
-            {/* FAQ Link */}
-            <Link 
-              to="/faq" 
-              className={`nav-link ${location.pathname === '/faq' ? 'nav-link-active' : ''}`}
-            >
-              FAQ
-            </Link>
-
             {/* Resources Dropdown */}
             <div 
               className="relative dropdown"
@@ -163,13 +155,14 @@ const PhakamaniNavbar = memo(() => {
             >
               <Link 
                 to="/resources" 
-                className={`nav-link flex items-center ${isResourcesPage ? 'nav-link-active' : ''}`}
+                className={`nav-link flex items-center ${isResourcesPage || location.pathname === '/faq' ? 'nav-link-active' : ''}`}
               >
                 Resources
                 <ChevronDown className="ml-1 h-4 w-4" />
               </Link>
               {resourcesDropdownOpen && (
                 <div className="dropdown-menu">
+                  <Link to="/faq" className="dropdown-item" onClick={() => setResourcesDropdownOpen(false)}>FAQ</Link>
                   <a 
                     href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" 
                     className="dropdown-item" 
@@ -240,9 +233,9 @@ const PhakamaniNavbar = memo(() => {
               <a href="/path-to-funding#how-it-works" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={(e) => handlePathToFundingLink(e, 'how-it-works')}>Investment Criteria</a>
               <Link to="/investors" className={`block px-3 py-2 text-base font-bold ${isInvestorsSection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Investors</Link>
               <Link to="/investors/governance" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Governance</Link>
-              <Link to="/faq" className={`block px-3 py-2 text-base font-bold ${location.pathname === '/faq' ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>FAQ</Link>
               <Link to="/news-media" className={`block px-3 py-2 text-base font-bold ${isNewsMediaPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>News & Stories</Link>
               <Link to="/resources" className={`block px-3 py-2 text-base font-bold ${isResourcesPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Resources</Link>
+              <Link to="/faq" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>FAQ</Link>
               <a href="/resources/TransformationFundDocument_v2.4_28Sept25.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Document</a>
               <a href="/resources/Transformation_Fund_Executive_Summary_v1_29Sept.pdf" target="_blank" rel="noopener noreferrer" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold">TF Executive Summary</a>
               <Link to="/contacts" className={`block px-3 py-2 text-base font-bold ${isContactsPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Contacts</Link>
