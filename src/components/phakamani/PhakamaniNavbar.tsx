@@ -6,7 +6,7 @@ import SocialIconsRow from "@/components/shared/SocialIconsRow";
 
 const PhakamaniNavbar = memo(() => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [whyDropdownOpen, setWhyDropdownOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [pathToFundingDropdownOpen, setPathToFundingDropdownOpen] = useState(false);
   const [investorsDropdownOpen, setInvestorsDropdownOpen] = useState(false);
   const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
@@ -66,28 +66,29 @@ const PhakamaniNavbar = memo(() => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1 mr-auto">
-            <Link to="/about" className={`nav-link ${isAboutPage ? 'nav-link-active' : ''}`}>About</Link>
-            
-            {/* Why Dropdown */}
+            {/* About Dropdown (includes Why sub-nav) */}
             <div 
               className="relative dropdown"
-              onMouseEnter={() => setWhyDropdownOpen(true)}
-              onMouseLeave={() => setWhyDropdownOpen(false)}
+              onMouseEnter={() => setAboutDropdownOpen(true)}
+              onMouseLeave={() => setAboutDropdownOpen(false)}
             >
               <Link 
-                to="/about/why" 
-                className={`nav-link flex items-center ${isWhySection ? 'nav-link-active' : ''}`}
+                to="/about" 
+                className={`nav-link flex items-center ${isAboutPage || isWhySection ? 'nav-link-active' : ''}`}
               >
-                Why
+                About
                 <ChevronDown className="ml-1 h-4 w-4" />
               </Link>
-              {whyDropdownOpen && (
+              {aboutDropdownOpen && (
                 <div className="dropdown-menu">
-                  <Link to="/about/why/policy-choice" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Policy Choice</Link>
-                  <Link to="/about/why/theory" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Theory</Link>
-                  <Link to="/about/why/value" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Value</Link>
-                  <Link to="/about/why/operating-model" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>Operating Model</Link>
-                  <Link to="/about/why/national-agenda" className="dropdown-item" onClick={() => setWhyDropdownOpen(false)}>National Agenda</Link>
+                  <Link to="/about" className="dropdown-item" onClick={() => setAboutDropdownOpen(false)}>About</Link>
+                  <div className="border-t border-gray-100 my-1" />
+                  <Link to="/about/why" className="dropdown-item font-bold" onClick={() => setAboutDropdownOpen(false)}>Why</Link>
+                  <Link to="/about/why/policy-choice" className="dropdown-item pl-6" onClick={() => setAboutDropdownOpen(false)}>Policy Choice</Link>
+                  <Link to="/about/why/theory" className="dropdown-item pl-6" onClick={() => setAboutDropdownOpen(false)}>Theory</Link>
+                  <Link to="/about/why/value" className="dropdown-item pl-6" onClick={() => setAboutDropdownOpen(false)}>Value</Link>
+                  <Link to="/about/why/operating-model" className="dropdown-item pl-6" onClick={() => setAboutDropdownOpen(false)}>Operating Model</Link>
+                  <Link to="/about/why/national-agenda" className="dropdown-item pl-6" onClick={() => setAboutDropdownOpen(false)}>National Agenda</Link>
                 </div>
               )}
             </div>
@@ -221,13 +222,13 @@ const PhakamaniNavbar = memo(() => {
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white border-t border-gray-200 max-h-[calc(100vh-100px)] overflow-y-auto">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link to="/about" className={`block px-3 py-2 text-base font-bold ${isAboutPage ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>About</Link>
-              <Link to="/about/why" className={`block px-3 py-2 text-base font-bold ${isWhySection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Why</Link>
-              <Link to="/about/why/policy-choice" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Policy Choice</Link>
-              <Link to="/about/why/theory" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Theory</Link>
-              <Link to="/about/why/value" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Value</Link>
-              <Link to="/about/why/operating-model" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Operating Model</Link>
-              <Link to="/about/why/national-agenda" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>National Agenda</Link>
+              <Link to="/about" className={`block px-3 py-2 text-base font-bold ${isAboutPage || isWhySection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>About</Link>
+              <Link to="/about/why" className={`block px-3 py-2 pl-6 text-base font-bold ${isWhySection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>Why</Link>
+              <Link to="/about/why/policy-choice" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-9 text-sm font-semibold" onClick={closeMobileMenu}>Policy Choice</Link>
+              <Link to="/about/why/theory" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-9 text-sm font-semibold" onClick={closeMobileMenu}>Theory</Link>
+              <Link to="/about/why/value" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-9 text-sm font-semibold" onClick={closeMobileMenu}>Value</Link>
+              <Link to="/about/why/operating-model" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-9 text-sm font-semibold" onClick={closeMobileMenu}>Operating Model</Link>
+              <Link to="/about/why/national-agenda" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-9 text-sm font-semibold" onClick={closeMobileMenu}>National Agenda</Link>
               
               <Link to="/path-to-funding" className={`block px-3 py-2 text-base font-bold ${isPathToFundingSection ? 'text-[#007847]' : 'text-gray-700 hover:text-[#007847]'}`} onClick={closeMobileMenu}>How to apply</Link>
               <Link to="/path-to-funding/process" className="block text-gray-700 hover:text-[#007847] px-3 py-2 pl-6 text-sm font-semibold" onClick={closeMobileMenu}>Funding Process</Link>
