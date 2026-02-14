@@ -8,7 +8,7 @@ const NewsHighlightsSection = memo(() => {
 
   return (
     <section className="bg-white">
-      <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_0.5fr]">
+      <div className="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr]">
         {/* Left image */}
         <img
           src="/images/test-home/wrench-lady.jpg"
@@ -68,20 +68,6 @@ const NewsHighlightsSection = memo(() => {
           )}
         </div>
 
-        {/* QR Code sidebar */}
-        <div className="bg-black text-white flex items-center justify-center p-4">
-          <div className="flex flex-col items-center text-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Scan to Follow Us
-            </span>
-            <img
-              src="/images/social-media-qr-code.png"
-              alt="Scan QR Code"
-              className="w-4/5 h-auto"
-              loading="lazy"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );
