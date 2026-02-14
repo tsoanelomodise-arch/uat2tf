@@ -30,7 +30,7 @@ import { memo } from "react";
 
 const TestHomeProductsSection = memo(() => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 pb-8 bg-white">
       <div className="max-w-[1200px] mx-auto px-5">
         <span className="text-xs font-bold tracking-widest text-[#666666] uppercase">
           COMPANY
