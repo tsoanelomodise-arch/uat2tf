@@ -18,9 +18,9 @@ const TestHome = () => {
       <PhakamaniNavbar />
       <TestHomeHero onCheckEligibility={quiz.openEligibilityModal} />
       <TestHomeProductsSection />
-      <NewsHighlightsSection />
       <HighlightedStoriesSection />
       <TestHomePortalSection />
+      <NewsHighlightsSection />
       <Footer />
 
       <EligibilityModal
